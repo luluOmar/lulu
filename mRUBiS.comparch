@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="ASCII"?>
+<comparch:Architecture xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:comparch="http://www.mdelab.de/morisia/comparch" uid="_as4VIOKWEeS1mZswSnXh1g" name="mRUBiS">
+  <componentTypes uid="ComponentType_User Management Service_au35MOKWEeS1mZswSnXh1g" name="User Management Service" requiredInterfaceTypes="//@interfaceTypes.0 //@interfaceTypes.8 //@interfaceTypes.9 //@interfaceTypes.7" providedInterfaceTypes="//@interfaceTypes.11 //@interfaceTypes.12 //@interfaceTypes.13 //@interfaceTypes.14" instances="//@shops.0/@components.0 //@shops.1/@components.0 //@shops.2/@components.0">
+    <parameterTypes uid="ParameterType_privacy-level_au7jkOKWEeS1mZswSnXh1g" name="privacy-level" type="java.lang.String" defaultValue="LOW" instances="//@shops.0/@components.0/@parameters.0 //@shops.1/@components.0/@parameters.0 //@shops.2/@components.0/@parameters.0"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Item Management Service_au7jkeKWEeS1mZswSnXh1g" name="Item Management Service" requiredInterfaceTypes="//@interfaceTypes.9 //@interfaceTypes.8 //@interfaceTypes.0 //@interfaceTypes.7" providedInterfaceTypes="//@interfaceTypes.5 //@interfaceTypes.6" instances="//@shops.0/@components.1 //@shops.1/@components.1 //@shops.2/@components.1"/>
+  <componentTypes uid="ComponentType_Authentication Service_au7jkuKWEeS1mZswSnXh1g" name="Authentication Service" requiredInterfaceTypes="//@interfaceTypes.9" providedInterfaceTypes="//@interfaceTypes.0" instances="//@shops.0/@components.2 //@shops.1/@components.2 //@shops.2/@components.2"/>
+  <componentTypes uid="ComponentType_Bid and Buy Service_au7jk-KWEeS1mZswSnXh1g" name="Bid and Buy Service" requiredInterfaceTypes="//@interfaceTypes.9 //@interfaceTypes.8 //@interfaceTypes.0 //@interfaceTypes.4 //@interfaceTypes.7" providedInterfaceTypes="//@interfaceTypes.1 //@interfaceTypes.2" instances="//@shops.0/@components.3 //@shops.1/@components.3 //@shops.2/@components.3"/>
+  <componentTypes uid="ComponentType_Inventory Service_au7jlOKWEeS1mZswSnXh1g" name="Inventory Service" requiredInterfaceTypes="//@interfaceTypes.8 //@interfaceTypes.7" providedInterfaceTypes="//@interfaceTypes.4" instances="//@shops.0/@components.4 //@shops.1/@components.4 //@shops.2/@components.4"/>
+  <componentTypes uid="ComponentType_Reputation Service_au7jleKWEeS1mZswSnXh1g" name="Reputation Service" requiredInterfaceTypes="//@interfaceTypes.9 //@interfaceTypes.8 //@interfaceTypes.0 //@interfaceTypes.7" providedInterfaceTypes="//@interfaceTypes.10" instances="//@shops.0/@components.5 //@shops.1/@components.5 //@shops.2/@components.5"/>
+  <componentTypes uid="ComponentType_Persistence Service_au7jluKWEeS1mZswSnXh1g" name="Persistence Service" providedInterfaceTypes="//@interfaceTypes.7" instances="//@shops.0/@components.6 //@shops.1/@components.6 //@shops.2/@components.6"/>
+  <componentTypes uid="ComponentType_Query Service_au7jl-KWEeS1mZswSnXh1g" name="Query Service" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.9 //@interfaceTypes.8" instances="//@shops.0/@components.7 //@shops.1/@components.7 //@shops.2/@components.7"/>
+  <componentTypes uid="ComponentType_Last Second Sales Item Filter_au7jmOKWEeS1mZswSnXh1g" name="Last Second Sales Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.8 //@shops.1/@components.8 //@shops.2/@components.8">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jmeKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.8/@parameters.0 //@shops.1/@components.8/@parameters.0 //@shops.2/@components.8/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jmuKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.8/@parameters.1 //@shops.1/@components.8/@parameters.1 //@shops.2/@components.8/@parameters.1"/>
+    <parameterTypes uid="ParameterType_last-seconds_au7jm-KWEeS1mZswSnXh1g" name="last-seconds" type="java.lang.Integer" defaultValue="300" instances="//@shops.0/@components.8/@parameters.2 //@shops.1/@components.8/@parameters.2 //@shops.2/@components.8/@parameters.2"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Past Sales Item Filter_au7jnOKWEeS1mZswSnXh1g" name="Past Sales Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.9 //@shops.1/@components.9 //@shops.2/@components.9">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jneKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.9/@parameters.0 //@shops.1/@components.9/@parameters.0 //@shops.2/@components.9/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jnuKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.9/@parameters.1 //@shops.1/@components.9/@parameters.1 //@shops.2/@components.9/@parameters.1"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Buy Now Item Filter_au7jn-KWEeS1mZswSnXh1g" name="Buy Now Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.10 //@shops.1/@components.10 //@shops.2/@components.10">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7joOKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.10/@parameters.0 //@shops.1/@components.10/@parameters.0 //@shops.2/@components.10/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7joeKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.10/@parameters.1 //@shops.1/@components.10/@parameters.1 //@shops.2/@components.10/@parameters.1"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Availability Item Filter_au7jouKWEeS1mZswSnXh1g" name="Availability Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.11 //@shops.1/@components.11 //@shops.2/@components.11">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jo-KWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.11/@parameters.0 //@shops.1/@components.11/@parameters.0 //@shops.2/@components.11/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jpOKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.11/@parameters.1 //@shops.1/@components.11/@parameters.1 //@shops.2/@components.11/@parameters.1"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Region Item Filter_au7jpeKWEeS1mZswSnXh1g" name="Region Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.12 //@shops.1/@components.12 //@shops.2/@components.12">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jpuKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.12/@parameters.0 //@shops.1/@components.12/@parameters.0 //@shops.2/@components.12/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jp-KWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.12/@parameters.1 //@shops.1/@components.12/@parameters.1 //@shops.2/@components.12/@parameters.1"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Seller Reputation Item Filter_au7jqOKWEeS1mZswSnXh1g" name="Seller Reputation Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.13 //@shops.1/@components.13 //@shops.2/@components.13">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jqeKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.13/@parameters.0 //@shops.1/@components.13/@parameters.0 //@shops.2/@components.13/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jquKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.13/@parameters.1 //@shops.1/@components.13/@parameters.1 //@shops.2/@components.13/@parameters.1"/>
+    <parameterTypes uid="ParameterType_reputation-threshold_au7jq-KWEeS1mZswSnXh1g" name="reputation-threshold" type="java.lang.Integer" defaultValue="5" instances="//@shops.0/@components.13/@parameters.2 //@shops.1/@components.13/@parameters.2 //@shops.2/@components.13/@parameters.2"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Comment Item Filter_au7jrOKWEeS1mZswSnXh1g" name="Comment Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.14 //@shops.1/@components.14 //@shops.2/@components.14">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jreKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.14/@parameters.0 //@shops.1/@components.14/@parameters.0 //@shops.2/@components.14/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jruKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.14/@parameters.1 //@shops.1/@components.14/@parameters.1 //@shops.2/@components.14/@parameters.1"/>
+    <parameterTypes uid="ParameterType_rating-threshold_au7jr-KWEeS1mZswSnXh1g" name="rating-threshold" type="java.lang.Integer" defaultValue="5" instances="//@shops.0/@components.14/@parameters.2 //@shops.1/@components.14/@parameters.2 //@shops.2/@components.14/@parameters.2"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Category Item Filter_au7jsOKWEeS1mZswSnXh1g" name="Category Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.15 //@shops.1/@components.15 //@shops.2/@components.15">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jseKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.15/@parameters.0 //@shops.1/@components.15/@parameters.0 //@shops.2/@components.15/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jsuKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.15/@parameters.1 //@shops.1/@components.15/@parameters.1 //@shops.2/@components.15/@parameters.1"/>
+    <parameterTypes uid="ParameterType_filtered-categories_au7js-KWEeS1mZswSnXh1g" name="filtered-categories" type="java.lang.String" defaultValue="Coins,Jewelry" instances="//@shops.0/@components.15/@parameters.2 //@shops.1/@components.15/@parameters.2 //@shops.2/@components.15/@parameters.2"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Recommendation Item Filter_au7jtOKWEeS1mZswSnXh1g" name="Recommendation Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.16 //@shops.1/@components.16 //@shops.2/@components.16">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au7jteKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.16/@parameters.0 //@shops.1/@components.16/@parameters.0 //@shops.2/@components.16/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au7jtuKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.16/@parameters.1 //@shops.1/@components.16/@parameters.1 //@shops.2/@components.16/@parameters.1"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_Future Sales Item Filter_au7jt-KWEeS1mZswSnXh1g" name="Future Sales Item Filter" requiredInterfaceTypes="//@interfaceTypes.3" providedInterfaceTypes="//@interfaceTypes.3" instances="//@shops.0/@components.17 //@shops.1/@components.17 //@shops.2/@components.17">
+    <parameterTypes uid="ParameterType_selection-rate-threshold_au8KoOKWEeS1mZswSnXh1g" name="selection-rate-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.17/@parameters.0 //@shops.1/@components.17/@parameters.0 //@shops.2/@components.17/@parameters.0"/>
+    <parameterTypes uid="ParameterType_computation-time-threshold_au8KoeKWEeS1mZswSnXh1g" name="computation-time-threshold" type="java.lang.Double" defaultValue="0.05" instances="//@shops.0/@components.17/@parameters.1 //@shops.1/@components.17/@parameters.1 //@shops.2/@components.17/@parameters.1"/>
+    <parameterTypes uid="ParameterType_days-to-run_au8KouKWEeS1mZswSnXh1g" name="days-to-run" type="java.lang.Integer" defaultValue="14" instances="//@shops.0/@components.17/@parameters.2 //@shops.1/@components.17/@parameters.2 //@shops.2/@components.17/@parameters.2"/>
+  </componentTypes>
+  <componentTypes uid="ComponentType_External Authentication Service_au8Ko-KWEeS1mZswSnXh1g" name="External Authentication Service" requiredInterfaceTypes="//@interfaceTypes.9" providedInterfaceTypes="//@interfaceTypes.0">
+    <parameterTypes uid="ParameterType_ServiceURI_au8KpOKWEeS1mZswSnXh1g" name="ServiceURI" type="java.lang.String" defaultValue="http://localhost:8080/FacebookAuthenticationService/FbAuthenticationServiceImpl?wsdl"/>
+    <parameterTypes uid="ParameterType_ServiceNS_au8KpeKWEeS1mZswSnXh1g" name="ServiceNS" type="java.lang.String" defaultValue="http://authentication.facebook.com/"/>
+    <parameterTypes uid="ParameterType_ServiceNsLocalPartName_au8KpuKWEeS1mZswSnXh1g" name="ServiceNsLocalPartName" type="java.lang.String" defaultValue="FacebookAuthenticationService"/>
+  </componentTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.authservice.AuthenticationService_atMeMOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.authservice.AuthenticationService" requiringComponentTypes="//@componentTypes.0 //@componentTypes.1 //@componentTypes.3 //@componentTypes.5" providingComponentTypes="//@componentTypes.2 //@componentTypes.18" instances="//@shops.0/@components.0/@requiredInterfaces.0 //@shops.0/@components.1/@requiredInterfaces.2 //@shops.0/@components.2/@providedInterfaces.0 //@shops.0/@components.3/@requiredInterfaces.2 //@shops.0/@components.5/@requiredInterfaces.2 //@shops.1/@components.0/@requiredInterfaces.0 //@shops.1/@components.1/@requiredInterfaces.2 //@shops.1/@components.2/@providedInterfaces.0 //@shops.1/@components.3/@requiredInterfaces.2 //@shops.1/@components.5/@requiredInterfaces.2 //@shops.2/@components.0/@requiredInterfaces.0 //@shops.2/@components.1/@requiredInterfaces.2 //@shops.2/@components.2/@providedInterfaces.0 //@shops.2/@components.3/@requiredInterfaces.2 //@shops.2/@components.5/@requiredInterfaces.2">
+    <methodSpecification uid="_atsNcOKWEeS1mZswSnXh1g" signature="authenticate(java.lang.String,java.lang.String)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.bidandbuy.BidService_ats0gOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.bidandbuy.BidService" providingComponentTypes="//@componentTypes.3" instances="//@shops.0/@components.3/@providedInterfaces.0 //@shops.1/@components.3/@providedInterfaces.0 //@shops.2/@components.3/@providedInterfaces.0">
+    <methodSpecification uid="_ats0geKWEeS1mZswSnXh1g" signature="bidOnItem(int,float,float,int,java.lang.String,java.lang.String)"/>
+    <methodSpecification uid="_ats0guKWEeS1mZswSnXh1g" signature="getItemBidHistorySortyByBidPrice(int)"/>
+    <methodSpecification uid="_ats0g-KWEeS1mZswSnXh1g" signature="getItemBidHistory(int)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.bidandbuy.BuyNowService_attbkOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.bidandbuy.BuyNowService" providingComponentTypes="//@componentTypes.3" instances="//@shops.0/@components.3/@providedInterfaces.1 //@shops.1/@components.3/@providedInterfaces.1 //@shops.2/@components.3/@providedInterfaces.1">
+    <methodSpecification uid="_at0JQOKWEeS1mZswSnXh1g" signature="buyItemNow(int,int,java.lang.String,java.lang.String)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.filter.ItemFilter_at0JQeKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.filter.ItemFilter" requiringComponentTypes="//@componentTypes.7 //@componentTypes.8 //@componentTypes.9 //@componentTypes.10 //@componentTypes.11 //@componentTypes.12 //@componentTypes.13 //@componentTypes.14 //@componentTypes.15 //@componentTypes.16 //@componentTypes.17" providingComponentTypes="//@componentTypes.8 //@componentTypes.9 //@componentTypes.10 //@componentTypes.11 //@componentTypes.12 //@componentTypes.13 //@componentTypes.14 //@componentTypes.15 //@componentTypes.16 //@componentTypes.17" instances="//@shops.0/@components.7/@requiredInterfaces.0 //@shops.0/@components.8/@requiredInterfaces.0 //@shops.0/@components.8/@providedInterfaces.0 //@shops.0/@components.9/@requiredInterfaces.0 //@shops.0/@components.9/@providedInterfaces.0 //@shops.0/@components.10/@requiredInterfaces.0 //@shops.0/@components.10/@providedInterfaces.0 //@shops.0/@components.11/@requiredInterfaces.0 //@shops.0/@components.11/@providedInterfaces.0 //@shops.0/@components.12/@requiredInterfaces.0 //@shops.0/@components.12/@providedInterfaces.0 //@shops.0/@components.13/@requiredInterfaces.0 //@shops.0/@components.13/@providedInterfaces.0 //@shops.0/@components.14/@requiredInterfaces.0 //@shops.0/@components.14/@providedInterfaces.0 //@shops.0/@components.15/@requiredInterfaces.0 //@shops.0/@components.15/@providedInterfaces.0 //@shops.0/@components.16/@requiredInterfaces.0 //@shops.0/@components.16/@providedInterfaces.0 //@shops.0/@components.17/@requiredInterfaces.0 //@shops.0/@components.17/@providedInterfaces.0 //@shops.1/@components.7/@requiredInterfaces.0 //@shops.1/@components.8/@requiredInterfaces.0 //@shops.1/@components.8/@providedInterfaces.0 //@shops.1/@components.9/@requiredInterfaces.0 //@shops.1/@components.9/@providedInterfaces.0 //@shops.1/@components.10/@requiredInterfaces.0 //@shops.1/@components.10/@providedInterfaces.0 //@shops.1/@components.11/@requiredInterfaces.0 //@shops.1/@components.11/@providedInterfaces.0 //@shops.1/@components.12/@requiredInterfaces.0 //@shops.1/@components.12/@providedInterfaces.0 //@shops.1/@components.13/@requiredInterfaces.0 //@shops.1/@components.13/@providedInterfaces.0 //@shops.1/@components.14/@requiredInterfaces.0 //@shops.1/@components.14/@providedInterfaces.0 //@shops.1/@components.15/@requiredInterfaces.0 //@shops.1/@components.15/@providedInterfaces.0 //@shops.1/@components.16/@requiredInterfaces.0 //@shops.1/@components.16/@providedInterfaces.0 //@shops.1/@components.17/@requiredInterfaces.0 //@shops.1/@components.17/@providedInterfaces.0 //@shops.2/@components.7/@requiredInterfaces.0 //@shops.2/@components.8/@requiredInterfaces.0 //@shops.2/@components.8/@providedInterfaces.0 //@shops.2/@components.9/@requiredInterfaces.0 //@shops.2/@components.9/@providedInterfaces.0 //@shops.2/@components.10/@requiredInterfaces.0 //@shops.2/@components.10/@providedInterfaces.0 //@shops.2/@components.11/@requiredInterfaces.0 //@shops.2/@components.11/@providedInterfaces.0 //@shops.2/@components.12/@requiredInterfaces.0 //@shops.2/@components.12/@providedInterfaces.0 //@shops.2/@components.13/@requiredInterfaces.0 //@shops.2/@components.13/@providedInterfaces.0 //@shops.2/@components.14/@requiredInterfaces.0 //@shops.2/@components.14/@providedInterfaces.0 //@shops.2/@components.15/@requiredInterfaces.0 //@shops.2/@components.15/@providedInterfaces.0 //@shops.2/@components.16/@requiredInterfaces.0 //@shops.2/@components.16/@providedInterfaces.0 //@shops.2/@components.17/@requiredInterfaces.0 //@shops.2/@components.17/@providedInterfaces.0">
+    <methodSpecification uid="_at8FEOKWEeS1mZswSnXh1g" signature="filter(java.util.List,de.hpi.sam.rubis.entity.User)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.inventorymgmt.InventoryService_at8FEeKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.inventorymgmt.InventoryService" requiringComponentTypes="//@componentTypes.3" providingComponentTypes="//@componentTypes.4" instances="//@shops.0/@components.3/@requiredInterfaces.3 //@shops.0/@components.4/@providedInterfaces.0 //@shops.1/@components.3/@requiredInterfaces.3 //@shops.1/@components.4/@providedInterfaces.0 //@shops.2/@components.3/@requiredInterfaces.3 //@shops.2/@components.4/@providedInterfaces.0">
+    <methodSpecification uid="_at8sIOKWEeS1mZswSnXh1g" signature="cancelReservedItem(de.hpi.sam.rubis.entity.Item,int)"/>
+    <methodSpecification uid="_at8sIeKWEeS1mZswSnXh1g" signature="checkAvailabilityOfItem(de.hpi.sam.rubis.entity.Item)"/>
+    <methodSpecification uid="_at8sIuKWEeS1mZswSnXh1g" signature="reserveItem(de.hpi.sam.rubis.entity.Item,int)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.itemmgmt.BrowseCategoriesService_at8sI-KWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.itemmgmt.BrowseCategoriesService" providingComponentTypes="//@componentTypes.1" instances="//@shops.0/@components.1/@providedInterfaces.0 //@shops.1/@components.1/@providedInterfaces.0 //@shops.2/@components.1/@providedInterfaces.0">
+    <methodSpecification uid="_auA9kOKWEeS1mZswSnXh1g" signature="getCategoriesInRegion(java.lang.String)"/>
+    <methodSpecification uid="_auA9keKWEeS1mZswSnXh1g" signature="getAllCategories()"/>
+    <methodSpecification uid="_auA9kuKWEeS1mZswSnXh1g" signature="getCategoriesByName(java.lang.String)"/>
+    <methodSpecification uid="_auA9k-KWEeS1mZswSnXh1g" signature="getItemsByName(java.lang.String)"/>
+    <methodSpecification uid="_auA9lOKWEeS1mZswSnXh1g" signature="getPersonalizedItems(java.lang.String,java.lang.String)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.itemmgmt.ItemRegistrationService_auBkoOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.itemmgmt.ItemRegistrationService" providingComponentTypes="//@componentTypes.1" instances="//@shops.0/@components.1/@providedInterfaces.1 //@shops.1/@components.1/@providedInterfaces.1 //@shops.2/@components.1/@providedInterfaces.1">
+    <methodSpecification uid="_auBkoeKWEeS1mZswSnXh1g" signature="registerItem(java.lang.String,java.lang.String,int,float,float,float,java.util.Date,java.util.Date,int,java.lang.String,int)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_auBkouKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService" requiringComponentTypes="//@componentTypes.0 //@componentTypes.1 //@componentTypes.3 //@componentTypes.4 //@componentTypes.5" providingComponentTypes="//@componentTypes.6" instances="//@shops.0/@components.0/@requiredInterfaces.3 //@shops.0/@components.1/@requiredInterfaces.3 //@shops.0/@components.3/@requiredInterfaces.4 //@shops.0/@components.4/@requiredInterfaces.1 //@shops.0/@components.5/@requiredInterfaces.3 //@shops.0/@components.6/@providedInterfaces.0 //@shops.1/@components.0/@requiredInterfaces.3 //@shops.1/@components.1/@requiredInterfaces.3 //@shops.1/@components.3/@requiredInterfaces.4 //@shops.1/@components.4/@requiredInterfaces.1 //@shops.1/@components.5/@requiredInterfaces.3 //@shops.1/@components.6/@providedInterfaces.0 //@shops.2/@components.0/@requiredInterfaces.3 //@shops.2/@components.1/@requiredInterfaces.3 //@shops.2/@components.3/@requiredInterfaces.4 //@shops.2/@components.4/@requiredInterfaces.1 //@shops.2/@components.5/@requiredInterfaces.3 //@shops.2/@components.6/@providedInterfaces.0">
+    <methodSpecification uid="_auRcQOKWEeS1mZswSnXh1g" signature="persistBuyNow(de.hpi.sam.rubis.entity.User,de.hpi.sam.rubis.entity.Item,int,java.util.Date)"/>
+    <methodSpecification uid="_auRcQeKWEeS1mZswSnXh1g" signature="persistUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,de.hpi.sam.rubis.entity.Region,de.hpi.sam.rubis.entity.CustomerClass)"/>
+    <methodSpecification uid="_auRcQuKWEeS1mZswSnXh1g" signature="persistItem(java.lang.String,java.lang.String,int,float,float,float,java.util.Date,java.util.Date,de.hpi.sam.rubis.entity.User,de.hpi.sam.rubis.entity.Category)"/>
+    <methodSpecification uid="_auRcQ-KWEeS1mZswSnXh1g" signature="persistBid(de.hpi.sam.rubis.entity.User,de.hpi.sam.rubis.entity.Item,float,float,int,java.util.Date)"/>
+    <methodSpecification uid="_auRcROKWEeS1mZswSnXh1g" signature="persistComment(de.hpi.sam.rubis.entity.User,de.hpi.sam.rubis.entity.User,de.hpi.sam.rubis.entity.Item,java.lang.String,int,java.util.Date)"/>
+    <methodSpecification uid="_auRcReKWEeS1mZswSnXh1g" signature="reduceInventoryItem(de.hpi.sam.rubis.entity.Item,int)"/>
+    <methodSpecification uid="_auRcRuKWEeS1mZswSnXh1g" signature="increaseInventoryItem(de.hpi.sam.rubis.entity.Item,int)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.queryservice.QueryService_auSDUOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.queryservice.QueryService" requiringComponentTypes="//@componentTypes.0 //@componentTypes.1 //@componentTypes.3 //@componentTypes.4 //@componentTypes.5" providingComponentTypes="//@componentTypes.7" instances="//@shops.0/@components.0/@requiredInterfaces.1 //@shops.0/@components.1/@requiredInterfaces.1 //@shops.0/@components.3/@requiredInterfaces.1 //@shops.0/@components.4/@requiredInterfaces.0 //@shops.0/@components.5/@requiredInterfaces.1 //@shops.0/@components.7/@providedInterfaces.1 //@shops.1/@components.0/@requiredInterfaces.1 //@shops.1/@components.1/@requiredInterfaces.1 //@shops.1/@components.3/@requiredInterfaces.1 //@shops.1/@components.4/@requiredInterfaces.0 //@shops.1/@components.5/@requiredInterfaces.1 //@shops.1/@components.7/@providedInterfaces.1 //@shops.2/@components.0/@requiredInterfaces.1 //@shops.2/@components.1/@requiredInterfaces.1 //@shops.2/@components.3/@requiredInterfaces.1 //@shops.2/@components.4/@requiredInterfaces.0 //@shops.2/@components.5/@requiredInterfaces.1 //@shops.2/@components.7/@providedInterfaces.1">
+    <methodSpecification uid="_auXi4OKWEeS1mZswSnXh1g" signature="findCurrentItemsInCategory(int,int)"/>
+    <methodSpecification uid="_auXi4eKWEeS1mZswSnXh1g" signature="findPastItemsInCategory(int,int)"/>
+    <methodSpecification uid="_auXi4uKWEeS1mZswSnXh1g" signature="findCurrentItemsInCategoryAndRegion(int,int,int)"/>
+    <methodSpecification uid="_auXi4-KWEeS1mZswSnXh1g" signature="findPastItemsInCategoryAndRegion(int,int,int)"/>
+    <methodSpecification uid="_auXi5OKWEeS1mZswSnXh1g" signature="findItemMaxBid(int)"/>
+    <methodSpecification uid="_auXi5eKWEeS1mZswSnXh1g" signature="findItemMaxBids(int,int)"/>
+    <methodSpecification uid="_auXi5uKWEeS1mZswSnXh1g" signature="findItemBidHistory(int)"/>
+    <methodSpecification uid="_auXi5-KWEeS1mZswSnXh1g" signature="findSuccessfulBidsForItem(int)"/>
+    <methodSpecification uid="_auXi6OKWEeS1mZswSnXh1g" signature="findUserBuyNows(int,int)"/>
+    <methodSpecification uid="_auXi6eKWEeS1mZswSnXh1g" signature="findUserCurrentSellings(int)"/>
+    <methodSpecification uid="_auXi6uKWEeS1mZswSnXh1g" signature="findUserPastSellings(int,int)"/>
+    <methodSpecification uid="_auXi6-KWEeS1mZswSnXh1g" signature="findUserPastWinningBids(int)"/>
+    <methodSpecification uid="_auXi7OKWEeS1mZswSnXh1g" signature="findUserCurrentMaxBids(int)"/>
+    <methodSpecification uid="_auXi7eKWEeS1mZswSnXh1g" signature="findCategoriesInRegion(java.lang.String)"/>
+    <methodSpecification uid="_auXi7uKWEeS1mZswSnXh1g" signature="getNumberOfBidsForItem(int)"/>
+    <methodSpecification uid="_auXi7-KWEeS1mZswSnXh1g" signature="findComment(int,int,int)"/>
+    <methodSpecification uid="_auXi8OKWEeS1mZswSnXh1g" signature="retrieveAvailabilityOfItem(int)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.queryservice.BasicQueryService_auXi8eKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.queryservice.BasicQueryService" requiringComponentTypes="//@componentTypes.0 //@componentTypes.1 //@componentTypes.2 //@componentTypes.3 //@componentTypes.5 //@componentTypes.18" providingComponentTypes="//@componentTypes.7" instances="//@shops.0/@components.0/@requiredInterfaces.2 //@shops.0/@components.1/@requiredInterfaces.0 //@shops.0/@components.2/@requiredInterfaces.0 //@shops.0/@components.3/@requiredInterfaces.0 //@shops.0/@components.5/@requiredInterfaces.0 //@shops.0/@components.7/@providedInterfaces.0 //@shops.1/@components.0/@requiredInterfaces.2 //@shops.1/@components.1/@requiredInterfaces.0 //@shops.1/@components.2/@requiredInterfaces.0 //@shops.1/@components.3/@requiredInterfaces.0 //@shops.1/@components.5/@requiredInterfaces.0 //@shops.1/@components.7/@providedInterfaces.0 //@shops.2/@components.0/@requiredInterfaces.2 //@shops.2/@components.1/@requiredInterfaces.0 //@shops.2/@components.2/@requiredInterfaces.0 //@shops.2/@components.3/@requiredInterfaces.0 //@shops.2/@components.5/@requiredInterfaces.0 //@shops.2/@components.7/@providedInterfaces.0">
+    <methodSpecification uid="_auXi8uKWEeS1mZswSnXh1g" signature="findAllUsers()"/>
+    <methodSpecification uid="_auXi8-KWEeS1mZswSnXh1g" signature="findCategoriesByName(java.lang.String)"/>
+    <methodSpecification uid="_auXi9OKWEeS1mZswSnXh1g" signature="findRegionById(int)"/>
+    <methodSpecification uid="_auXi9eKWEeS1mZswSnXh1g" signature="findRegionByName(java.lang.String)"/>
+    <methodSpecification uid="_auXi9uKWEeS1mZswSnXh1g" signature="findRegionsByName(java.lang.String)"/>
+    <methodSpecification uid="_auXi9-KWEeS1mZswSnXh1g" signature="findItemsByName(java.lang.String)"/>
+    <methodSpecification uid="_auXi-OKWEeS1mZswSnXh1g" signature="findItemById(int)"/>
+    <methodSpecification uid="_auXi-eKWEeS1mZswSnXh1g" signature="findAllItems()"/>
+    <methodSpecification uid="_auXi-uKWEeS1mZswSnXh1g" signature="findPersonalizedItems(de.hpi.sam.rubis.entity.User)"/>
+    <methodSpecification uid="_auXi--KWEeS1mZswSnXh1g" signature="findUserById(int)"/>
+    <methodSpecification uid="_auYJ8OKWEeS1mZswSnXh1g" signature="findUserByNickname(java.lang.String)"/>
+    <methodSpecification uid="_auYJ8eKWEeS1mZswSnXh1g" signature="findAllCategories()"/>
+    <methodSpecification uid="_auYJ8uKWEeS1mZswSnXh1g" signature="findCategoryById(int)"/>
+    <methodSpecification uid="_auYJ8-KWEeS1mZswSnXh1g" signature="findCategoryByName(java.lang.String)"/>
+    <methodSpecification uid="_auYJ9OKWEeS1mZswSnXh1g" signature="findAllRegions()"/>
+    <methodSpecification uid="_auYJ9eKWEeS1mZswSnXh1g" signature="isUserNicknameUsed(java.lang.String)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.reputationservice.ReputationService_auYJ9uKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.reputationservice.ReputationService" providingComponentTypes="//@componentTypes.5" instances="//@shops.0/@components.5/@providedInterfaces.0 //@shops.1/@components.5/@providedInterfaces.0 //@shops.2/@components.5/@providedInterfaces.0">
+    <methodSpecification uid="_auZ_IOKWEeS1mZswSnXh1g" signature="giveComment(java.lang.String,java.lang.String,int,int,java.lang.String,int)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.usermgmt.AboutMeService_auamMOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.usermgmt.AboutMeService" providingComponentTypes="//@componentTypes.0" instances="//@shops.0/@components.0/@providedInterfaces.0 //@shops.1/@components.0/@providedInterfaces.0 //@shops.2/@components.0/@providedInterfaces.0">
+    <methodSpecification uid="_aupPsOKWEeS1mZswSnXh1g" signature="getAboutMe(java.lang.String,java.lang.String)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.usermgmt.BrowseRegionsService_aupPseKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.usermgmt.BrowseRegionsService" providingComponentTypes="//@componentTypes.0" instances="//@shops.0/@components.0/@providedInterfaces.1 //@shops.1/@components.0/@providedInterfaces.1 //@shops.2/@components.0/@providedInterfaces.1">
+    <methodSpecification uid="_auqd0OKWEeS1mZswSnXh1g" signature="getAllRegions()"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.usermgmt.UserRegistrationService_aurE4OKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.usermgmt.UserRegistrationService" providingComponentTypes="//@componentTypes.0" instances="//@shops.0/@components.0/@providedInterfaces.2 //@shops.1/@components.0/@providedInterfaces.2 //@shops.2/@components.0/@providedInterfaces.2">
+    <methodSpecification uid="_auuIMOKWEeS1mZswSnXh1g" signature="registerUser(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,de.hpi.sam.rubis.entity.CustomerClass)"/>
+  </interfaceTypes>
+  <interfaceTypes uid="InterfaceType_de.hpi.sam.rubis.usermgmt.ViewUserInfoService_auuvQOKWEeS1mZswSnXh1g" fullyQualifiedName="de.hpi.sam.rubis.usermgmt.ViewUserInfoService" providingComponentTypes="//@componentTypes.0" instances="//@shops.0/@components.0/@providedInterfaces.3 //@shops.1/@components.0/@providedInterfaces.3 //@shops.2/@components.0/@providedInterfaces.3">
+    <methodSpecification uid="_auyZoOKWEeS1mZswSnXh1g" signature="getUserInfo(int)"/>
+  </interfaceTypes>
+  <shops uid="mRUBiS #1__avAcEOKWEeS1mZswSnXh1g" name="mRUBiS #1">
+    <components uid="Component_User Management Service_avEGcOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.0">
+      <parameters uid="Parameter_privacy-level_avHJwOKWEeS1mZswSnXh1g" value="LOW" type="//@componentTypes.0/@parameterTypes.0"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avMCQOKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avSv-eKWEeS1mZswSnXh1g" target="//@shops.0/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avMCQeKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avSv-uKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avMCQuKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avSv--KWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avMCQ-KWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avSv-OKWEeS1mZswSnXh1g" target="//@shops.0/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.AboutMeService_avPFkOKWEeS1mZswSnXh1g" type="//@interfaceTypes.11">
+        <performanceStats uid="_avUlKeKWEeS1mZswSnXh1g" minTime="39" maxTime="556" totalTime="1294" invocationCount="6" method="//@interfaceTypes.11/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.BrowseRegionsService_avPFkeKWEeS1mZswSnXh1g" type="//@interfaceTypes.12">
+        <performanceStats uid="_avUlJ-KWEeS1mZswSnXh1g" minTime="203" maxTime="1550" totalTime="3459" invocationCount="6" method="//@interfaceTypes.12/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.UserRegistrationService_avPFkuKWEeS1mZswSnXh1g" type="//@interfaceTypes.13">
+        <performanceStats uid="_avUlKOKWEeS1mZswSnXh1g" minTime="13" maxTime="937" totalTime="2109" invocationCount="6" method="//@interfaceTypes.13/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.ViewUserInfoService_avPFk-KWEeS1mZswSnXh1g" type="//@interfaceTypes.14">
+        <performanceStats uid="_avUlJuKWEeS1mZswSnXh1g" minTime="188" maxTime="404" totalTime="907" invocationCount="3" method="//@interfaceTypes.14/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Item Management Service_avPFlOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.1">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avPFleKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avSv9-KWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avPFluKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avSv9uKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avPFl-KWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avSv9eKWEeS1mZswSnXh1g" target="//@shops.0/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avPFmOKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avSv9OKWEeS1mZswSnXh1g" target="//@shops.0/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.itemmgmt.BrowseCategoriesService_avPFmeKWEeS1mZswSnXh1g" type="//@interfaceTypes.5">
+        <performanceStats uid="_avUlNuKWEeS1mZswSnXh1g" minTime="196" maxTime="391" totalTime="853" invocationCount="3" method="//@interfaceTypes.5/@methodSpecification.3"/>
+        <performanceStats uid="_avUlN-KWEeS1mZswSnXh1g" minTime="680" maxTime="996" totalTime="26910" invocationCount="30" method="//@interfaceTypes.5/@methodSpecification.4"/>
+        <performanceStats uid="_avUlOOKWEeS1mZswSnXh1g" method="//@interfaceTypes.5/@methodSpecification.0"/>
+        <performanceStats uid="_avUlOeKWEeS1mZswSnXh1g" method="//@interfaceTypes.5/@methodSpecification.2"/>
+        <performanceStats uid="_avUlO-KWEeS1mZswSnXh1g" minTime="190" maxTime="652" totalTime="1185" invocationCount="3" method="//@interfaceTypes.5/@methodSpecification.1"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.itemmgmt.ItemRegistrationService_avPFmuKWEeS1mZswSnXh1g" type="//@interfaceTypes.6">
+        <performanceStats uid="_avUlOuKWEeS1mZswSnXh1g" minTime="363" maxTime="1349" totalTime="2425" invocationCount="3" method="//@interfaceTypes.6/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Authentication Service_avPFm-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.2">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avPFnOKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avSv_OKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avPFneKWEeS1mZswSnXh1g" type="//@interfaceTypes.0" connectors="//@shops.0/@components.5/@requiredInterfaces.2/@connector //@shops.0/@components.1/@requiredInterfaces.2/@connector //@shops.0/@components.0/@requiredInterfaces.0/@connector //@shops.0/@components.3/@requiredInterfaces.2/@connector">
+        <performanceStats uid="_avUlLeKWEeS1mZswSnXh1g" minTime="50" maxTime="153" totalTime="3675" invocationCount="48" method="//@interfaceTypes.0/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Bid and Buy Service_avPFnuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.3">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avPFn-KWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avSwAeKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avPFoOKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avSwAOKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avPFoeKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avSv_-KWEeS1mZswSnXh1g" target="//@shops.0/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.inventorymgmt.InventoryService_avPFouKWEeS1mZswSnXh1g" type="//@interfaceTypes.4">
+        <connector uid="Connector_de.hpi.sam.rubis.inventorymgmt.InventoryService_avSv_eKWEeS1mZswSnXh1g" target="//@shops.0/@components.4/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avPFo-KWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avSv_uKWEeS1mZswSnXh1g" target="//@shops.0/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.bidandbuy.BidService_avPFpOKWEeS1mZswSnXh1g" type="//@interfaceTypes.1">
+        <performanceStats uid="_avUlI-KWEeS1mZswSnXh1g" method="//@interfaceTypes.1/@methodSpecification.2"/>
+        <performanceStats uid="_avUlJOKWEeS1mZswSnXh1g" minTime="13" maxTime="402" totalTime="908" invocationCount="6" method="//@interfaceTypes.1/@methodSpecification.1"/>
+        <performanceStats uid="_avUlJeKWEeS1mZswSnXh1g" minTime="423" maxTime="1086" totalTime="2138" invocationCount="3" method="//@interfaceTypes.1/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.bidandbuy.BuyNowService_avPFpeKWEeS1mZswSnXh1g" type="//@interfaceTypes.2">
+        <performanceStats uid="_avUlIuKWEeS1mZswSnXh1g" minTime="335" maxTime="620" totalTime="1375" invocationCount="3" method="//@interfaceTypes.2/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Inventory Service_avPFpuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.4">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avPFp-KWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avSwAuKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avPsoOKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avSwA-KWEeS1mZswSnXh1g" target="//@shops.0/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.inventorymgmt.InventoryService_avPsoeKWEeS1mZswSnXh1g" type="//@interfaceTypes.4" connectors="//@shops.0/@components.3/@requiredInterfaces.3/@connector">
+        <performanceStats uid="_avVMNeKWEeS1mZswSnXh1g" minTime="7" maxTime="37" totalTime="109" invocationCount="6" method="//@interfaceTypes.4/@methodSpecification.1"/>
+        <performanceStats uid="_avVMNuKWEeS1mZswSnXh1g" minTime="30" maxTime="40" totalTime="103" invocationCount="3" method="//@interfaceTypes.4/@methodSpecification.2"/>
+        <performanceStats uid="_avVMN-KWEeS1mZswSnXh1g" method="//@interfaceTypes.4/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Reputation Service_avPsouKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.5">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avPso-KWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avSv8OKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avPspOKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avSv8eKWEeS1mZswSnXh1g" target="//@shops.0/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avPspeKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avSv8uKWEeS1mZswSnXh1g" target="//@shops.0/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avPspuKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avSv8-KWEeS1mZswSnXh1g" target="//@shops.0/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.reputationservice.ReputationService_avRh0OKWEeS1mZswSnXh1g" type="//@interfaceTypes.10">
+        <performanceStats uid="_avUlKuKWEeS1mZswSnXh1g" minTime="436" maxTime="793" totalTime="1770" invocationCount="3" method="//@interfaceTypes.10/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Persistence Service_avSI4OKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.6">
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avSI4eKWEeS1mZswSnXh1g" type="//@interfaceTypes.7" connectors="//@shops.0/@components.5/@requiredInterfaces.3/@connector //@shops.0/@components.1/@requiredInterfaces.3/@connector //@shops.0/@components.0/@requiredInterfaces.3/@connector //@shops.0/@components.3/@requiredInterfaces.4/@connector //@shops.0/@components.4/@requiredInterfaces.1/@connector">
+        <performanceStats uid="_avUlLuKWEeS1mZswSnXh1g" minTime="170" maxTime="550" totalTime="1063" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.2"/>
+        <performanceStats uid="_avUlL-KWEeS1mZswSnXh1g" method="//@interfaceTypes.7/@methodSpecification.6"/>
+        <performanceStats uid="_avUlMOKWEeS1mZswSnXh1g" minTime="169" maxTime="353" totalTime="737" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.4"/>
+        <performanceStats uid="_avUlMeKWEeS1mZswSnXh1g" minTime="10" maxTime="15" totalTime="39" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.5"/>
+        <performanceStats uid="_avUlMuKWEeS1mZswSnXh1g" minTime="61" maxTime="122" totalTime="301" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.0"/>
+        <performanceStats uid="_avUlM-KWEeS1mZswSnXh1g" minTime="200" maxTime="445" totalTime="935" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.3"/>
+        <performanceStats uid="_avUlNOKWEeS1mZswSnXh1g" minTime="1" maxTime="433" totalTime="969" invocationCount="6" method="//@interfaceTypes.7/@methodSpecification.1"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Query Service_avSI4uKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.7">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI4-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwBOKWEeS1mZswSnXh1g" target="//@shops.0/@components.8/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avSI5OKWEeS1mZswSnXh1g" type="//@interfaceTypes.9" connectors="//@shops.0/@components.5/@requiredInterfaces.0/@connector //@shops.0/@components.1/@requiredInterfaces.0/@connector //@shops.0/@components.0/@requiredInterfaces.2/@connector //@shops.0/@components.2/@requiredInterfaces.0/@connector //@shops.0/@components.3/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlPuKWEeS1mZswSnXh1g" minTime="5" maxTime="442" totalTime="977" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.3"/>
+        <performanceStats uid="_avUlQ-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.0"/>
+        <performanceStats uid="_avUlROKWEeS1mZswSnXh1g" minTime="167" maxTime="717" totalTime="1210" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.12"/>
+        <performanceStats uid="_avUlR-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.1"/>
+        <performanceStats uid="_avUlSeKWEeS1mZswSnXh1g" maxTime="1" totalTime="2" invocationCount="9" method="//@interfaceTypes.9/@methodSpecification.6"/>
+        <performanceStats uid="_avUlS-KWEeS1mZswSnXh1g" minTime="2" maxTime="479" totalTime="3495" invocationCount="48" method="//@interfaceTypes.9/@methodSpecification.10"/>
+        <performanceStats uid="_avUlTOKWEeS1mZswSnXh1g" maxTime="377" totalTime="896" invocationCount="9" method="//@interfaceTypes.9/@methodSpecification.9"/>
+        <performanceStats uid="_avUlTeKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.4"/>
+        <performanceStats uid="_avUlT-KWEeS1mZswSnXh1g" minTime="194" maxTime="1484" totalTime="3335" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.14"/>
+        <performanceStats uid="_avUlUeKWEeS1mZswSnXh1g" minTime="184" maxTime="619" totalTime="1134" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.11"/>
+        <performanceStats uid="_avUlVeKWEeS1mZswSnXh1g" minTime="188" maxTime="375" totalTime="819" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.5"/>
+        <performanceStats uid="_avUlVuKWEeS1mZswSnXh1g" minTime="4" maxTime="12" totalTime="43" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.15"/>
+        <performanceStats uid="_avUlWOKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.2"/>
+        <performanceStats uid="_avVMMOKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.13"/>
+        <performanceStats uid="_avVMMeKWEeS1mZswSnXh1g" minTime="600" maxTime="900" totalTime="24480" invocationCount="30" method="//@interfaceTypes.9/@methodSpecification.8"/>
+        <performanceStats uid="_avVMM-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.7"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.queryservice.QueryService_avSI5eKWEeS1mZswSnXh1g" type="//@interfaceTypes.8" connectors="//@shops.0/@components.5/@requiredInterfaces.1/@connector //@shops.0/@components.1/@requiredInterfaces.1/@connector //@shops.0/@components.0/@requiredInterfaces.1/@connector //@shops.0/@components.3/@requiredInterfaces.1/@connector //@shops.0/@components.4/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlPeKWEeS1mZswSnXh1g" minTime="12" maxTime="38" totalTime="118" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.11"/>
+        <performanceStats uid="_avUlP-KWEeS1mZswSnXh1g" minTime="11" maxTime="393" totalTime="881" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.5"/>
+        <performanceStats uid="_avUlQOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.6"/>
+        <performanceStats uid="_avUlQeKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.3"/>
+        <performanceStats uid="_avUlQuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.2"/>
+        <performanceStats uid="_avUlReKWEeS1mZswSnXh1g" minTime="42" maxTime="93" totalTime="199" invocationCount="3" method="//@interfaceTypes.8/@methodSpecification.15"/>
+        <performanceStats uid="_avUlRuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.13"/>
+        <performanceStats uid="_avUlSOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.1"/>
+        <performanceStats uid="_avUlSuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.7"/>
+        <performanceStats uid="_avUlTuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.14"/>
+        <performanceStats uid="_avUlUOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.0"/>
+        <performanceStats uid="_avUlUuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.8"/>
+        <performanceStats uid="_avUlU-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.10"/>
+        <performanceStats uid="_avUlVOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.9"/>
+        <performanceStats uid="_avUlV-KWEeS1mZswSnXh1g" minTime="12" maxTime="20" totalTime="91" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.12"/>
+        <performanceStats uid="_avUlWeKWEeS1mZswSnXh1g" minTime="4" maxTime="11" totalTime="64" invocationCount="9" method="//@interfaceTypes.8/@methodSpecification.16"/>
+        <performanceStats uid="_avVMMuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.4"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Last Second Sales Item Filter_avSI5uKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.8">
+      <parameters uid="Parameter_selection-rate-threshold_avSI5-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.8/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSI6OKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.8/@parameterTypes.1"/>
+      <parameters uid="Parameter_last-seconds_avSI6eKWEeS1mZswSnXh1g" value="300" type="//@componentTypes.8/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI6uKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwBeKWEeS1mZswSnXh1g" target="//@shops.0/@components.9/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI6-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.7/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avVMOuKWEeS1mZswSnXh1g" minTime="450" maxTime="760" totalTime="16800" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avWaVuKWEeS1mZswSnXh1g" name="selection-rate" value="0.22" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avWaV-KWEeS1mZswSnXh1g" name="local-computation-time" value="57" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Past Sales Item Filter_avSI7OKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.9">
+      <parameters uid="Parameter_selection-rate-threshold_avSI7eKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.9/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSI7uKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.9/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI7-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwBuKWEeS1mZswSnXh1g" target="//@shops.0/@components.10/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI8OKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.8/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlPOKWEeS1mZswSnXh1g" minTime="400" maxTime="740" totalTime="15090" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avVzRuKWEeS1mZswSnXh1g" name="selection-rate" value="0.20" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avVzR-KWEeS1mZswSnXh1g" name="local-computation-time" value="54" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Buy Now Item Filter_avSI8eKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.10">
+      <parameters uid="Parameter_selection-rate-threshold_avSI8uKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.10/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSI8-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.10/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI9OKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwB-KWEeS1mZswSnXh1g" target="//@shops.0/@components.11/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI9eKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.9/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlNeKWEeS1mZswSnXh1g" minTime="340" maxTime="690" totalTime="13470" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avVzROKWEeS1mZswSnXh1g" name="selection-rate" value="0.18" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avVzReKWEeS1mZswSnXh1g" name="local-computation-time" value="57" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Availability Item Filter_avSI9uKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.11">
+      <parameters uid="Parameter_selection-rate-threshold_avSI9-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.11/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSI-OKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.11/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI-eKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwCOKWEeS1mZswSnXh1g" target="//@shops.0/@components.12/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI-uKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.10/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlIOKWEeS1mZswSnXh1g" minTime="300" maxTime="620" totalTime="11760" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avVzQOKWEeS1mZswSnXh1g" name="selection-rate" value="0.17" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avVzQeKWEeS1mZswSnXh1g" name="local-computation-time" value="60" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Region Item Filter_avSI--KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.12">
+      <parameters uid="Parameter_selection-rate-threshold_avSI_OKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.12/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSI_eKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.12/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI_uKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwCeKWEeS1mZswSnXh1g" target="//@shops.0/@components.13/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSI_-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.11/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avVMNOKWEeS1mZswSnXh1g" minTime="240" maxTime="500" totalTime="9960" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avVzSOKWEeS1mZswSnXh1g" name="selection-rate" value="0.15" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avVzSeKWEeS1mZswSnXh1g" name="local-computation-time" value="63" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Seller Reputation Item Filter_avSJAOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.13">
+      <parameters uid="Parameter_selection-rate-threshold_avSJAeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.13/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSJAuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.13/@parameterTypes.1"/>
+      <parameters uid="Parameter_reputation-threshold_avSJA-KWEeS1mZswSnXh1g" value="5" type="//@componentTypes.13/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJBOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwCuKWEeS1mZswSnXh1g" target="//@shops.0/@components.14/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJBeKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.12/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlIeKWEeS1mZswSnXh1g" minTime="190" maxTime="440" totalTime="8070" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avVzQuKWEeS1mZswSnXh1g" name="selection-rate" value="0.12" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avVzQ-KWEeS1mZswSnXh1g" name="local-computation-time" value="65" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Comment Item Filter_avSJBuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.14">
+      <parameters uid="Parameter_selection-rate-threshold_avSJB-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.14/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSJCOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.14/@parameterTypes.1"/>
+      <parameters uid="Parameter_rating-threshold_avSJCeKWEeS1mZswSnXh1g" value="5" type="//@componentTypes.14/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJCuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwC-KWEeS1mZswSnXh1g" target="//@shops.0/@components.15/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJC-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.13/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlLOKWEeS1mZswSnXh1g" minTime="140" maxTime="390" totalTime="6120" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avWaVOKWEeS1mZswSnXh1g" name="selection-rate" value="0.10" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avWaVeKWEeS1mZswSnXh1g" name="local-computation-time" value="68" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Category Item Filter_avSJDOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.15">
+      <parameters uid="Parameter_selection-rate-threshold_avSJDeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.15/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSJDuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.15/@parameterTypes.1"/>
+      <parameters uid="Parameter_filtered-categories_avSJD-KWEeS1mZswSnXh1g" value="Coins,Jewelry" type="//@componentTypes.15/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJEOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwDOKWEeS1mZswSnXh1g" target="//@shops.0/@components.16/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJEeKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.14/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avVMOOKWEeS1mZswSnXh1g" minTime="95" maxTime="300" totalTime="4080" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avVzSuKWEeS1mZswSnXh1g" name="selection-rate" value="0.08" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avVzS-KWEeS1mZswSnXh1g" name="local-computation-time" value="69" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Recommendation Item Filter_avSJEuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.16">
+      <parameters uid="Parameter_selection-rate-threshold_avSJE-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.16/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSJFOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.16/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJFeKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avSwDeKWEeS1mZswSnXh1g" target="//@shops.0/@components.17/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJFuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.15/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avUlK-KWEeS1mZswSnXh1g" minTime="45" maxTime="175" totalTime="2010" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avWaUuKWEeS1mZswSnXh1g" name="selection-rate" value="0.04" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avWaU-KWEeS1mZswSnXh1g" name="local-computation-time" value="37" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Future Sales Item Filter_avSJF-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.17">
+      <parameters uid="Parameter_selection-rate-threshold_avSJGOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.17/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avSJGeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.17/@parameterTypes.1"/>
+      <parameters uid="Parameter_days-to-run_avSJGuKWEeS1mZswSnXh1g" value="14" type="//@componentTypes.17/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJG-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3"/>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avSJHOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.0/@components.16/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avVMOeKWEeS1mZswSnXh1g" minTime="15" maxTime="100" totalTime="900" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avWaUOKWEeS1mZswSnXh1g" name="selection-rate" value="0.03" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avWaUeKWEeS1mZswSnXh1g" name="local-computation-time" value="30" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+  </shops>
+  <shops uid="mRUBiS #2__avWaWOKWEeS1mZswSnXh1g" name="mRUBiS #2">
+    <components uid="Component_User Management Service_avWaWeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.0">
+      <parameters uid="Parameter_privacy-level_avWaWuKWEeS1mZswSnXh1g" value="LOW" type="//@componentTypes.0/@parameterTypes.0"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avWaW-KWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXBeOKWEeS1mZswSnXh1g" target="//@shops.1/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avWaXOKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXBeeKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avWaXeKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXBeuKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avWaXuKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXBd-KWEeS1mZswSnXh1g" target="//@shops.1/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.AboutMeService_avWaX-KWEeS1mZswSnXh1g" type="//@interfaceTypes.11">
+        <performanceStats uid="_avXBluKWEeS1mZswSnXh1g" minTime="40" maxTime="583" totalTime="1358" invocationCount="6" method="//@interfaceTypes.11/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.BrowseRegionsService_avWaYOKWEeS1mZswSnXh1g" type="//@interfaceTypes.12">
+        <performanceStats uid="_avXBlOKWEeS1mZswSnXh1g" minTime="213" maxTime="1627" totalTime="3631" invocationCount="6" method="//@interfaceTypes.12/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.UserRegistrationService_avWaYeKWEeS1mZswSnXh1g" type="//@interfaceTypes.13">
+        <performanceStats uid="_avXBleKWEeS1mZswSnXh1g" minTime="13" maxTime="983" totalTime="2214" invocationCount="6" method="//@interfaceTypes.13/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.ViewUserInfoService_avWaYuKWEeS1mZswSnXh1g" type="//@interfaceTypes.14">
+        <performanceStats uid="_avXBk-KWEeS1mZswSnXh1g" minTime="197" maxTime="424" totalTime="952" invocationCount="3" method="//@interfaceTypes.14/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Item Management Service_avWaY-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.1">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avWaZOKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXBduKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avWaZeKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXBdeKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avWaZuKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXBdOKWEeS1mZswSnXh1g" target="//@shops.1/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avWaZ-KWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXBc-KWEeS1mZswSnXh1g" target="//@shops.1/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.itemmgmt.BrowseCategoriesService_avWaaOKWEeS1mZswSnXh1g" type="//@interfaceTypes.5">
+        <performanceStats uid="_avXBo-KWEeS1mZswSnXh1g" minTime="199" maxTime="684" totalTime="1244" invocationCount="3" method="//@interfaceTypes.5/@methodSpecification.1"/>
+        <performanceStats uid="_avXBpeKWEeS1mZswSnXh1g" method="//@interfaceTypes.5/@methodSpecification.2"/>
+        <performanceStats uid="_avXBpuKWEeS1mZswSnXh1g" minTime="205" maxTime="410" totalTime="895" invocationCount="3" method="//@interfaceTypes.5/@methodSpecification.3"/>
+        <performanceStats uid="_avXBp-KWEeS1mZswSnXh1g" method="//@interfaceTypes.5/@methodSpecification.0"/>
+        <performanceStats uid="_avXBqOKWEeS1mZswSnXh1g" minTime="714" maxTime="1045" totalTime="28255" invocationCount="30" method="//@interfaceTypes.5/@methodSpecification.4"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.itemmgmt.ItemRegistrationService_avWaaeKWEeS1mZswSnXh1g" type="//@interfaceTypes.6">
+        <performanceStats uid="_avXBpOKWEeS1mZswSnXh1g" minTime="381" maxTime="1416" totalTime="2546" invocationCount="3" method="//@interfaceTypes.6/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Authentication Service_avWaauKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.2">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avWaa-KWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXBe-KWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avWabOKWEeS1mZswSnXh1g" type="//@interfaceTypes.0" connectors="//@shops.1/@components.5/@requiredInterfaces.2/@connector //@shops.1/@components.1/@requiredInterfaces.2/@connector //@shops.1/@components.0/@requiredInterfaces.0/@connector //@shops.1/@components.3/@requiredInterfaces.2/@connector">
+        <performanceStats uid="_avXBmuKWEeS1mZswSnXh1g" minTime="52" maxTime="160" totalTime="3858" invocationCount="48" method="//@interfaceTypes.0/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Bid and Buy Service_avWabeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.3">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avWabuKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXBgOKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avWab-KWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXBf-KWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avWacOKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXBfuKWEeS1mZswSnXh1g" target="//@shops.1/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.inventorymgmt.InventoryService_avWaceKWEeS1mZswSnXh1g" type="//@interfaceTypes.4">
+        <connector uid="Connector_de.hpi.sam.rubis.inventorymgmt.InventoryService_avXBfOKWEeS1mZswSnXh1g" target="//@shops.1/@components.4/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avWacuKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXBfeKWEeS1mZswSnXh1g" target="//@shops.1/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.bidandbuy.BidService_avWac-KWEeS1mZswSnXh1g" type="//@interfaceTypes.1">
+        <performanceStats uid="_avXBj-KWEeS1mZswSnXh1g" minTime="13" maxTime="422" totalTime="953" invocationCount="6" method="//@interfaceTypes.1/@methodSpecification.1"/>
+        <performanceStats uid="_avXBkOKWEeS1mZswSnXh1g" minTime="444" maxTime="1140" totalTime="2244" invocationCount="3" method="//@interfaceTypes.1/@methodSpecification.0"/>
+        <performanceStats uid="_avXBkuKWEeS1mZswSnXh1g" method="//@interfaceTypes.1/@methodSpecification.2"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.bidandbuy.BuyNowService_avWadOKWEeS1mZswSnXh1g" type="//@interfaceTypes.2">
+        <performanceStats uid="_avXBkeKWEeS1mZswSnXh1g" minTime="351" maxTime="651" totalTime="1443" invocationCount="3" method="//@interfaceTypes.2/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Inventory Service_avWadeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.4">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avWaduKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXBgeKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avWad-KWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXBguKWEeS1mZswSnXh1g" target="//@shops.1/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.inventorymgmt.InventoryService_avWaeOKWEeS1mZswSnXh1g" type="//@interfaceTypes.4" connectors="//@shops.1/@components.3/@requiredInterfaces.3/@connector">
+        <performanceStats uid="_avXodeKWEeS1mZswSnXh1g" method="//@interfaceTypes.4/@methodSpecification.0"/>
+        <performanceStats uid="_avXoduKWEeS1mZswSnXh1g" minTime="7" maxTime="38" totalTime="114" invocationCount="6" method="//@interfaceTypes.4/@methodSpecification.1"/>
+        <performanceStats uid="_avXod-KWEeS1mZswSnXh1g" minTime="31" maxTime="42" totalTime="108" invocationCount="3" method="//@interfaceTypes.4/@methodSpecification.2"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Reputation Service_avWaeeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.5">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avWaeuKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXBb-KWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avWae-KWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXBcOKWEeS1mZswSnXh1g" target="//@shops.1/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avWafOKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXBceKWEeS1mZswSnXh1g" target="//@shops.1/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avWafeKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXBcuKWEeS1mZswSnXh1g" target="//@shops.1/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.reputationservice.ReputationService_avWafuKWEeS1mZswSnXh1g" type="//@interfaceTypes.10">
+        <performanceStats uid="_avXBl-KWEeS1mZswSnXh1g" minTime="457" maxTime="832" totalTime="1858" invocationCount="3" method="//@interfaceTypes.10/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Persistence Service_avWaf-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.6">
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avWagOKWEeS1mZswSnXh1g" type="//@interfaceTypes.7" connectors="//@shops.1/@components.5/@requiredInterfaces.3/@connector //@shops.1/@components.1/@requiredInterfaces.3/@connector //@shops.1/@components.0/@requiredInterfaces.3/@connector //@shops.1/@components.3/@requiredInterfaces.4/@connector //@shops.1/@components.4/@requiredInterfaces.1/@connector">
+        <performanceStats uid="_avXBm-KWEeS1mZswSnXh1g" minTime="1" maxTime="454" totalTime="1017" invocationCount="6" method="//@interfaceTypes.7/@methodSpecification.1"/>
+        <performanceStats uid="_avXBnOKWEeS1mZswSnXh1g" minTime="177" maxTime="370" totalTime="773" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.4"/>
+        <performanceStats uid="_avXBneKWEeS1mZswSnXh1g" minTime="210" maxTime="467" totalTime="981" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.3"/>
+        <performanceStats uid="_avXBnuKWEeS1mZswSnXh1g" minTime="178" maxTime="577" totalTime="1116" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.2"/>
+        <performanceStats uid="_avXBn-KWEeS1mZswSnXh1g" minTime="64" maxTime="128" totalTime="316" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.0"/>
+        <performanceStats uid="_avXBoOKWEeS1mZswSnXh1g" minTime="10" maxTime="15" totalTime="40" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.5"/>
+        <performanceStats uid="_avXBoeKWEeS1mZswSnXh1g" method="//@interfaceTypes.7/@methodSpecification.6"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Query Service_avWageKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.7">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaguKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBg-KWEeS1mZswSnXh1g" target="//@shops.1/@components.8/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avWag-KWEeS1mZswSnXh1g" type="//@interfaceTypes.9" connectors="//@shops.1/@components.5/@requiredInterfaces.0/@connector //@shops.1/@components.1/@requiredInterfaces.0/@connector //@shops.1/@components.0/@requiredInterfaces.2/@connector //@shops.1/@components.2/@requiredInterfaces.0/@connector //@shops.1/@components.3/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBq-KWEeS1mZswSnXh1g" minTime="197" maxTime="393" totalTime="859" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.5"/>
+        <performanceStats uid="_avXBr-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.7"/>
+        <performanceStats uid="_avXBsOKWEeS1mZswSnXh1g" minTime="203" maxTime="1558" totalTime="3501" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.14"/>
+        <performanceStats uid="_avXBseKWEeS1mZswSnXh1g" minTime="5" maxTime="464" totalTime="1025" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.3"/>
+        <performanceStats uid="_avXBsuKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.2"/>
+        <performanceStats uid="_avXBs-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.1"/>
+        <performanceStats uid="_avXBuOKWEeS1mZswSnXh1g" minTime="175" maxTime="752" totalTime="1270" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.12"/>
+        <performanceStats uid="_avXBveKWEeS1mZswSnXh1g" minTime="630" maxTime="945" totalTime="25704" invocationCount="30" method="//@interfaceTypes.9/@methodSpecification.8"/>
+        <performanceStats uid="_avXBvuKWEeS1mZswSnXh1g" maxTime="395" totalTime="940" invocationCount="9" method="//@interfaceTypes.9/@methodSpecification.9"/>
+        <performanceStats uid="_avXBweKWEeS1mZswSnXh1g" minTime="193" maxTime="649" totalTime="1190" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.11"/>
+        <performanceStats uid="_avXBwuKWEeS1mZswSnXh1g" minTime="2" maxTime="502" totalTime="3669" invocationCount="48" method="//@interfaceTypes.9/@methodSpecification.10"/>
+        <performanceStats uid="_avXBxOKWEeS1mZswSnXh1g" maxTime="1" totalTime="2" invocationCount="9" method="//@interfaceTypes.9/@methodSpecification.6"/>
+        <performanceStats uid="_avXBxeKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.13"/>
+        <performanceStats uid="_avXocOKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.0"/>
+        <performanceStats uid="_avXocuKWEeS1mZswSnXh1g" minTime="4" maxTime="12" totalTime="45" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.15"/>
+        <performanceStats uid="_avXoc-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.4"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.queryservice.QueryService_avWahOKWEeS1mZswSnXh1g" type="//@interfaceTypes.8" connectors="//@shops.1/@components.5/@requiredInterfaces.1/@connector //@shops.1/@components.1/@requiredInterfaces.1/@connector //@shops.1/@components.0/@requiredInterfaces.1/@connector //@shops.1/@components.3/@requiredInterfaces.1/@connector //@shops.1/@components.4/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBquKWEeS1mZswSnXh1g" minTime="11" maxTime="412" totalTime="925" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.5"/>
+        <performanceStats uid="_avXBrOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.0"/>
+        <performanceStats uid="_avXBreKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.4"/>
+        <performanceStats uid="_avXBruKWEeS1mZswSnXh1g" minTime="12" maxTime="39" totalTime="123" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.11"/>
+        <performanceStats uid="_avXBtOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.1"/>
+        <performanceStats uid="_avXBteKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.6"/>
+        <performanceStats uid="_avXBtuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.7"/>
+        <performanceStats uid="_avXBt-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.8"/>
+        <performanceStats uid="_avXBueKWEeS1mZswSnXh1g" minTime="4" maxTime="11" totalTime="67" invocationCount="9" method="//@interfaceTypes.8/@methodSpecification.16"/>
+        <performanceStats uid="_avXBuuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.9"/>
+        <performanceStats uid="_avXBu-KWEeS1mZswSnXh1g" minTime="44" maxTime="97" totalTime="208" invocationCount="3" method="//@interfaceTypes.8/@methodSpecification.15"/>
+        <performanceStats uid="_avXBvOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.3"/>
+        <performanceStats uid="_avXBv-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.13"/>
+        <performanceStats uid="_avXBwOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.10"/>
+        <performanceStats uid="_avXBw-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.2"/>
+        <performanceStats uid="_avXBxuKWEeS1mZswSnXh1g" minTime="12" maxTime="21" totalTime="95" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.12"/>
+        <performanceStats uid="_avXoceKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.14"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Last Second Sales Item Filter_avWaheKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.8">
+      <parameters uid="Parameter_selection-rate-threshold_avWahuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.8/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWah-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.8/@parameterTypes.1"/>
+      <parameters uid="Parameter_last-seconds_avWaiOKWEeS1mZswSnXh1g" value="300" type="//@componentTypes.8/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaieKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBhOKWEeS1mZswSnXh1g" target="//@shops.1/@components.9/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaiuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.7/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXoeuKWEeS1mZswSnXh1g" minTime="472" maxTime="798" totalTime="17640" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXojeKWEeS1mZswSnXh1g" name="selection-rate" value="0.22" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXojuKWEeS1mZswSnXh1g" name="local-computation-time" value="59" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Past Sales Item Filter_avWai-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.9">
+      <parameters uid="Parameter_selection-rate-threshold_avWajOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.9/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWajeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.9/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWajuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBheKWEeS1mZswSnXh1g" target="//@shops.1/@components.10/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaj-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.8/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBqeKWEeS1mZswSnXh1g" minTime="420" maxTime="777" totalTime="15844" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXogeKWEeS1mZswSnXh1g" name="selection-rate" value="0.20" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXoguKWEeS1mZswSnXh1g" name="local-computation-time" value="56" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Buy Now Item Filter_avWakOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.10">
+      <parameters uid="Parameter_selection-rate-threshold_avWakeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.10/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWakuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.10/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWak-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBhuKWEeS1mZswSnXh1g" target="//@shops.1/@components.11/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWalOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.9/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBouKWEeS1mZswSnXh1g" minTime="357" maxTime="724" totalTime="14143" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXof-KWEeS1mZswSnXh1g" name="selection-rate" value="0.18" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXogOKWEeS1mZswSnXh1g" name="local-computation-time" value="59" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Availability Item Filter_avWaleKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.11">
+      <parameters uid="Parameter_selection-rate-threshold_avWaluKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.11/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWal-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.11/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWamOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBh-KWEeS1mZswSnXh1g" target="//@shops.1/@components.12/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWameKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.10/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBjeKWEeS1mZswSnXh1g" minTime="315" maxTime="651" totalTime="12348" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXoe-KWEeS1mZswSnXh1g" name="selection-rate" value="0.17" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXofOKWEeS1mZswSnXh1g" name="local-computation-time" value="63" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Region Item Filter_avWamuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.12">
+      <parameters uid="Parameter_selection-rate-threshold_avWam-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.12/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWanOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.12/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaneKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBiOKWEeS1mZswSnXh1g" target="//@shops.1/@components.13/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWanuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.11/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXodOKWEeS1mZswSnXh1g" minTime="252" maxTime="525" totalTime="10458" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXog-KWEeS1mZswSnXh1g" name="selection-rate" value="0.15" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXohOKWEeS1mZswSnXh1g" name="local-computation-time" value="66" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Seller Reputation Item Filter_avWan-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.13">
+      <parameters uid="Parameter_selection-rate-threshold_avWaoOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.13/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWaoeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.13/@parameterTypes.1"/>
+      <parameters uid="Parameter_reputation-threshold_avWaouKWEeS1mZswSnXh1g" value="5" type="//@componentTypes.13/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWao-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBieKWEeS1mZswSnXh1g" target="//@shops.1/@components.14/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWapOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.12/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBjuKWEeS1mZswSnXh1g" minTime="199" maxTime="462" totalTime="8473" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXofeKWEeS1mZswSnXh1g" name="selection-rate" value="0.12" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXofuKWEeS1mZswSnXh1g" name="local-computation-time" value="68" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Comment Item Filter_avWapeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.14">
+      <parameters uid="Parameter_selection-rate-threshold_avWapuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.14/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avWap-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.14/@parameterTypes.1"/>
+      <parameters uid="Parameter_rating-threshold_avWaqOKWEeS1mZswSnXh1g" value="5" type="//@componentTypes.14/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaqeKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBiuKWEeS1mZswSnXh1g" target="//@shops.1/@components.15/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avWaquKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.13/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBmeKWEeS1mZswSnXh1g" minTime="147" maxTime="409" totalTime="6426" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXoi-KWEeS1mZswSnXh1g" name="selection-rate" value="0.10" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXojOKWEeS1mZswSnXh1g" name="local-computation-time" value="71" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Category Item Filter_avWaq-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.15">
+      <parameters uid="Parameter_selection-rate-threshold_avWarOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.15/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXBYOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.15/@parameterTypes.1"/>
+      <parameters uid="Parameter_filtered-categories_avXBYeKWEeS1mZswSnXh1g" value="Coins,Jewelry" type="//@componentTypes.15/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXBYuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBi-KWEeS1mZswSnXh1g" target="//@shops.1/@components.16/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXBY-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.14/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXoeOKWEeS1mZswSnXh1g" minTime="99" maxTime="315" totalTime="4284" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXoheKWEeS1mZswSnXh1g" name="selection-rate" value="0.08" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXohuKWEeS1mZswSnXh1g" name="local-computation-time" value="72" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Recommendation Item Filter_avXBZOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.16">
+      <parameters uid="Parameter_selection-rate-threshold_avXBZeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.16/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXBZuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.16/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXBZ-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXBjOKWEeS1mZswSnXh1g" target="//@shops.1/@components.17/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXBaOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.15/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXBmOKWEeS1mZswSnXh1g" minTime="47" maxTime="183" totalTime="2110" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXoieKWEeS1mZswSnXh1g" name="selection-rate" value="0.04" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXoiuKWEeS1mZswSnXh1g" name="local-computation-time" value="38" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Future Sales Item Filter_avXBaeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.17">
+      <parameters uid="Parameter_selection-rate-threshold_avXBauKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.17/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXBa-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.17/@parameterTypes.1"/>
+      <parameters uid="Parameter_days-to-run_avXBbOKWEeS1mZswSnXh1g" value="14" type="//@componentTypes.17/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXBbeKWEeS1mZswSnXh1g" type="//@interfaceTypes.3"/>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXBbuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.1/@components.16/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avXoeeKWEeS1mZswSnXh1g" minTime="15" maxTime="105" totalTime="945" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avXoh-KWEeS1mZswSnXh1g" name="selection-rate" value="0.03" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avXoiOKWEeS1mZswSnXh1g" name="local-computation-time" value="31" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+  </shops>
+  <shops uid="mRUBiS #3__avXoj-KWEeS1mZswSnXh1g" name="mRUBiS #3">
+    <components uid="Component_User Management Service_avXokOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.0">
+      <parameters uid="Parameter_privacy-level_avXokeKWEeS1mZswSnXh1g" value="LOW" type="//@componentTypes.0/@parameterTypes.0"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avXokuKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXo_OKWEeS1mZswSnXh1g" target="//@shops.2/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avXok-KWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXo_eKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avXolOKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXo_uKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXoleKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXo--KWEeS1mZswSnXh1g" target="//@shops.2/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.AboutMeService_avXoluKWEeS1mZswSnXh1g" type="//@interfaceTypes.11">
+        <performanceStats uid="_avYPjuKWEeS1mZswSnXh1g" minTime="42" maxTime="611" totalTime="1423" invocationCount="6" method="//@interfaceTypes.11/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.BrowseRegionsService_avXol-KWEeS1mZswSnXh1g" type="//@interfaceTypes.12">
+        <performanceStats uid="_avYPj-KWEeS1mZswSnXh1g" minTime="223" maxTime="1705" totalTime="3804" invocationCount="6" method="//@interfaceTypes.12/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.UserRegistrationService_avXomOKWEeS1mZswSnXh1g" type="//@interfaceTypes.13">
+        <performanceStats uid="_avYPkeKWEeS1mZswSnXh1g" minTime="14" maxTime="1030" totalTime="2319" invocationCount="6" method="//@interfaceTypes.13/@methodSpecification.0"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.usermgmt.ViewUserInfoService_avXomeKWEeS1mZswSnXh1g" type="//@interfaceTypes.14">
+        <performanceStats uid="_avYPkOKWEeS1mZswSnXh1g" minTime="206" maxTime="444" totalTime="997" invocationCount="3" method="//@interfaceTypes.14/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Item Management Service_avXomuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.1">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avXom-KWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXo-uKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avXonOKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXo-eKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avXoneKWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXo-OKWEeS1mZswSnXh1g" target="//@shops.2/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXonuKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXo9-KWEeS1mZswSnXh1g" target="//@shops.2/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.itemmgmt.BrowseCategoriesService_avXon-KWEeS1mZswSnXh1g" type="//@interfaceTypes.5">
+        <performanceStats uid="_avYPnuKWEeS1mZswSnXh1g" minTime="748" maxTime="1095" totalTime="29601" invocationCount="30" method="//@interfaceTypes.5/@methodSpecification.4"/>
+        <performanceStats uid="_avYPn-KWEeS1mZswSnXh1g" method="//@interfaceTypes.5/@methodSpecification.2"/>
+        <performanceStats uid="_avYPoeKWEeS1mZswSnXh1g" minTime="215" maxTime="430" totalTime="938" invocationCount="3" method="//@interfaceTypes.5/@methodSpecification.3"/>
+        <performanceStats uid="_avYPouKWEeS1mZswSnXh1g" method="//@interfaceTypes.5/@methodSpecification.0"/>
+        <performanceStats uid="_avYPo-KWEeS1mZswSnXh1g" minTime="209" maxTime="717" totalTime="1303" invocationCount="3" method="//@interfaceTypes.5/@methodSpecification.1"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.itemmgmt.ItemRegistrationService_avXooOKWEeS1mZswSnXh1g" type="//@interfaceTypes.6">
+        <performanceStats uid="_avYPoOKWEeS1mZswSnXh1g" minTime="399" maxTime="1483" totalTime="2667" invocationCount="3" method="//@interfaceTypes.6/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Authentication Service_avXooeKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.2">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avXoouKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXo_-KWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avXoo-KWEeS1mZswSnXh1g" type="//@interfaceTypes.0" connectors="//@shops.2/@components.5/@requiredInterfaces.2/@connector //@shops.2/@components.1/@requiredInterfaces.2/@connector //@shops.2/@components.0/@requiredInterfaces.0/@connector //@shops.2/@components.3/@requiredInterfaces.2/@connector">
+        <performanceStats uid="_avYPleKWEeS1mZswSnXh1g" minTime="55" maxTime="168" totalTime="4042" invocationCount="48" method="//@interfaceTypes.0/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Bid and Buy Service_avXopOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.3">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avXopeKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXpBOKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avXopuKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXpA-KWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avXop-KWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXpAuKWEeS1mZswSnXh1g" target="//@shops.2/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.inventorymgmt.InventoryService_avXoqOKWEeS1mZswSnXh1g" type="//@interfaceTypes.4">
+        <connector uid="Connector_de.hpi.sam.rubis.inventorymgmt.InventoryService_avXpAOKWEeS1mZswSnXh1g" target="//@shops.2/@components.4/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXoqeKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXpAeKWEeS1mZswSnXh1g" target="//@shops.2/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.bidandbuy.BidService_avXoquKWEeS1mZswSnXh1g" type="//@interfaceTypes.1">
+        <performanceStats uid="_avYPiuKWEeS1mZswSnXh1g" minTime="14" maxTime="442" totalTime="998" invocationCount="6" method="//@interfaceTypes.1/@methodSpecification.1"/>
+        <performanceStats uid="_avYPjOKWEeS1mZswSnXh1g" minTime="465" maxTime="1194" totalTime="2351" invocationCount="3" method="//@interfaceTypes.1/@methodSpecification.0"/>
+        <performanceStats uid="_avYPjeKWEeS1mZswSnXh1g" method="//@interfaceTypes.1/@methodSpecification.2"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.bidandbuy.BuyNowService_avXoq-KWEeS1mZswSnXh1g" type="//@interfaceTypes.2">
+        <performanceStats uid="_avYPi-KWEeS1mZswSnXh1g" minTime="368" maxTime="682" totalTime="1512" invocationCount="3" method="//@interfaceTypes.2/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Inventory Service_avXorOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.4">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avXoreKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXpBeKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXoruKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXpBuKWEeS1mZswSnXh1g" target="//@shops.2/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.inventorymgmt.InventoryService_avXor-KWEeS1mZswSnXh1g" type="//@interfaceTypes.4" connectors="//@shops.2/@components.3/@requiredInterfaces.3/@connector">
+        <performanceStats uid="_avYPx-KWEeS1mZswSnXh1g" minTime="7" maxTime="40" totalTime="119" invocationCount="6" method="//@interfaceTypes.4/@methodSpecification.1"/>
+        <performanceStats uid="_avYPyOKWEeS1mZswSnXh1g" minTime="33" maxTime="44" totalTime="113" invocationCount="3" method="//@interfaceTypes.4/@methodSpecification.2"/>
+        <performanceStats uid="_avYPyeKWEeS1mZswSnXh1g" method="//@interfaceTypes.4/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Reputation Service_avXosOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.5">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avXoseKWEeS1mZswSnXh1g" type="//@interfaceTypes.9">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.BasicQueryService_avXo8-KWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.queryservice.QueryService_avXosuKWEeS1mZswSnXh1g" type="//@interfaceTypes.8">
+        <connector uid="Connector_de.hpi.sam.rubis.queryservice.QueryService_avXo9OKWEeS1mZswSnXh1g" target="//@shops.2/@components.7/@providedInterfaces.1"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.authservice.AuthenticationService_avXos-KWEeS1mZswSnXh1g" type="//@interfaceTypes.0">
+        <connector uid="Connector_de.hpi.sam.rubis.authservice.AuthenticationService_avXo9eKWEeS1mZswSnXh1g" target="//@shops.2/@components.2/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXotOKWEeS1mZswSnXh1g" type="//@interfaceTypes.7">
+        <connector uid="Connector_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXo9uKWEeS1mZswSnXh1g" target="//@shops.2/@components.6/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.reputationservice.ReputationService_avXoteKWEeS1mZswSnXh1g" type="//@interfaceTypes.10">
+        <performanceStats uid="_avYPkuKWEeS1mZswSnXh1g" minTime="479" maxTime="872" totalTime="1947" invocationCount="3" method="//@interfaceTypes.10/@methodSpecification.0"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Persistence Service_avXotuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.6">
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.persistenceservice.BusinessObjectsPersistenceService_avXot-KWEeS1mZswSnXh1g" type="//@interfaceTypes.7" connectors="//@shops.2/@components.5/@requiredInterfaces.3/@connector //@shops.2/@components.1/@requiredInterfaces.3/@connector //@shops.2/@components.0/@requiredInterfaces.3/@connector //@shops.2/@components.3/@requiredInterfaces.4/@connector //@shops.2/@components.4/@requiredInterfaces.1/@connector">
+        <performanceStats uid="_avYPluKWEeS1mZswSnXh1g" minTime="1" maxTime="476" totalTime="1065" invocationCount="6" method="//@interfaceTypes.7/@methodSpecification.1"/>
+        <performanceStats uid="_avYPl-KWEeS1mZswSnXh1g" minTime="220" maxTime="489" totalTime="1028" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.3"/>
+        <performanceStats uid="_avYPmOKWEeS1mZswSnXh1g" minTime="185" maxTime="388" totalTime="810" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.4"/>
+        <performanceStats uid="_avYPmeKWEeS1mZswSnXh1g" minTime="67" maxTime="134" totalTime="331" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.0"/>
+        <performanceStats uid="_avYPmuKWEeS1mZswSnXh1g" minTime="11" maxTime="16" totalTime="42" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.5"/>
+        <performanceStats uid="_avYPm-KWEeS1mZswSnXh1g" minTime="187" maxTime="605" totalTime="1169" invocationCount="3" method="//@interfaceTypes.7/@methodSpecification.2"/>
+        <performanceStats uid="_avYPnOKWEeS1mZswSnXh1g" method="//@interfaceTypes.7/@methodSpecification.6"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Query Service_avXouOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.7">
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoueKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXpB-KWEeS1mZswSnXh1g" target="//@shops.2/@components.8/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.queryservice.BasicQueryService_avXouuKWEeS1mZswSnXh1g" type="//@interfaceTypes.9" connectors="//@shops.2/@components.5/@requiredInterfaces.0/@connector //@shops.2/@components.1/@requiredInterfaces.0/@connector //@shops.2/@components.0/@requiredInterfaces.2/@connector //@shops.2/@components.2/@requiredInterfaces.0/@connector //@shops.2/@components.3/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPpeKWEeS1mZswSnXh1g" minTime="4" maxTime="13" totalTime="47" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.15"/>
+        <performanceStats uid="_avYPp-KWEeS1mZswSnXh1g" maxTime="414" totalTime="985" invocationCount="9" method="//@interfaceTypes.9/@methodSpecification.9"/>
+        <performanceStats uid="_avYPqeKWEeS1mZswSnXh1g" maxTime="1" totalTime="2" invocationCount="9" method="//@interfaceTypes.9/@methodSpecification.6"/>
+        <performanceStats uid="_avYPquKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.7"/>
+        <performanceStats uid="_avYPr-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.4"/>
+        <performanceStats uid="_avYPtOKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.0"/>
+        <performanceStats uid="_avYPteKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.2"/>
+        <performanceStats uid="_avYPueKWEeS1mZswSnXh1g" minTime="202" maxTime="680" totalTime="1247" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.11"/>
+        <performanceStats uid="_avYPuuKWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.1"/>
+        <performanceStats uid="_avYPu-KWEeS1mZswSnXh1g" minTime="213" maxTime="1632" totalTime="3668" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.14"/>
+        <performanceStats uid="_avYPvOKWEeS1mZswSnXh1g" minTime="206" maxTime="412" totalTime="900" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.5"/>
+        <performanceStats uid="_avYPv-KWEeS1mZswSnXh1g" method="//@interfaceTypes.9/@methodSpecification.13"/>
+        <performanceStats uid="_avYPwOKWEeS1mZswSnXh1g" minTime="660" maxTime="990" totalTime="26928" invocationCount="30" method="//@interfaceTypes.9/@methodSpecification.8"/>
+        <performanceStats uid="_avYPweKWEeS1mZswSnXh1g" minTime="2" maxTime="526" totalTime="3844" invocationCount="48" method="//@interfaceTypes.9/@methodSpecification.10"/>
+        <performanceStats uid="_avYPxOKWEeS1mZswSnXh1g" minTime="5" maxTime="486" totalTime="1074" invocationCount="6" method="//@interfaceTypes.9/@methodSpecification.3"/>
+        <performanceStats uid="_avYPxeKWEeS1mZswSnXh1g" minTime="183" maxTime="788" totalTime="1331" invocationCount="3" method="//@interfaceTypes.9/@methodSpecification.12"/>
+      </providedInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.queryservice.QueryService_avXou-KWEeS1mZswSnXh1g" type="//@interfaceTypes.8" connectors="//@shops.2/@components.5/@requiredInterfaces.1/@connector //@shops.2/@components.1/@requiredInterfaces.1/@connector //@shops.2/@components.0/@requiredInterfaces.1/@connector //@shops.2/@components.3/@requiredInterfaces.1/@connector //@shops.2/@components.4/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPpuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.2"/>
+        <performanceStats uid="_avYPqOKWEeS1mZswSnXh1g" minTime="46" maxTime="102" totalTime="218" invocationCount="3" method="//@interfaceTypes.8/@methodSpecification.15"/>
+        <performanceStats uid="_avYPq-KWEeS1mZswSnXh1g" minTime="4" maxTime="12" totalTime="70" invocationCount="9" method="//@interfaceTypes.8/@methodSpecification.16"/>
+        <performanceStats uid="_avYPrOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.14"/>
+        <performanceStats uid="_avYPreKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.6"/>
+        <performanceStats uid="_avYPruKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.1"/>
+        <performanceStats uid="_avYPsOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.4"/>
+        <performanceStats uid="_avYPseKWEeS1mZswSnXh1g" minTime="12" maxTime="432" totalTime="969" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.5"/>
+        <performanceStats uid="_avYPsuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.8"/>
+        <performanceStats uid="_avYPs-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.9"/>
+        <performanceStats uid="_avYPtuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.0"/>
+        <performanceStats uid="_avYPt-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.7"/>
+        <performanceStats uid="_avYPuOKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.10"/>
+        <performanceStats uid="_avYPveKWEeS1mZswSnXh1g" minTime="13" maxTime="41" totalTime="129" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.11"/>
+        <performanceStats uid="_avYPvuKWEeS1mZswSnXh1g" minTime="13" maxTime="22" totalTime="100" invocationCount="6" method="//@interfaceTypes.8/@methodSpecification.12"/>
+        <performanceStats uid="_avYPwuKWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.3"/>
+        <performanceStats uid="_avYPw-KWEeS1mZswSnXh1g" method="//@interfaceTypes.8/@methodSpecification.13"/>
+      </providedInterfaces>
+    </components>
+    <components uid="Component_Last Second Sales Item Filter_avXovOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.8">
+      <parameters uid="Parameter_selection-rate-threshold_avXoveKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.8/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXovuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.8/@parameterTypes.1"/>
+      <parameters uid="Parameter_last-seconds_avXov-KWEeS1mZswSnXh1g" value="300" type="//@componentTypes.8/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXowOKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avXpCOKWEeS1mZswSnXh1g" target="//@shops.2/@components.9/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoweKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.7/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPzOKWEeS1mZswSnXh1g" minTime="495" maxTime="836" totalTime="18480" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP3-KWEeS1mZswSnXh1g" name="selection-rate" value="0.22" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP4OKWEeS1mZswSnXh1g" name="local-computation-time" value="62" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Past Sales Item Filter_avXowuKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.9">
+      <parameters uid="Parameter_selection-rate-threshold_avXow-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.9/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXoxOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.9/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoxeKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPgOKWEeS1mZswSnXh1g" target="//@shops.2/@components.10/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoxuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.8/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPpOKWEeS1mZswSnXh1g" minTime="440" maxTime="814" totalTime="16599" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP0-KWEeS1mZswSnXh1g" name="selection-rate" value="0.20" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP1OKWEeS1mZswSnXh1g" name="local-computation-time" value="59" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Buy Now Item Filter_avXox-KWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.10">
+      <parameters uid="Parameter_selection-rate-threshold_avXoyOKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.10/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXoyeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.10/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoyuKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPgeKWEeS1mZswSnXh1g" target="//@shops.2/@components.11/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoy-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.9/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPneKWEeS1mZswSnXh1g" minTime="374" maxTime="759" totalTime="14817" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP0eKWEeS1mZswSnXh1g" name="selection-rate" value="0.18" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP0uKWEeS1mZswSnXh1g" name="local-computation-time" value="62" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Availability Item Filter_avXozOKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.11">
+      <parameters uid="Parameter_selection-rate-threshold_avXozeKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.11/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXozuKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.11/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXoz-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPguKWEeS1mZswSnXh1g" target="//@shops.2/@components.12/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo0OKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.10/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPiOKWEeS1mZswSnXh1g" minTime="330" maxTime="682" totalTime="12936" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYPzeKWEeS1mZswSnXh1g" name="selection-rate" value="0.17" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYPzuKWEeS1mZswSnXh1g" name="local-computation-time" value="66" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Region Item Filter_avXo0eKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.12">
+      <parameters uid="Parameter_selection-rate-threshold_avXo0uKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.12/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXo0-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.12/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo1OKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPg-KWEeS1mZswSnXh1g" target="//@shops.2/@components.13/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo1eKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.11/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPxuKWEeS1mZswSnXh1g" minTime="264" maxTime="550" totalTime="10956" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP1eKWEeS1mZswSnXh1g" name="selection-rate" value="0.15" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP1uKWEeS1mZswSnXh1g" name="local-computation-time" value="69" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Seller Reputation Item Filter_avXo1uKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.13">
+      <parameters uid="Parameter_selection-rate-threshold_avXo1-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.13/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXo2OKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.13/@parameterTypes.1"/>
+      <parameters uid="Parameter_reputation-threshold_avXo2eKWEeS1mZswSnXh1g" value="5" type="//@componentTypes.13/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo2uKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPhOKWEeS1mZswSnXh1g" target="//@shops.2/@components.14/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo2-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.12/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPieKWEeS1mZswSnXh1g" minTime="209" maxTime="484" totalTime="8877" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYPz-KWEeS1mZswSnXh1g" name="selection-rate" value="0.12" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP0OKWEeS1mZswSnXh1g" name="local-computation-time" value="71" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Comment Item Filter_avXo3OKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.14">
+      <parameters uid="Parameter_selection-rate-threshold_avXo3eKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.14/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXo3uKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.14/@parameterTypes.1"/>
+      <parameters uid="Parameter_rating-threshold_avXo3-KWEeS1mZswSnXh1g" value="5" type="//@componentTypes.14/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo4OKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPheKWEeS1mZswSnXh1g" target="//@shops.2/@components.15/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo4eKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.13/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPlOKWEeS1mZswSnXh1g" minTime="154" maxTime="429" totalTime="6732" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP3eKWEeS1mZswSnXh1g" name="selection-rate" value="0.10" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP3uKWEeS1mZswSnXh1g" name="local-computation-time" value="74" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Category Item Filter_avXo4uKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.15">
+      <parameters uid="Parameter_selection-rate-threshold_avXo4-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.15/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXo5OKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.15/@parameterTypes.1"/>
+      <parameters uid="Parameter_filtered-categories_avXo5eKWEeS1mZswSnXh1g" value="Coins,Jewelry" type="//@componentTypes.15/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo5uKWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPhuKWEeS1mZswSnXh1g" target="//@shops.2/@components.16/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo5-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.14/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPyuKWEeS1mZswSnXh1g" minTime="104" maxTime="330" totalTime="4488" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP1-KWEeS1mZswSnXh1g" name="selection-rate" value="0.08" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP2OKWEeS1mZswSnXh1g" name="local-computation-time" value="75" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Recommendation Item Filter_avXo6OKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.16">
+      <parameters uid="Parameter_selection-rate-threshold_avXo6eKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.16/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXo6uKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.16/@parameterTypes.1"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo6-KWEeS1mZswSnXh1g" type="//@interfaceTypes.3">
+        <connector uid="Connector_de.hpi.sam.rubis.filter.ItemFilter_avYPh-KWEeS1mZswSnXh1g" target="//@shops.2/@components.17/@providedInterfaces.0"/>
+      </requiredInterfaces>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo7OKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.15/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPk-KWEeS1mZswSnXh1g" minTime="49" maxTime="192" totalTime="2211" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP2-KWEeS1mZswSnXh1g" name="selection-rate" value="0.04" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP3OKWEeS1mZswSnXh1g" name="local-computation-time" value="40" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+    <components uid="Component_Future Sales Item Filter_avXo7eKWEeS1mZswSnXh1g" state="STARTED" type="//@componentTypes.17">
+      <parameters uid="Parameter_selection-rate-threshold_avXo7uKWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.17/@parameterTypes.0"/>
+      <parameters uid="Parameter_computation-time-threshold_avXo7-KWEeS1mZswSnXh1g" value="0.05" type="//@componentTypes.17/@parameterTypes.1"/>
+      <parameters uid="Parameter_days-to-run_avXo8OKWEeS1mZswSnXh1g" value="14" type="//@componentTypes.17/@parameterTypes.2"/>
+      <requiredInterfaces uid="RequiredInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo8eKWEeS1mZswSnXh1g" type="//@interfaceTypes.3"/>
+      <providedInterfaces uid="ProvidedInterface_de.hpi.sam.rubis.filter.ItemFilter_avXo8uKWEeS1mZswSnXh1g" type="//@interfaceTypes.3" connectors="//@shops.2/@components.16/@requiredInterfaces.0/@connector">
+        <performanceStats uid="_avYPy-KWEeS1mZswSnXh1g" minTime="16" maxTime="110" totalTime="990" invocationCount="30" method="//@interfaceTypes.3/@methodSpecification.0"/>
+      </providedInterfaces>
+      <monitoredProperties uid="_avYP2eKWEeS1mZswSnXh1g" name="selection-rate" value="0.03" type="java.lang.Double" unit="*100%" description="The selection rate s of this filter"/>
+      <monitoredProperties uid="_avYP2uKWEeS1mZswSnXh1g" name="local-computation-time" value="33" type="java.lang.Long" unit="ms" description="The local computation time c of this filter"/>
+    </components>
+  </shops>
+</comparch:Architecture>
