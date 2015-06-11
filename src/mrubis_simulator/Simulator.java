@@ -115,7 +115,7 @@ public class Simulator {
 		simulatorTest.analyzeAdaptationAndModel();
 		queue.initNewLoop();
 		List<String> monitoredEvents = monitorer.checkNotifications();
-		analyzer.activate(monitoredEvents);
+		List<String> analyzerEvents = analyzer.activate(monitoredEvents);
 		simulatorTest.analyzeAdaptationAndModel();
 	}
 	
