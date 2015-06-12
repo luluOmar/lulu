@@ -72,5 +72,6 @@ public class Analyzer {
 		}
 
 		return xmlAnalyzedEvents;
+
 	}
 }

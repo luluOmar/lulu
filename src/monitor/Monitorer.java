@@ -60,6 +60,7 @@ public class Monitorer {
 //			ArchitecturalElement notifierSource = (ArchitecturalElement)notification.getNotifier();
 			ComponentImpl notifyingComponent = (ComponentImpl) notification
 					.getNotifier();
+//			baseElement.appendChild(notifierSource);
 			
 			Element notifierShop = xml.createElement("shop");
 			XmlBuilder.addAttribute(xml, notifierShop, "value", notifyingComponent.getShop().getName());

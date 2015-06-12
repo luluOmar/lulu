@@ -117,7 +117,7 @@ public class Simulator {
 		List<String> monitoredEvents = monitorer.checkNotifications();
 		List<String> analyzedEvents = analyzer.activate(monitoredEvents);
 		List<String> plannedAdaption = Planer.planAdaption(analyzedEvents);
-		Executer.executeAdaption(mRubis, plannedAdaption);
+		new Executer().executeAdaption(mRubis, plannedAdaption);
 		simulatorTest.analyzeAdaptationAndModel();
 	}
 	
