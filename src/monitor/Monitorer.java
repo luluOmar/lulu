@@ -15,6 +15,7 @@ import org.w3c.dom.Element;
 import util.XmlBuilder;
 import de.mdelab.morisia.comparch.ArchitecturalElement;
 import de.mdelab.morisia.comparch.Architecture;
+import de.mdelab.morisia.comparch.impl.ComponentImpl;
 
 public class Monitorer {
 	
@@ -56,14 +57,16 @@ public class Monitorer {
 			XmlBuilder.addAttribute(xml, notifierElement, "value", notification.getNotifier());
 			baseElement.appendChild(notifierElement);
 			
-			ArchitecturalElement notifierSource = (ArchitecturalElement)notification.getNotifier();
+//			ArchitecturalElement notifierSource = (ArchitecturalElement)notification.getNotifier();
+			ComponentImpl notifyingComponent = (ComponentImpl) notification
+					.getNotifier();
 			
-//			Element notifierShop = xml.createElement("shop");
-//			XmlBuilder.addAttribute(xml, notifierShop, "value", compImpl.getShop());
-//			notifierElement.appendChild(notifierShop);
+			Element notifierShop = xml.createElement("shop");
+			XmlBuilder.addAttribute(xml, notifierShop, "value", notifyingComponent.getShop().getName());
+			notifierElement.appendChild(notifierShop);
 			
 			Element notifierUid = xml.createElement("uid");
-			XmlBuilder.addAttribute(xml, notifierUid, "value", notifierSource.getUid());
+			XmlBuilder.addAttribute(xml, notifierUid, "value", notifyingComponent.getUid());
 			notifierElement.appendChild(notifierUid);
 			
 			Element eventTypeElement = xml.createElement("eventType");

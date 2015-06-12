@@ -36,8 +36,6 @@ public class Simulator {
 	private Queue queue = new Queue();
 	private Monitorer monitorer;
 	private Analyzer analyzer = new Analyzer();
-	private Planer planer = new Planer();
-	private Executer executer = new Executer();
 	private MRubisSimulatorTest simulatorTest;
 	
 	public Simulator() throws ParserConfigurationException {
@@ -63,29 +61,31 @@ public class Simulator {
 		simulatorTest = MRubisSimulatorFactory.instance
 				.createSimulatorTest(mRubis, withSelfHealing, withSelfOptimization);
 		// analyze the model
+		System.out.println("Initial Check");
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 		
 		// =================== 1. Run of the Feedback Loop ===================
 		// inject a failure (CF-1)
+		System.out.println("Inject CF-1");
 		simulatorTest.changeComponentState();
+		// run feedback loop
 		mape();
-		
-		// TODO run your feedback loop ...
-		// analyze the model
+
+		// analyze the model after feedback loop
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 		
 //				// =================== 2. Run of the Feedback Loop ===================
 //				// inject a failure (CF-2)
-		simulatorTest.attachFailures(10);
-		mape();
+//		simulatorTest.attachFailures(10);
+//		mape();
 //				// TODO run your feedback loop ...
 //				// analyze the model
 //				System.out.println(simulatorTest.analyzeAdaptationAndModel());
-		
+//		
 //				// =================== 3. Run of the Feedback Loop ===================
-		// inject a failure (CF-3)
-		simulatorTest.removeComponent();
-		mape();
+//		 inject a failure (CF-3)
+//		simulatorTest.removeComponent();
+//		mape();
 		
 //		// =================== 4. Run of the Feedback Loop ===================
 //		// inject a performance issue (PI-1)
@@ -115,7 +115,9 @@ public class Simulator {
 		simulatorTest.analyzeAdaptationAndModel();
 		queue.initNewLoop();
 		List<String> monitoredEvents = monitorer.checkNotifications();
-		List<String> analyzerEvents = analyzer.activate(monitoredEvents);
+		List<String> analyzedEvents = analyzer.activate(monitoredEvents);
+		List<String> plannedAdaption = Planer.planAdaption(analyzedEvents);
+		Executer.executeAdaption(mRubis, plannedAdaption);
 		simulatorTest.analyzeAdaptationAndModel();
 	}
 	
