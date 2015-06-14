@@ -34,13 +34,10 @@ public class Simulator {
 	
 	private Architecture mRubis;
 	private Queue queue = new Queue();
-	private Monitorer monitorer;
-	private Analyzer analyzer = new Analyzer();
 	private MRubisSimulatorTest simulatorTest;
 	
 	public Simulator() throws ParserConfigurationException {
 		this.mRubis = loadCompArchModel();
-		monitorer = new Monitorer(queue);
 	}
 	
 	private void simulate(boolean withSelfHealing, boolean withSelfOptimization) throws ParserConfigurationException, SAXException, IOException {
@@ -114,10 +111,10 @@ public class Simulator {
 	private void mape() throws ParserConfigurationException, SAXException, IOException {
 		simulatorTest.analyzeAdaptationAndModel();
 		queue.initNewLoop();
-		List<String> monitoredEvents = monitorer.checkNotifications();
-		List<String> analyzedEvents = analyzer.activate(monitoredEvents);
+		List<String> monitoredEvents = Monitorer.monitorModel(queue);
+		List<String> analyzedEvents = Analyzer.activate(monitoredEvents);
 		List<String> plannedAdaption = Planer.planAdaption(analyzedEvents);
-		new Executer().executeAdaption(mRubis, plannedAdaption);
+		Executer.executeAdaption(mRubis, plannedAdaption);
 		simulatorTest.analyzeAdaptationAndModel();
 	}
 	

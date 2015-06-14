@@ -4,3 +4,5 @@ target/
 .project
 *.log
 *.class
+Logging.log.1
+Logging.log.2

@@ -1,6 +1,7 @@
 package monitor;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,25 +14,25 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import util.XmlBuilder;
-import de.mdelab.morisia.comparch.ArchitecturalElement;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.impl.ComponentImpl;
 
-public class Monitorer {
+public final class Monitorer {
 	
-	private Architecture model;
-	private Queue notifications;
-	private LinkedList<String> xmlMonitoringEvents = new LinkedList<String>();
+	private static Architecture model;
+	private static Queue notifications;
+	private static LinkedList<String> xmlMonitoringEvents = new LinkedList<String>();
 	private static final String BASE_NODE = "monitoringEvent";
-	private DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-	private DocumentBuilder docBuilder;
+	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	private static DocumentBuilder docBuilder;
 	
-	public Monitorer(Queue notifications) throws ParserConfigurationException {
-		this.notifications = notifications;
+	public static List<String> monitorModel(Queue notifications) throws ParserConfigurationException {
+		Monitorer.notifications = notifications;
 		docBuilder = docFactory.newDocumentBuilder();
+		return checkNotifications();
 	}
 	
-	public LinkedList<String> checkNotifications() {
+	public static LinkedList<String> checkNotifications() {
 		
 		//TODO is this right? Delete old events before a new run?
 		xmlMonitoringEvents = new LinkedList<String>();

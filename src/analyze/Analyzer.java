@@ -15,16 +15,16 @@ import org.xml.sax.SAXException;
 import util.XmlBuilder;
 import util.XmlParser;
 
-public class Analyzer {
+public final class Analyzer {
 
-	private LinkedList<Document> receivedEvents = new LinkedList<Document>();
-	private LinkedList<String> xmlAnalyzedEvents = new LinkedList<String>();
+	private static LinkedList<Document> receivedEvents = new LinkedList<Document>();
+	private static LinkedList<String> xmlAnalyzedEvents = new LinkedList<String>();
 	private static final String BASE_NODE = "analyzedEvent";
-	private DocumentBuilderFactory docFactory = DocumentBuilderFactory
+	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory
 			.newInstance();
-	private DocumentBuilder docBuilder;
+	private static DocumentBuilder docBuilder;
 
-	public List<String> activate(List<String> inputStrings)
+	public static List<String> activate(List<String> inputStrings)
 			throws ParserConfigurationException, SAXException, IOException {
 
 		docBuilder = docFactory.newDocumentBuilder();

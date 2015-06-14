@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import util.XmlBuilder;
 import util.XmlParser;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.Component;
@@ -56,10 +57,16 @@ public final class Executer {
 			for (int i = 0; i < elementNodes.getLength(); i++) {
 				// TODO get child node for actionName and actionValue
 				Node currentNode = elementNodes.item(i);
-				// if(currentNode instanceof Element) {
-				// Element docElement = (Element)currentNode;
-				// System.out.println(docElement.getElementsByTagName("actionName").item(0).getNodeValue());
-				// }
+								
+				if(currentNode instanceof Element) {
+					Element docElement = (Element)currentNode;
+					Element actionNameElement = (Element)docElement.getElementsByTagName("actionName").item(0);
+					String actionName = actionNameElement.getAttribute("value");
+					Element actionValueElement = (Element)docElement.getElementsByTagName("actionValue").item(0);
+					String actionValue = actionValueElement.getAttribute("value");
+					System.err.println("ActionName: " + actionName + "\tActionValue: " + actionValue);
+				}
+				
 			}
 			// if (XmlParser.getElementsValue(adaption, "uid", "value")))
 			// affectedComponent.setState(ComponentLifeCycle.UNDEPLOYED);

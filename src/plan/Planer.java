@@ -71,6 +71,28 @@ public final class Planer {
 				XmlBuilder.addAttribute(xml, actionValue, "value", "UNDEPLOYED");
 				actionElement.appendChild(actionValue);
 				
+				actionElement = xml.createElement("action");
+				baseElement.appendChild(actionElement);
+				
+				actionName = xml.createElement("actionName");
+				XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+				actionElement.appendChild(actionName);
+				
+				actionValue = xml.createElement("actionValue");
+				XmlBuilder.addAttribute(xml, actionValue, "value", "DEPLOYED");
+				actionElement.appendChild(actionValue);
+				
+				actionElement = xml.createElement("action");
+				baseElement.appendChild(actionElement);
+				
+				actionName = xml.createElement("actionName");
+				XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+				actionElement.appendChild(actionName);
+				
+				actionValue = xml.createElement("actionValue");
+				XmlBuilder.addAttribute(xml, actionValue, "value", "STARTED");
+				actionElement.appendChild(actionValue);
+				
 //				actionNode = xml.createElement("setState");
 //				XmlBuilder.addAttribute(xml, actionNode, "value", "DEPLOYED");
 //				actionElement.appendChild(actionNode);
