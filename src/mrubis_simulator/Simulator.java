@@ -72,9 +72,9 @@ public class Simulator {
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 		
 //				// =================== 2. Run of the Feedback Loop ===================
-//				// inject a failure (CF-2)
-//		simulatorTest.attachFailures(10);
-//		mape();
+				// inject a failure (CF-2)
+		simulatorTest.attachFailures(10);
+		mape();
 //				// TODO run your feedback loop ...
 //				// analyze the model
 //				System.out.println(simulatorTest.analyzeAdaptationAndModel());
@@ -110,12 +110,18 @@ public class Simulator {
 	
 	private void mape() throws ParserConfigurationException, SAXException, IOException {
 		simulatorTest.analyzeAdaptationAndModel();
-		queue.initNewLoop();
+//		System.err.println("Queue Level 0: " + queue.getSize(0));
+//		System.err.println("Queue Level 1: " + queue.getSize(1));
+//		System.err.println("Queue Level 2: " + queue.getSize(2));
 		List<String> monitoredEvents = Monitorer.monitorModel(queue);
 		List<String> analyzedEvents = Analyzer.activate(monitoredEvents);
 		List<String> plannedAdaption = Planer.planAdaption(analyzedEvents);
 		Executer.executeAdaption(mRubis, plannedAdaption);
 		simulatorTest.analyzeAdaptationAndModel();
+		queue.initNewLoop();
+//		System.err.println("Queue Level 0: " + queue.getSize(0));
+//		System.err.println("Queue Level 1: " + queue.getSize(1));
+//		System.err.println("Queue Level 2: " + queue.getSize(2));
 	}
 	
 	private static Architecture loadCompArchModel() {

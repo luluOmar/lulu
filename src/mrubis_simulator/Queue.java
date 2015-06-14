@@ -22,7 +22,7 @@ public class Queue {
 	}
 	
 	public void add(Notification notification) {
-		this.allNotifications.get(0).add(notification);
+		this.notificationLevelA.add(notification);
 	}
 	
 	public void remove(int historyLevel, Notification notification) {
@@ -44,5 +44,9 @@ public class Queue {
 		notificationLevelC = notificationLevelB;
 		notificationLevelB = notificationLevelA;
 		notificationLevelA = new LinkedList<Notification>();
+		allNotifications = new LinkedList<LinkedList<Notification>>();
+		allNotifications.add(notificationLevelA);
+		allNotifications.add(notificationLevelB);
+		allNotifications.add(notificationLevelC);
 	}
 }

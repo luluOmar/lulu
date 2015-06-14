@@ -13,13 +13,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import util.XmlBuilder;
 import util.XmlParser;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.Component;
 import de.mdelab.morisia.comparch.ComponentLifeCycle;
+import de.mdelab.morisia.comparch.ProvidedInterface;
 import de.mdelab.morisia.comparch.Shop;
-import de.mdelab.morisia.comparch.impl.ComponentImpl;
 
 public final class Executer {
 
@@ -27,35 +26,35 @@ public final class Executer {
 			List<String> xmlPlannedAdaption)
 			throws ParserConfigurationException, SAXException, IOException {
 
-		EList<Shop> shops = mRubis.getShops();
-
 		// Get document out of analyzed events XML
 		List<Document> plannedAdaption = new LinkedList<Document>();
 		for (String xmlString : xmlPlannedAdaption) {
 			plannedAdaption.add(XmlParser.createDocByString(xmlString));
 		}
-
+		
+		Component affectedComponent = null;
+		EList<Shop> shops = mRubis.getShops();
+		
 		for (Document adaption : plannedAdaption) {
-			// Select affected shop and component
-			Shop affectedShop = null;
-			for (Shop shop : shops) {
-				if (shop.getName().equals(
-						XmlParser.getElementsValue(adaption, "shop", "value"))) {
-					affectedShop = shop;
+			String uid = XmlParser.getElementsValue(adaption, "uid", "value");
+			for(Shop shop : shops) {
+				EList<Component> components = shop.getComponents();
+				for(Component comp : components) {
+					if(comp.getUid().equals(uid)) {
+						affectedComponent = comp;
+					}
+					EList<ProvidedInterface> interfaces = comp.getProvidedInterfaces();
+					for(ProvidedInterface provInterface : interfaces) {
+						if(provInterface.getUid().equals(uid)) {
+							affectedComponent = provInterface.getComponent();
+						}
+					}
 				}
-			}
-			EList<Component> components = affectedShop.getComponents();
-			Component affectedComponent = null;
-			for (Component component : components) {
-				if (component.getUid().equals(
-						XmlParser.getElementsValue(adaption, "uid", "value"))) {
-					affectedComponent = component;
-				}
-			}
+			}	
+
 			// Execute adaption strategy, take action!
 			NodeList elementNodes = adaption.getElementsByTagName("action");
 			for (int i = 0; i < elementNodes.getLength(); i++) {
-				// TODO get child node for actionName and actionValue
 				Node currentNode = elementNodes.item(i);
 								
 				if(currentNode instanceof Element) {
@@ -64,16 +63,40 @@ public final class Executer {
 					String actionName = actionNameElement.getAttribute("value");
 					Element actionValueElement = (Element)docElement.getElementsByTagName("actionValue").item(0);
 					String actionValue = actionValueElement.getAttribute("value");
-					System.err.println("ActionName: " + actionName + "\tActionValue: " + actionValue);
+					performAction(affectedComponent, actionName, actionValue);
 				}
 				
 			}
-			// if (XmlParser.getElementsValue(adaption, "uid", "value")))
-			// affectedComponent.setState(ComponentLifeCycle.UNDEPLOYED);
-
-			affectedComponent.setState(ComponentLifeCycle.UNDEPLOYED);
-			affectedComponent.setState(ComponentLifeCycle.DEPLOYED);
-			affectedComponent.setState(ComponentLifeCycle.STARTED);
+		}
+	}
+	
+	private static void performAction(Component affectedComponent, String name, String value) {
+		switch(name) {
+			case "setState":
+				System.out.println("Execute Adaption, set ComponentState to " + value + ".");
+				setState(affectedComponent, value);
+				break;
+			default:
+				System.err.println("No Action for \""+ name + "\" defined.");
+				break;
+		}
+	}
+	
+	private static void setState(Component affectedComponent, String value) {
+		
+		switch(value) {
+			case "UNDEPLOYED":
+				affectedComponent.setState(ComponentLifeCycle.UNDEPLOYED);
+				break;
+			case "DEPLOYED":
+				affectedComponent.setState(ComponentLifeCycle.DEPLOYED);
+				break;
+			case "STARTED":
+				affectedComponent.setState(ComponentLifeCycle.STARTED);
+				break;
+			default:
+				System.err.println("Undefined Value ("+ value + ") for action \"setState\". ");
+				break;
 		}
 	}
 }

@@ -40,76 +40,108 @@ public final class Planer {
 			String cfType = XmlParser
 					.getElementsValue(event, "cfType", "value");
 
+			Document xml = docBuilder.newDocument();
+			Element baseElement = xml.createElement(BASE_NODE);
+			xml.appendChild(baseElement);
+
+//			Element notifierShop = xml.createElement("shop");
+//			XmlBuilder.addAttribute(xml, notifierShop, "value",
+//					XmlParser.getElementsValue(event, "shop", "value"));
+//			baseElement.appendChild(notifierShop);
+
+			Element notifierUid = xml.createElement("uid");
+			XmlBuilder.addAttribute(xml, notifierUid, "value",
+					XmlParser.getElementsValue(event, "uid", "value"));
+			baseElement.appendChild(notifierUid);
+
+			
 			if (cfType.equals("CF-1")) {
 
 				System.out.println("Plan adaption for CF-1 in "
 						+ XmlParser.getElementsValue(event, "uid", "value"));
-
-				Document xml = docBuilder.newDocument();
-				Element baseElement = xml.createElement(BASE_NODE);
-				xml.appendChild(baseElement);
-
-				Element notifierShop = xml.createElement("shop");
-				XmlBuilder.addAttribute(xml, notifierShop, "value",
-						XmlParser.getElementsValue(event, "shop", "value"));
-				baseElement.appendChild(notifierShop);
-
-				Element notifierUid = xml.createElement("uid");
-				XmlBuilder.addAttribute(xml, notifierUid, "value",
-						XmlParser.getElementsValue(event, "uid", "value"));
-				baseElement.appendChild(notifierUid);
-
 				// Add action for adaption strategy
-				Element actionElement = xml.createElement("action");
-				baseElement.appendChild(actionElement);
-				
-				Element actionName = xml.createElement("actionName");
-				XmlBuilder.addAttribute(xml, actionName, "value", "setState");
-				actionElement.appendChild(actionName);
-				
-				Element actionValue = xml.createElement("actionValue");
-				XmlBuilder.addAttribute(xml, actionValue, "value", "UNDEPLOYED");
-				actionElement.appendChild(actionValue);
-				
-				actionElement = xml.createElement("action");
-				baseElement.appendChild(actionElement);
-				
-				actionName = xml.createElement("actionName");
-				XmlBuilder.addAttribute(xml, actionName, "value", "setState");
-				actionElement.appendChild(actionName);
-				
-				actionValue = xml.createElement("actionValue");
-				XmlBuilder.addAttribute(xml, actionValue, "value", "DEPLOYED");
-				actionElement.appendChild(actionValue);
-				
-				actionElement = xml.createElement("action");
-				baseElement.appendChild(actionElement);
-				
-				actionName = xml.createElement("actionName");
-				XmlBuilder.addAttribute(xml, actionName, "value", "setState");
-				actionElement.appendChild(actionName);
-				
-				actionValue = xml.createElement("actionValue");
-				XmlBuilder.addAttribute(xml, actionValue, "value", "STARTED");
-				actionElement.appendChild(actionValue);
-				
-//				actionNode = xml.createElement("setState");
-//				XmlBuilder.addAttribute(xml, actionNode, "value", "DEPLOYED");
-//				actionElement.appendChild(actionNode);
-//				
-//				actionNode = xml.createElement("setState");
-//				XmlBuilder.addAttribute(xml, actionNode, "value", "START");
-//				actionElement.appendChild(actionNode);
+				buildCF1Plan(xml, baseElement);
+			} else if(cfType.equals("CF-2")) {
+				System.out.println("Plan adaption for CF-2 in "
+						+ XmlParser.getElementsValue(event, "uid", "value"));
+				// Add action for adaption strategy
+				buildCF2Plan(xml, baseElement);
+			}
 
-				// Create String representation of XML document
-				try {
-					xmlPlannedAdaptions.add(XmlBuilder.prettyPrint(xml));
-				} catch (Exception e) {
-					System.err.println("Unable to add xml-Event to List.");
-					e.printStackTrace();
-				}
+			// Create String representation of XML document
+			try {
+				xmlPlannedAdaptions.add(XmlBuilder.prettyPrint(xml));
+			} catch (Exception e) {
+				System.err.println("Unable to add xml-Event to List.");
+				e.printStackTrace();
 			}
 		}
 		return xmlPlannedAdaptions;
 	}
+	
+	private static Document buildCF1Plan(Document xml, Element baseElement) {
+		
+		Element actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+		
+		Element actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+		actionElement.appendChild(actionName);
+		
+		Element actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", "UNDEPLOYED");
+		actionElement.appendChild(actionValue);
+		
+		actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+		
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+		actionElement.appendChild(actionName);
+		
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", "DEPLOYED");
+		actionElement.appendChild(actionValue);
+		
+		actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+		
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+		actionElement.appendChild(actionName);
+		
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", "STARTED");
+		actionElement.appendChild(actionValue);
+		
+		return xml;
+	}
+
+private static Document buildCF2Plan(Document xml, Element baseElement) {
+		
+		Element actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+		
+		Element actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+		actionElement.appendChild(actionName);
+		
+		Element actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", "DEPLOYED");
+		actionElement.appendChild(actionValue);
+		
+		actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+		
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
+		actionElement.appendChild(actionName);
+		
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", "STARTED");
+		actionElement.appendChild(actionValue);
+		
+		return xml;
+	}
+	
 }

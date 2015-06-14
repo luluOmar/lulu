@@ -27,6 +27,8 @@ public final class Analyzer {
 	public static List<String> activate(List<String> inputStrings)
 			throws ParserConfigurationException, SAXException, IOException {
 
+		
+		xmlAnalyzedEvents = new LinkedList<String>();
 		docBuilder = docFactory.newDocumentBuilder();
 
 		receivedEvents = new LinkedList<Document>();
@@ -51,10 +53,10 @@ public final class Analyzer {
 				XmlBuilder.addAttribute(xml, newValueNode, "value", "CF-1");
 				baseElement.appendChild(newValueNode);
 
-				Element notifierShop = xml.createElement("shop");
-				XmlBuilder.addAttribute(xml, notifierShop, "value",
-						XmlParser.getElementsValue(event, "shop", "value"));
-				baseElement.appendChild(notifierShop);
+//				Element notifierShop = xml.createElement("shop");
+//				XmlBuilder.addAttribute(xml, notifierShop, "value",
+//						XmlParser.getElementsValue(event, "shop", "value"));
+//				baseElement.appendChild(notifierShop);
 
 				Element notifierUid = xml.createElement("uid");
 				XmlBuilder.addAttribute(xml, notifierUid, "value",
@@ -68,10 +70,38 @@ public final class Analyzer {
 					System.err.println("Unable to add xml-Event to List.");
 					e.printStackTrace();
 				}
+			} else if(newValue.contains("failure no ")){
+				//parse failure count
+				String failureNoString = newValue.substring(newValue.indexOf("failure no ") + 11, newValue.lastIndexOf(")"));
+				int failureNo = Integer.parseInt(failureNoString);
+				if(failureNo == 6) {
+					createCF2(event);
+				}
 			}
 		}
 
 		return xmlAnalyzedEvents;
 
+	}
+	
+	private static void createCF2(Document event) {
+		Document xml = docBuilder.newDocument();
+		Element baseElement = xml.createElement(BASE_NODE);
+		xml.appendChild(baseElement);
+
+		Element newValueNode = xml.createElement("cfType");
+		XmlBuilder.addAttribute(xml, newValueNode, "value", "CF-2");
+		baseElement.appendChild(newValueNode);
+
+		Element notifierUid = xml.createElement("uid");
+		XmlBuilder.addAttribute(xml, notifierUid, "value",
+				XmlParser.getElementsValue(event, "uid", "value"));
+		baseElement.appendChild(notifierUid);
+		try {
+			xmlAnalyzedEvents.add(XmlBuilder.prettyPrint(xml));
+		} catch (Exception e) {
+			System.err.println("Unable to add xml-Event to List.");
+			e.printStackTrace();
+		}
 	}
 }
