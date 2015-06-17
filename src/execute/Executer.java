@@ -161,23 +161,29 @@ public final class Executer {
 					EList<RequiredInterface> interfaces = currentComp
 							.getRequiredInterfaces();
 					for (RequiredInterface reqInterface : interfaces) {
-						String requiredInterfaceUid = reqInterface.getUid();
-						String requiredInterface = requiredInterfaceUid
-								.split(Pattern.quote("_"))[1];
+						
+						//only rewire if needed
+						if (reqInterface.getConnector() != null && reqInterface.getConnector().getTarget() == null) {
+							String requiredInterfaceUid = reqInterface.getUid();
+							String requiredInterface = requiredInterfaceUid
+									.split(Pattern.quote("_"))[1];
 
-						// TODO only connect to started components interfaces
-						if (requiredInterface.equals(providedInterfaceString)) {
-							System.out
-									.println("Found matching Required Interface: "
-											+ requiredInterface);
-							
-							Connector connector = ComparchFactory.eINSTANCE
-									.createConnector();
-							connector.setSource(reqInterface);
-							connector.setTarget(providedInterface);
-							
-							// Remove obsolete connectors
-							reqInterface.setConnector(connector);
+							// TODO only connect to started components
+							// interfaces
+							if (requiredInterface
+									.equals(providedInterfaceString)) {
+								System.out
+										.println("Found matching Required Interface: "
+												+ requiredInterface);
+
+								Connector connector = ComparchFactory.eINSTANCE
+										.createConnector();
+								connector.setSource(reqInterface);
+								connector.setTarget(providedInterface);
+
+								// Remove obsolete connectors
+								reqInterface.setConnector(connector);
+							}
 						}
 					}
 				}
