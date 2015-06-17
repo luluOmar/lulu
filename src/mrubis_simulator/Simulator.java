@@ -26,6 +26,8 @@ import plan.Planer;
 import analyze.Analyzer;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.impl.ComparchPackageImpl;
+import de.mdelab.mrubis.simulator.MRubisSimulator;
+import de.mdelab.mrubis.simulator.MRubisSimulatorException;
 import de.mdelab.mrubis.simulator.MRubisSimulatorFactory;
 import de.mdelab.mrubis.simulator.MRubisSimulatorTest;
 import execute.Executer;
@@ -35,9 +37,26 @@ public class Simulator {
 	private Architecture mRubis;
 	private Queue queue = new Queue();
 	private MRubisSimulatorTest simulatorTest;
+	private MRubisSimulator simulator;
 	
 	public Simulator() throws ParserConfigurationException {
 		this.mRubis = loadCompArchModel();
+	}
+	
+	private void run(boolean withSelfHealing, boolean withSelfOptimization) throws ParserConfigurationException, SAXException, IOException {
+		// obtain an instance of the simulator
+		simulator = MRubisSimulatorFactory.instance
+				.createSimulator(mRubis, withSelfHealing, withSelfOptimization);
+		// run the adaptation engine while the simulation is not completed
+		while (!simulator.simulationCompleted()) {
+			try {
+				// let the simulator validate the adaptation and the model and then
+				// inject critcal failures or performance issues into the model
+				simulator.validate();
+				mape();
+			} catch (MRubisSimulatorException rse) {break;}
+		}
+		System.out.println("Simulator finished.");
 	}
 	
 	private void simulate(boolean withSelfHealing, boolean withSelfOptimization) throws ParserConfigurationException, SAXException, IOException {
@@ -63,21 +82,21 @@ public class Simulator {
 		
 		// =================== 1. Run of the Feedback Loop ===================
 		// inject a failure (CF-1)
-//		System.out.println("Inject CF-1");
-//		simulatorTest.changeComponentState();
+		System.out.println("Inject CF-1");
+		simulatorTest.changeComponentState();
 		// run feedback loop
-//		mape();
+		mape();
 
 		// analyze the model after feedback loop
-//		System.out.println(simulatorTest.analyzeAdaptationAndModel());
+		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 		
 //				// =================== 2. Run of the Feedback Loop ===================
 				// inject a failure (CF-2)
-//		simulatorTest.attachFailures(10);
-//		mape();
+		simulatorTest.attachFailures(10);
+		mape();
 				// TODO run your feedback loop ...
 				// analyze the model
-//				System.out.println(simulatorTest.analyzeAdaptationAndModel());
+				System.out.println(simulatorTest.analyzeAdaptationAndModel());
 //		
 //				// =================== 3. Run of the Feedback Loop ===================
 		 //inject a failure (CF-3)
@@ -110,12 +129,12 @@ public class Simulator {
 	}
 	
 	private void mape() throws ParserConfigurationException, SAXException, IOException {
-		simulatorTest.analyzeAdaptationAndModel();
+//		simulatorTest.analyzeAdaptationAndModel();
 		List<String> monitoredEvents = Monitorer.monitorModel(queue);
 		List<String> analyzedEvents = Analyzer.activate(monitoredEvents);
 		List<String> plannedAdaption = Planer.planAdaption(analyzedEvents);
 		Executer.executeAdaption(mRubis, plannedAdaption);
-		simulatorTest.analyzeAdaptationAndModel();
+//		simulatorTest.analyzeAdaptationAndModel();
 		queue.initNewLoop();
 	}
 	
@@ -159,7 +178,8 @@ public class Simulator {
 	public static void main(String[] args) throws ParserConfigurationException {
 		Simulator simulator = new Simulator();
 		try {
-			simulator.simulate(true, false);
+//			simulator.simulate(true, false);
+			simulator.run(true, false);
 		} catch (SAXException | IOException e) {
 			e.printStackTrace();
 		}
