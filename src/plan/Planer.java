@@ -76,6 +76,10 @@ public final class Planer {
 				break;
 			case CF4:
 				buildCF4Plan(xml, baseElement, event);
+				break;
+			case NONE:
+			default:
+				break;
 			}
 
 			// Create String representation of XML document
@@ -190,7 +194,7 @@ public final class Planer {
 
 		Element actionValue = xml.createElement("actionValue");
 		XmlBuilder.addAttribute(xml, actionValue, "value",
-				XmlParser.getElementsValue(event, "ComponentType", "value"));
+				XmlParser.getElementsValue(event, "componentType", "value"));
 		actionElement.appendChild(actionValue);
 
 		actionElement = xml.createElement("action");
@@ -217,7 +221,47 @@ public final class Planer {
 
 	private static Document buildCF4Plan(Document xml, Element baseElem,
 			Document event) {
+		Element actionElement = xml.createElement("action");
+		baseElem.appendChild(actionElement);
+
+		Element actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value",
+				"lookup alternative components");
+		actionElement.appendChild(actionName);
+		Element actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value",
+				XmlParser.getElementsValue(event, "componentType", "value"));
+		actionElement.appendChild(actionValue);
+
+		actionName = xml.createElement("actionN" + "ame");
+		XmlBuilder.addAttribute(xml, actionName, "value",
+				"instantiate and deploy");
+		actionElement.appendChild(actionName);
+
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value",
+				XmlParser.getElementsValue(event, "componentType", "value"));
+		actionElement.appendChild(actionValue);
+
+		actionElement = xml.createElement("action");
+		baseElem.appendChild(actionElement);
+
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "addToShop");
+		actionElement.appendChild(actionName);
+
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value",
+				XmlParser.getElementsValue(event, "shop", "value"));
+		actionElement.appendChild(actionValue);
+
+		// TODO add more actions
+		try {
+			System.out.println(XmlBuilder.prettyPrint(xml));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return xml;
 	}
-
 }

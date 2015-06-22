@@ -161,9 +161,10 @@ public final class Executer {
 					EList<RequiredInterface> interfaces = currentComp
 							.getRequiredInterfaces();
 					for (RequiredInterface reqInterface : interfaces) {
-						
-						//only rewire if needed
-						if (reqInterface.getConnector() != null && reqInterface.getConnector().getTarget() == null) {
+
+						// only rewire if needed
+						if (reqInterface.getConnector() != null
+								&& reqInterface.getConnector().getTarget() == null) {
 							String requiredInterfaceUid = reqInterface.getUid();
 							String requiredInterface = requiredInterfaceUid
 									.split(Pattern.quote("_"))[1];
@@ -201,6 +202,37 @@ public final class Executer {
 	private static Component performFirstAction(String name, String value) {
 		Component comp = null;
 		switch (name) {
+
+		case "lookup alternative components":
+			ComponentType neededCt = null;
+			ComponentType alternateCt = null;
+			for (ComponentType ct : mRubis.getComponentTypes()) {
+				if (ct.getUid().equals(value)) {
+					neededCt = ct;
+					break;
+				}
+			}
+			EList<InterfaceType> iTypes = neededCt.getRequiredInterfaceTypes();
+			iTypes.addAll(neededCt.getProvidedInterfaceTypes());
+
+			for (ComponentType ct : mRubis.getComponentTypes()) {
+				if (ct.getUid() != value) {
+					EList<InterfaceType> iTypes2 = ct
+							.getProvidedInterfaceTypes();
+					iTypes2.addAll(ct.getRequiredInterfaceTypes());
+					if (iTypes.containsAll(iTypes2)) {
+						alternateCt = ct;
+					}
+				}
+			}
+			
+			//TODO if no alternative is found jump to redeployment (AS-3) of the old component (including stopping, removal, etc. of old component)
+		  
+			//create the alternative component instead of the old one
+			comp = alternateCt.instantiate();
+			
+			break;
+
 		case "instantiate and deploy":
 
 			// Find Component Type and create new instance

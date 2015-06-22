@@ -30,7 +30,9 @@ public class XmlParser {
 		NodeList elementNodes = xml.getElementsByTagName(element);
 		if (elementNodes != null) {
 			Element node = (Element) elementNodes.item(0);
-			uid = node.getAttribute(attributeName);
+			if (node != null && node.hasAttribute(attributeName)) {
+				uid = node.getAttribute(attributeName);
+			}
 		}
 		return uid;
 	}

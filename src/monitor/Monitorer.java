@@ -3,7 +3,6 @@ package monitor;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,6 +17,7 @@ import util.XmlBuilder;
 import de.mdelab.morisia.comparch.ArchitecturalElement;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.Component;
+import de.mdelab.morisia.comparch.ComponentType;
 import de.mdelab.morisia.comparch.Failure;
 import de.mdelab.morisia.comparch.ProvidedInterface;
 import de.mdelab.morisia.comparch.Shop;
@@ -75,13 +75,33 @@ public final class Monitorer {
 
 			Class<?> notifierCls = notifierSource.getClass();
 
-			if (ProvidedInterface.class.isAssignableFrom(notifierCls)) {
+			if (Component.class.isAssignableFrom(notifierCls)) {
+				c = (Component) notifierSource;
+			} else if (ProvidedInterface.class.isAssignableFrom(notifierCls)) {
 				ProvidedInterface pi = (ProvidedInterface) notifierSource;
 				c = pi.getComponent();
 			} else if (Failure.class.isAssignableFrom(notifierCls)) {
 				Failure fa = (Failure) notifierSource;
 				if (fa.getInterface() != null) {
 					c = fa.getInterface().getComponent();
+				}
+			}
+
+			if (c != null) {
+				Element component = xml.createElement("component");
+				XmlBuilder.addAttribute(xml, component, "value", c.getUid());
+				ComponentType ct = c.getType();
+				if (ct != null) {
+					XmlBuilder
+							.addAttribute(xml, component, "type", ct.getUid());
+					notifierElement.appendChild(component);
+				}
+
+				Shop s = c.getShop();
+				if (s != null) {
+					Element shop = xml.createElement("shop");
+					XmlBuilder.addAttribute(xml, shop, "value", s.getUid());
+					notifierElement.appendChild(shop);
 				}
 			}
 
@@ -115,7 +135,7 @@ public final class Monitorer {
 				xmlMonitoringEvents.add(XmlBuilder.prettyPrint(xml));
 				if (newValue != null
 						&& (newValue.equals("NOT_SUPPORTED") || newValue
-								.contains("failure")))
+								.contains("FailureImpl")))
 					System.out.println(XmlBuilder.prettyPrint(xml));
 			} catch (Exception e) {
 				System.err.println("Unable to add xml-Event to List.");
