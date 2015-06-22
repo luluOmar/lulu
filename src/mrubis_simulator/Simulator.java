@@ -25,6 +25,8 @@ import org.xml.sax.SAXException;
 import plan.Planer;
 import analyze.Analyzer;
 import de.mdelab.morisia.comparch.Architecture;
+import de.mdelab.morisia.comparch.ComponentType;
+import de.mdelab.morisia.comparch.InterfaceType;
 import de.mdelab.morisia.comparch.impl.ComparchPackageImpl;
 import de.mdelab.mrubis.simulator.MRubisSimulator;
 import de.mdelab.mrubis.simulator.MRubisSimulatorException;
@@ -33,53 +35,68 @@ import de.mdelab.mrubis.simulator.MRubisSimulatorTest;
 import execute.Executer;
 
 public class Simulator {
-	
+
 	private Architecture mRubis;
 	private Queue queue = new Queue();
 	private MRubisSimulatorTest simulatorTest;
 	private MRubisSimulator simulator;
-	
+
 	public Simulator() throws ParserConfigurationException {
 		this.mRubis = loadCompArchModel();
 	}
-	
-	private void run(boolean withSelfHealing, boolean withSelfOptimization) throws ParserConfigurationException, SAXException, IOException {
+
+	private void run(boolean withSelfHealing, boolean withSelfOptimization)
+			throws ParserConfigurationException, SAXException, IOException,
+			Exception {
+
 		// obtain an instance of the simulator
-		simulator = MRubisSimulatorFactory.instance
-				.createSimulator(mRubis, withSelfHealing, withSelfOptimization);
+		simulator = MRubisSimulatorFactory.instance.createSimulator(mRubis,
+				withSelfHealing, withSelfOptimization);
+		EContentAdapter adapter = new EContentAdapter() {
+			public void notifyChanged(Notification notification) {
+				super.notifyChanged(notification);
+				queue.add(notification);
+			}
+		};
+		mRubis.eAdapters().add(adapter);
 		// run the adaptation engine while the simulation is not completed
 		while (!simulator.simulationCompleted()) {
 			try {
-				// let the simulator validate the adaptation and the model and then
+				// let the simulator validate the adaptation and the model and
+				// then
 				// inject critcal failures or performance issues into the model
 				simulator.validate();
 				mape();
-			} catch (MRubisSimulatorException rse) {break;}
+			} catch (MRubisSimulatorException rse) {
+				break;
+			}
 		}
 		System.out.println("Simulator finished.");
 	}
-	
-	private void simulate(boolean withSelfHealing, boolean withSelfOptimization) throws ParserConfigurationException, SAXException, IOException {
+
+	private void simulate(boolean withSelfHealing, boolean withSelfOptimization)
+			throws ParserConfigurationException, SAXException, IOException,
+			Exception {
 
 		configureLogging();
-		
-		//load the CompArch model
+
+		// load the CompArch model
 		mRubis = loadCompArchModel();
 		EContentAdapter adapter = new EContentAdapter() {
-			 public void notifyChanged(Notification notification) {
-			        super.notifyChanged(notification);
-			        queue.add(notification);
-			 }
+			public void notifyChanged(Notification notification) {
+				super.notifyChanged(notification);
+				queue.add(notification);
+			}
 		};
 		mRubis.eAdapters().add(adapter);
-		
+
 		// obtain an instance of the simulator
-		simulatorTest = MRubisSimulatorFactory.instance
-				.createSimulatorTest(mRubis, withSelfHealing, withSelfOptimization);
+		simulatorTest = MRubisSimulatorFactory.instance.createSimulatorTest(
+				mRubis, withSelfHealing, withSelfOptimization);
 		// analyze the model
-//		System.out.println("Initial Check");
-//		System.out.println(simulatorTest.analyzeAdaptationAndModel());
-		
+		// System.out.println("Initial Check");
+		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
+
 		// =================== 1. Run of the Feedback Loop ===================
 		// inject a failure (CF-1)
 		System.out.println("Inject CF-1");
@@ -89,55 +106,61 @@ public class Simulator {
 
 		// analyze the model after feedback loop
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
-		
-//				// =================== 2. Run of the Feedback Loop ===================
-				// inject a failure (CF-2)
+
+		// // =================== 2. Run of the Feedback Loop
+		// ===================
+		// inject a failure (CF-2)
 		simulatorTest.attachFailures(10);
 		mape();
-				// TODO run your feedback loop ...
-				// analyze the model
-				System.out.println(simulatorTest.analyzeAdaptationAndModel());
-//		
-//				// =================== 3. Run of the Feedback Loop ===================
-		 //inject a failure (CF-3)
+		// TODO run your feedback loop ...
+		// analyze the model
+		System.out.println(simulatorTest.analyzeAdaptationAndModel());
+		//
+		// // =================== 3. Run of the Feedback Loop
+		// ===================
+		// inject a failure (CF-3)
 		System.out.println("Inject CF-3");
 		simulatorTest.removeComponent();
 		mape();
-		
-//		// =================== 4. Run of the Feedback Loop ===================
-//		// inject a performance issue (PI-1)
-//		simulatorTest.changeFilterCharacteristics();
-//		// TODO run your feedback loop ...
-//		// analyze the model
-//		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
-//		// =================== 5. Run of the Feedback Loop ===================
-//				
-//		// inject a performance issue (PI-2)
-//		simulatorTest.changeResponseTime(1200);
-//		// TODO run your feedback loop ...
-//		// analyze the model
-//		System.out.println(simulatorTest.analyzeAdaptationAndModel());
+		// // =================== 4. Run of the Feedback Loop
+		// ===================
+		// // inject a performance issue (PI-1)
+		// simulatorTest.changeFilterCharacteristics();
+		// // TODO run your feedback loop ...
+		// // analyze the model
+		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
-//		// =================== 6. Run of the Feedback Loop ===================
-//		// inject a performance issue (PI-3)
-//		simulatorTest.changeResponseTime(800);
+		// // =================== 5. Run of the Feedback Loop
+		// ===================
+		//
+		// // inject a performance issue (PI-2)
+		// simulatorTest.changeResponseTime(1200);
+		// // TODO run your feedback loop ...
+		// // analyze the model
+		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
+
+		// // =================== 6. Run of the Feedback Loop
+		// ===================
+		// // inject a performance issue (PI-3)
+		// simulatorTest.changeResponseTime(800);
 		// TODO run your feedback loop ...
 		// analyze the model
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
 	}
-	
-	private void mape() throws ParserConfigurationException, SAXException, IOException {
-//		simulatorTest.analyzeAdaptationAndModel();
-		List<String> monitoredEvents = Monitorer.monitorModel(queue);
-		List<String> analyzedEvents = Analyzer.activate(monitoredEvents);
+
+	private void mape() throws ParserConfigurationException, SAXException,
+			IOException, Exception {
+		// simulatorTest.analyzeAdaptationAndModel();
+		List<String> monitoredEvents = Monitorer.monitorModel(queue, mRubis);
+		List<String> analyzedEvents = Analyzer.activate(monitoredEvents, queue);
 		List<String> plannedAdaption = Planer.planAdaption(analyzedEvents);
 		Executer.executeAdaption(mRubis, plannedAdaption);
-//		simulatorTest.analyzeAdaptationAndModel();
+		// simulatorTest.analyzeAdaptationAndModel();
 		queue.initNewLoop();
 	}
-	
+
 	private static Architecture loadCompArchModel() {
 		// Initialize the metamodel
 		ComparchPackageImpl.init();
@@ -147,10 +170,11 @@ public class Simulator {
 		// create a resource set
 		ResourceSet resourceSet = new ResourceSetImpl();
 		// Load the resource
-		Resource resource = resourceSet.getResource(URI.createURI("mRUBiS.comparch"), true);
+		Resource resource = resourceSet.getResource(
+				URI.createURI("mRUBiS.comparch"), true);
 		return (Architecture) resource.getContents().get(0);
 	}
-	
+
 	private static void configureLogging() {
 		// get the root logger
 		Logger root = Logger.getLogger("");
@@ -171,18 +195,20 @@ public class Simulator {
 			};
 			fileTxt.setFormatter(formatterTxt);
 			root.addHandler(fileTxt);
-		} catch (SecurityException e) { }
-		catch (IOException e) { }
+		} catch (SecurityException e) {
+		} catch (IOException e) {
+		}
 	}
 
-	public static void main(String[] args) throws ParserConfigurationException {
+	public static void main(String[] args) throws ParserConfigurationException,
+			Exception {
 		Simulator simulator = new Simulator();
 		try {
-//			simulator.simulate(true, false);
+			// simulator.simulate(true, false);
 			simulator.run(true, false);
 		} catch (SAXException | IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

@@ -15,20 +15,24 @@ import org.xml.sax.SAXException;
 
 public class XmlParser {
 
-	public static Document createDocByString(String xmlString) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-	    InputSource is = new InputSource();
-	    is.setCharacterStream(new StringReader(xmlString));
-	    return db.parse(is);
+	public static Document createDocByString(String xmlString)
+			throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilder db = DocumentBuilderFactory.newInstance()
+				.newDocumentBuilder();
+		InputSource is = new InputSource();
+		is.setCharacterStream(new StringReader(xmlString));
+		return db.parse(is);
 	}
-	
-	public static String getElementsValue(Document xml, String element, String attributeName) {
+
+	public static String getElementsValue(Document xml, String element,
+			String attributeName) {
 		String uid = null;
 		NodeList elementNodes = xml.getElementsByTagName(element);
-		if(elementNodes != null) {
-			Element node = (Element)elementNodes.item(0);
+		if (elementNodes != null) {
+			Element node = (Element) elementNodes.item(0);
 			uid = node.getAttribute(attributeName);
 		}
 		return uid;
 	}
+
 }
