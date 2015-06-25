@@ -71,23 +71,27 @@ public final class Monitorer {
 			ArchitecturalElement notifierSource = (ArchitecturalElement) notification
 					.getNotifier();
 
+			
 			Component c = null;
 
 			Class<?> notifierCls = notifierSource.getClass();
-
+			//pruefen, ob notifierSouce eine componente ist  
 			if (Component.class.isAssignableFrom(notifierCls)) {
 				c = (Component) notifierSource;
+			//aus provided interface die komponente holen
 			} else if (ProvidedInterface.class.isAssignableFrom(notifierCls)) {
 				ProvidedInterface pi = (ProvidedInterface) notifierSource;
 				c = pi.getComponent();
+			//vom failure das interface holen, vom interfache componente holen
 			} else if (Failure.class.isAssignableFrom(notifierCls)) {
 				Failure fa = (Failure) notifierSource;
 				if (fa.getInterface() != null) {
 					c = fa.getInterface().getComponent();
 				}
 			}
-
+			//add additional information is possible
 			if (c != null) {
+				//type?
 				Element component = xml.createElement("component");
 				XmlBuilder.addAttribute(xml, component, "value", c.getUid());
 				ComponentType ct = c.getType();
@@ -96,7 +100,7 @@ public final class Monitorer {
 							.addAttribute(xml, component, "type", ct.getUid());
 					notifierElement.appendChild(component);
 				}
-
+				//shop?
 				Shop s = c.getShop();
 				if (s != null) {
 					Element shop = xml.createElement("shop");

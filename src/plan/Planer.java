@@ -218,7 +218,7 @@ public final class Planer {
 		}
 		return xml;
 	}
-
+	// TODO: Plan + executer
 	private static Document buildCF4Plan(Document xml, Element baseElem,
 			Document event) {
 		Element actionElement = xml.createElement("action");

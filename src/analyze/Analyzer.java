@@ -19,7 +19,7 @@ import util.XmlBuilder;
 import util.XmlParser;
 
 public final class Analyzer {
-
+	//failure types
 	public enum CFType {
 		NONE("No Failure"), CF1("CF-1"), CF2("CF-2"), CF3("CF-3"), CF4("CF-4");
 
@@ -41,14 +41,14 @@ public final class Analyzer {
 			throw new IllegalArgumentException("Unknown failure type name!");
 		}
 	}
-
+	
 	private static final class CriticalFailure {
 
 		public static final CriticalFailure NONE = new CriticalFailure(
 				CFType.NONE, null);
 
 		private final CFType type;
-
+		//for planer
 		private final String failureEvent;
 
 		public CriticalFailure(CFType type, String failureEvent) {
@@ -63,7 +63,7 @@ public final class Analyzer {
 		public String getFailureEvent() {
 			return failureEvent;
 		}
-
+		//schon als fehler klassifizier?
 		public boolean isClassifiedAsCf() {
 			return !CFType.NONE.equals(type);
 		}
@@ -76,7 +76,7 @@ public final class Analyzer {
 	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory
 			.newInstance();
 	private static DocumentBuilder docBuilder;
-
+	//key is uid, value is bitmask of last three loops (001,011,010,100,111,etc.)
 	private static Map<String, String> failureCount = new HashMap<String, String>();
 
 	public static List<String> activate(List<String> inputStrings,
@@ -94,8 +94,7 @@ public final class Analyzer {
 		Map<String, Integer> piFailures = new HashMap<String, Integer>();
 
 		for (Document event : receivedEvents) {
-			CriticalFailure criticalFailure = CriticalFailure.NONE;
-			criticalFailure = classifyEvent(event, piFailures);
+			CriticalFailure criticalFailure = classifyEvent(event, piFailures);
 			if (criticalFailure != CriticalFailure.NONE) {
 				xmlAnalyzedEvents.add(criticalFailure.getFailureEvent());
 			}
@@ -250,6 +249,7 @@ public final class Analyzer {
 
 		if (cfType.equals(CFType.CF1) || cfType.equals(CFType.CF2)) {
 			if (cfType.equals(CFType.CF2))
+				//component uid needed in case of CF2
 				uid = XmlParser.getElementsValue(event, "component", "value");
 			System.out.println("Check for cf4:" + event + " with uid:" + uid);
 			String runMatches = "001";
@@ -257,10 +257,12 @@ public final class Analyzer {
 				runMatches = failureCount.get(uid).substring(0, 2).concat("1");
 				System.err.println("Run matches: " + runMatches);
 				if (runMatches.equals("111")) {
+					//remove from map
 					failureCount.remove(uid);
-					cf = createCF(CFType.CF4, uid, componentTypeUid, shopUid);
+					return createCF(CFType.CF4, uid, componentTypeUid, shopUid);
 				}
 			}
+			//set new failure string
 			failureCount.put(uid, runMatches);
 		}
 		return cf;
