@@ -14,6 +14,7 @@ import mrubis_simulator.Queue;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import util.XmlBuilder;
 import util.XmlParser;
@@ -39,6 +40,78 @@ public final class Analyzer {
 					return type;
 			}
 			throw new IllegalArgumentException("Unknown failure type name!");
+		}
+	}
+	
+	public enum PIType {
+		NONE("No Pi"), PI1("PI-1"), PI2("PI-2"), PI3("PI-3");
+		
+		private String name;
+		
+		private PIType(String name) {
+			this.name = name;
+		}
+		
+		public String toString() {
+			return name;
+		}
+
+		public static PIType byName(String value) {
+			for (PIType type : PIType.values()) {
+				if (type.name.equalsIgnoreCase(value))
+					return type;
+			}
+			throw new IllegalArgumentException("Unknown performance issue type name!");
+		}
+	}
+	
+	private static final class ItemFilter {
+		
+		public float getRate() {
+			return rate;
+		}
+
+		public float getTime() {
+			return time;
+		}
+
+		private String uid;
+		private float slope;
+		private float rate;
+		private float time;
+		
+		public ItemFilter(String uid, float slope, float rate, float time) {
+			this.uid = uid;
+			this.slope = slope;
+			this.rate = rate;
+			this.time = time;
+		}
+		
+		public String getUid() {
+			return uid;
+		}
+		
+		public float getSlope() {
+			return slope;
+		}
+	}
+	
+	private static final class PerformanceIssue {
+		
+		public static final PerformanceIssue NONE = new PerformanceIssue(
+				PIType.NONE, null);
+		
+		private final PIType type;
+		
+		private final String piEvent;
+		
+		public PerformanceIssue(PIType type , String piEvent) {
+			this.type = type;
+			this.piEvent = piEvent;
+		}
+		//schon als fehler klassifiziert?
+		public boolean isClassifiedAsPi() {
+			return !PIType.NONE.equals(type);
 		}
 	}
 	
@@ -91,6 +164,7 @@ public final class Analyzer {
 		}
 
 		shiftHistory();
+		//TODO delete piFailures which are also CF failures
 		Map<String, Integer> piFailures = new HashMap<String, Integer>();
 
 		for (Document event : receivedEvents) {
@@ -98,6 +172,11 @@ public final class Analyzer {
 			if (criticalFailure != CriticalFailure.NONE) {
 				xmlAnalyzedEvents.add(criticalFailure.getFailureEvent());
 			}
+		}
+		
+		//TODO delete already classified events
+		for (Document event : receivedEvents) {
+			PerformanceIssue pi = classifyPerformanceEvent(event);
 		}
 
 		return xmlAnalyzedEvents;
@@ -119,6 +198,24 @@ public final class Analyzer {
 		cf = checkForCf3(cf, event, componentTypeUid, shopUid);
 		cf = checkForCf4(cf, event, uid, componentTypeUid, shopUid);
 		return cf;
+	}
+	
+	private static PerformanceIssue classifyPerformanceEvent(Document event) throws Exception {
+		String uid = XmlParser.getElementsValue(event, "uid", "value");
+		String shopUid = XmlParser.getElementsValue(event, "shop", "value");
+		PerformanceIssue pI = PerformanceIssue.NONE;
+		NodeList itemFilterList = event.getElementsByTagName("itemFilter");
+		LinkedList<ItemFilter> itemFilter = new LinkedList<Analyzer.ItemFilter>();
+		for(int i = 0; i < itemFilterList.getLength(); i++) {
+			Element iF = (Element)itemFilterList.item(i);
+			String id = iF.getAttribute("uid");
+			float slope = Float.valueOf(iF.getAttribute("slope"));
+			float rate = Float.valueOf(iF.getAttribute("rate"));
+			float time = Float.valueOf(iF.getAttribute("time"));
+			itemFilter.add(new ItemFilter(id, slope, rate, time));
+		}
+		pI = checkForPi1(pI, itemFilter, uid, shopUid);
+		return pI;
 	}
 
 	private static void shiftHistory() {
@@ -170,6 +267,12 @@ public final class Analyzer {
 		return new CriticalFailureBuilder().setCfType(cfType)
 				.setComponentUid(uid).setComponentTypeUid(componentTypeUid)
 				.setShopUid(shopUid).build();
+	}
+	
+	private static PerformanceIssue createPI(PIType piType, String uid, 
+			String shopUid, LinkedList<ItemFilter> itemFilter) throws Exception {
+		return new PerformanceIssueBuilder().setPiType(piType).setComponentUid(uid)
+				.setShopUid(shopUid).setItemFilter(itemFilter).build();
 	}
 
 	private static CriticalFailure checkForCf1(Document event, String uid,
@@ -267,6 +370,21 @@ public final class Analyzer {
 		}
 		return cf;
 	}
+	
+	private static PerformanceIssue checkForPi1(PerformanceIssue pi, 
+			LinkedList<ItemFilter> itemFilter, String uid, String shopUid) throws Exception {
+		if (pi.isClassifiedAsPi()) {
+			return pi;
+		}
+		for(int i = 1; i < itemFilter.size(); i++) {
+			float slope1 = itemFilter.get(i - 1).getSlope();
+			float slope2 = itemFilter.get(i).getSlope();
+			if(slope1 < slope2) {
+				return createPI(PIType.PI1, uid, shopUid, itemFilter);
+			}
+		}
+		return pi;
+	}
 
 	private static class CriticalFailureBuilder {
 
@@ -331,6 +449,84 @@ public final class Analyzer {
 			Element newValueNode = xml.createElement("cfType");
 			XmlBuilder.addAttribute(xml, newValueNode, "value",
 					cfType.toString());
+			return newValueNode;
+		}
+
+		private Element addUid(Document xml) {
+			Element notifierUid = xml.createElement("uid");
+			XmlBuilder.addAttribute(xml, notifierUid, "value", componentUid);
+			return notifierUid;
+		}
+	}
+	
+	private static class PerformanceIssueBuilder {
+
+		private PIType piType;
+		private LinkedList<ItemFilter> itemFilter;
+		private String componentUid;
+		private String shopUid;
+
+		private PerformanceIssueBuilder setPiType(PIType piType) {
+			this.piType = piType;
+			return this;
+		}
+
+		public PerformanceIssueBuilder setComponentUid(String uid) {
+			this.componentUid = uid;
+			return this;
+		}
+
+		public PerformanceIssueBuilder setShopUid(String shopUid) {
+			this.shopUid = shopUid;
+			return this;
+		}
+		
+		public PerformanceIssueBuilder setItemFilter(LinkedList<ItemFilter> itemFilter) {
+			this.itemFilter = itemFilter;
+			return this;
+		}
+
+		private PerformanceIssue build() throws Exception {
+			Document xml = docBuilder.newDocument();
+			Element baseElement = xml.createElement(BASE_NODE);
+			xml.appendChild(baseElement);
+			baseElement.appendChild(addUid(xml));
+			if (piType != null) {
+				baseElement.appendChild(addPiType(xml));
+			}
+			if (shopUid != null) {
+				baseElement.appendChild(addShopUid(xml));
+			}
+			if (itemFilter != null) {
+				for(ItemFilter iF : itemFilter) {
+					baseElement.appendChild(addItemFilter(xml, iF));
+				}
+			}
+			PerformanceIssue pi = new PerformanceIssue(piType,
+					XmlBuilder.prettyPrint(xml));
+			System.out.println(XmlBuilder.prettyPrint(xml));
+			return pi;
+		}
+
+		private Node addShopUid(Document xml) {
+			Element shop = xml.createElement("shop");
+			XmlBuilder.addAttribute(xml, shop, "value", shopUid);
+			return shop;
+		}
+		
+		private Node addItemFilter(Document xml, ItemFilter iF) {
+			Element itemFilter = xml.createElement("itemFilter");
+			XmlBuilder.addAttribute(xml, itemFilter, "uid", iF.getUid());
+			XmlBuilder.addAttribute(xml, itemFilter, "slope", iF.getSlope());
+			XmlBuilder.addAttribute(xml, itemFilter, "time", iF.getTime());
+			XmlBuilder.addAttribute(xml, itemFilter, "rate", iF.getRate());
+			return itemFilter;
+		}
+
+		private Element addPiType(Document xml) {
+			Element newValueNode = xml.createElement("piType");
+			XmlBuilder.addAttribute(xml, newValueNode, "value",
+					piType.toString());
 			return newValueNode;
 		}
 

@@ -86,6 +86,7 @@ public class Simulator {
 			public void notifyChanged(Notification notification) {
 				super.notifyChanged(notification);
 				queue.add(notification);
+//				System.out.println(notification);
 			}
 		};
 		mRubis.eAdapters().add(adapter);
@@ -126,10 +127,11 @@ public class Simulator {
 		// // =================== 4. Run of the Feedback Loop
 		// ===================
 		// // inject a performance issue (PI-1)
-		// simulatorTest.changeFilterCharacteristics();
+		 simulatorTest.changeFilterCharacteristics();
+		 mape();
 		// // TODO run your feedback loop ...
 		// // analyze the model
-		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
+		 System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
 		// // =================== 5. Run of the Feedback Loop
 		// ===================
@@ -204,8 +206,8 @@ public class Simulator {
 			Exception {
 		Simulator simulator = new Simulator();
 		try {
-			// simulator.simulate(true, false);
-			simulator.run(true, false);
+			simulator.simulate(false, true);
+//			simulator.run(true, false);
 		} catch (SAXException | IOException e) {
 			e.printStackTrace();
 		}
