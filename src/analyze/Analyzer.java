@@ -1,5 +1,6 @@
 package analyze;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import mrubis_simulator.Queue;
 
+import org.eclipse.emf.ecore.resource.impl.ArchiveURIHandlerImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -65,6 +67,30 @@ public final class Analyzer {
 		}
 	}
 	
+	private static final class ItemManagementService {
+		public float getAvgRespTime() {
+			return avgRespTime;
+		}
+
+		public float getTotalTime() {
+			return totalTime;
+		}
+		
+		public float getInvocationCount() {
+			return invocationCount;
+		}
+		
+		private float totalTime;
+		private float invocationCount;
+		private float avgRespTime;
+		
+		public ItemManagementService(float totalTime, float invocationCount) {
+			this.totalTime = totalTime;
+			this.invocationCount = invocationCount;
+			this.avgRespTime = totalTime/invocationCount;
+		}
+	}
+	
 	private static final class ItemFilter {
 		
 		public float getRate() {
@@ -79,12 +105,18 @@ public final class Analyzer {
 		private float slope;
 		private float rate;
 		private float time;
+		private boolean skipped;
 		
-		public ItemFilter(String uid, float slope, float rate, float time) {
+		public ItemFilter(String uid, float slope, float rate, float time, String status) {
 			this.uid = uid;
 			this.slope = slope;
 			this.rate = rate;
 			this.time = time;
+			if(status.equals("STARTED")) {
+				this.skipped = false;
+			} else {
+				this.skipped = true;
+			}
 		}
 		
 		public String getUid() {
@@ -204,17 +236,35 @@ public final class Analyzer {
 		String uid = XmlParser.getElementsValue(event, "uid", "value");
 		String shopUid = XmlParser.getElementsValue(event, "shop", "value");
 		PerformanceIssue pI = PerformanceIssue.NONE;
+		ItemManagementService ims = null;
+		//Read Item management service
+		NodeList imsList = event.getElementsByTagName("ItemManagementService");
+		for(int i = 0; i < imsList.getLength(); i++) {
+			float totalTime = Float.valueOf(((Element)imsList.item(i)).getAttribute("totalTime"));
+			float invocationCount = Float.valueOf(((Element)imsList.item(i)).getAttribute("invocationCount"));
+			ims = new ItemManagementService(totalTime, invocationCount);
+		}
+		
+		//Read item filter
 		NodeList itemFilterList = event.getElementsByTagName("itemFilter");
-		LinkedList<ItemFilter> itemFilter = new LinkedList<Analyzer.ItemFilter>();
+		LinkedList<ItemFilter> pipeFilter = new LinkedList<Analyzer.ItemFilter>();
+		ArrayList<ItemFilter> skippedFilter = new ArrayList<ItemFilter>();
 		for(int i = 0; i < itemFilterList.getLength(); i++) {
 			Element iF = (Element)itemFilterList.item(i);
 			String id = iF.getAttribute("uid");
+			String status = iF.getAttribute("status");
 			float slope = Float.valueOf(iF.getAttribute("slope"));
 			float rate = Float.valueOf(iF.getAttribute("rate"));
 			float time = Float.valueOf(iF.getAttribute("time"));
-			itemFilter.add(new ItemFilter(id, slope, rate, time));
+			if(status.equals("STARTED")) {
+				pipeFilter.add(new ItemFilter(id, slope, rate, time, status));				
+			} else {
+				skippedFilter.add(new ItemFilter(id, slope, rate, time, status));
+			}
 		}
-		pI = checkForPi1(pI, itemFilter, uid, shopUid);
+		pI = checkForPi1(pI, pipeFilter, uid, shopUid);
+		pI = checkForPi2(pI, uid, ims, pipeFilter, shopUid);
+		pI = checkForPi3(pI, uid, ims, pipeFilter, shopUid);
 		return pI;
 	}
 
@@ -270,9 +320,9 @@ public final class Analyzer {
 	}
 	
 	private static PerformanceIssue createPI(PIType piType, String uid, 
-			String shopUid, LinkedList<ItemFilter> itemFilter) throws Exception {
+			String shopUid, LinkedList<ItemFilter> itemFilter, float avgResponseTime) throws Exception {
 		return new PerformanceIssueBuilder().setPiType(piType).setComponentUid(uid)
-				.setShopUid(shopUid).setItemFilter(itemFilter).build();
+				.setShopUid(shopUid).setItemFilter(itemFilter).setAverageResponseTime(avgResponseTime).build();
 	}
 
 	private static CriticalFailure checkForCf1(Document event, String uid,
@@ -380,11 +430,40 @@ public final class Analyzer {
 			float slope1 = itemFilter.get(i - 1).getSlope();
 			float slope2 = itemFilter.get(i).getSlope();
 			if(slope1 < slope2) {
-				return createPI(PIType.PI1, uid, shopUid, itemFilter);
+				return createPI(PIType.PI1, uid, shopUid, itemFilter, -1);
 			}
 		}
 		return pi;
 	}
+	
+	private static PerformanceIssue checkForPi2(PerformanceIssue pi, String uid, 
+			ItemManagementService ims, LinkedList<ItemFilter> itemFilter, String shopUid) throws Exception {
+		if(pi.isClassifiedAsPi()) {
+			return pi;
+		}
+		if(ims != null) {
+			float avgResponseTime = ims.getAvgRespTime();
+			if(avgResponseTime > 1150) {
+				pi = createPI(PIType.PI2, uid, shopUid, itemFilter, avgResponseTime);
+			}
+		}
+		return pi;
+	}
+
+	private static PerformanceIssue checkForPi3(PerformanceIssue pi, String uid, 
+			ItemManagementService ims, LinkedList<ItemFilter> itemFilter, String shopUid) throws Exception {
+		if(pi.isClassifiedAsPi()) {
+			return pi;
+		}
+		if(ims != null) {
+			float avgResponseTime = ims.getAvgRespTime();
+			if(avgResponseTime < 850) { //TODO check pipe-length: no PI-3 if the pipe has length 10
+				pi = createPI(PIType.PI3, uid, shopUid, itemFilter, avgResponseTime);
+			}
+		}
+		return pi;
+	}
+
 
 	private static class CriticalFailureBuilder {
 
@@ -465,6 +544,7 @@ public final class Analyzer {
 		private LinkedList<ItemFilter> itemFilter;
 		private String componentUid;
 		private String shopUid;
+		private float avgResponseTime;
 
 		private PerformanceIssueBuilder setPiType(PIType piType) {
 			this.piType = piType;
@@ -485,6 +565,11 @@ public final class Analyzer {
 			this.itemFilter = itemFilter;
 			return this;
 		}
+		
+		public PerformanceIssueBuilder setAverageResponseTime(float avgResponseTime) {
+			this.avgResponseTime = avgResponseTime;
+			return this;
+		}
 
 		private PerformanceIssue build() throws Exception {
 			Document xml = docBuilder.newDocument();
@@ -502,9 +587,11 @@ public final class Analyzer {
 					baseElement.appendChild(addItemFilter(xml, iF));
 				}
 			}
+			if (avgResponseTime > -1) {
+				baseElement.appendChild(addAvgResponseTime(xml));
+			}
 			PerformanceIssue pi = new PerformanceIssue(piType,
 					XmlBuilder.prettyPrint(xml));
-			System.out.println(XmlBuilder.prettyPrint(xml));
 			return pi;
 		}
 
@@ -534,6 +621,12 @@ public final class Analyzer {
 			Element notifierUid = xml.createElement("uid");
 			XmlBuilder.addAttribute(xml, notifierUid, "value", componentUid);
 			return notifierUid;
+		}
+		
+		private Element addAvgResponseTime(Document xml) {
+			Element avgRespElement = xml.createElement("avgResponseTime");
+			XmlBuilder.addAttribute(xml, avgRespElement, "avgResponseTime", avgResponseTime);
+			return avgRespElement;
 		}
 	}
 }

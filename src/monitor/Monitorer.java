@@ -19,13 +19,14 @@ import util.XmlBuilder;
 import de.mdelab.morisia.comparch.ArchitecturalElement;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.Component;
+import de.mdelab.morisia.comparch.ComponentLifeCycle;
 import de.mdelab.morisia.comparch.ComponentType;
 import de.mdelab.morisia.comparch.Failure;
-import de.mdelab.morisia.comparch.Interface;
-import de.mdelab.morisia.comparch.InterfaceType;
 import de.mdelab.morisia.comparch.MonitoredProperty;
+import de.mdelab.morisia.comparch.PerformanceStats;
 import de.mdelab.morisia.comparch.ProvidedInterface;
 import de.mdelab.morisia.comparch.Shop;
+import de.mdelab.morisia.comparch.impl.PerformanceStatsImpl;
 
 public final class Monitorer {
 
@@ -78,7 +79,8 @@ public final class Monitorer {
 
 			
 			Component c = null;
-
+			float invocationCount = -1;
+			float totalTime = -1;
 			Class<?> notifierCls = notifierSource.getClass();
 			//pruefen, ob notifierSouce eine componente ist  
 			if (Component.class.isAssignableFrom(notifierCls)) {
@@ -96,9 +98,17 @@ public final class Monitorer {
 			} else if (MonitoredProperty.class.isAssignableFrom(notifierCls)) {
 				MonitoredProperty mp = (MonitoredProperty) notifierSource;
 				c = mp.getComponent();
+			} else if(PerformanceStatsImpl.class.isAssignableFrom(notifierCls)) {
+				PerformanceStatsImpl psi = (PerformanceStatsImpl) notifierSource;
+				c = psi.getInterface().getComponent();
+				if(psi.getMethod().getSignature().equals("getPersonalizedItems(java.lang.String,java.lang.String)")) {
+					invocationCount = psi.getInvocationCount();
+					totalTime = psi.getTotalTime();
+				}
 			}
 
-			ArrayList<ProvidedInterface> allFilter = new ArrayList<ProvidedInterface>();
+			ArrayList<ProvidedInterface> pipeFilter = new ArrayList<ProvidedInterface>();
+			ArrayList<Component> skippedFilter = new ArrayList<Component>();
 			//add additional information is possible
 			if (c != null) {
 				//type?
@@ -117,18 +127,31 @@ public final class Monitorer {
 					XmlBuilder.addAttribute(xml, shop, "value", s.getUid());
 					notifierElement.appendChild(shop);
 				}
+				//total time / invocation count
+				if(totalTime > -1 && invocationCount > -1) {
+					Element ims = xml.createElement("ItemManagementService");
+					XmlBuilder.addAttribute(xml, ims, "totalTime", totalTime);
+					XmlBuilder.addAttribute(xml, ims, "invocationCount", invocationCount);
+					notifierElement.appendChild(ims);
+				}
+				
 				//ItemFilter-List
 				EList<Component> allComponents =  s.getComponents();
 				for(Component currentComponent : allComponents) {
+//					System.out.println("Type: " + currentComponent.getType().getName());
 					for(ProvidedInterface pI : currentComponent.getProvidedInterfaces()) {
 						if(pI.getType().getFullyQualifiedName().equals("de.hpi.sam.rubis.filter.ItemFilter")) {
-							allFilter.add(pI);
+							if(currentComponent.getState().equals(ComponentLifeCycle.STARTED)) {
+								pipeFilter.add(pI);
+							} else {
+								skippedFilter.add(currentComponent);
+							}
 						}
 					}
 				}
 			}
 			
-			LinkedList<Component> itemFilterList = sortFilter(allFilter);
+			LinkedList<Component> itemFilterList = sortFilter(pipeFilter);
 			
 
 			// System.out.println("Matching component: " + c + " for: "
@@ -171,57 +194,66 @@ public final class Monitorer {
 				XmlBuilder.addAttribute(xml, itemFilterElement, "time", lC);
 				XmlBuilder.addAttribute(xml, itemFilterElement, "rate", sR);
 				XmlBuilder.addAttribute(xml, itemFilterElement, "slope", sR/lC);
+				XmlBuilder.addAttribute(xml, itemFilterElement, "status", "STARTED");
 				baseElement.appendChild(itemFilterElement);
-
+			}
+			
+			for(Component currentComp : skippedFilter) {
+				Element itemFilterElement = xml.createElement("itemFilter");
+				XmlBuilder.addAttribute(xml, itemFilterElement, "uid", currentComp.getUid());
+				EList<MonitoredProperty> monProperties = currentComp.getMonitoredProperties();
+				float sR = 0;
+				float lC = 0;
+				for(MonitoredProperty mP : monProperties) {
+					if(mP.toString().contains("name: selection-rate")) {
+						sR = Float.valueOf(mP.getValue());
+					} else if(mP.toString().contains("name: local-computation-time")) {
+						lC = Float.valueOf(mP.getValue());
+					}
+				}
+				XmlBuilder.addAttribute(xml, itemFilterElement, "time", lC);
+				XmlBuilder.addAttribute(xml, itemFilterElement, "rate", sR);
+				XmlBuilder.addAttribute(xml, itemFilterElement, "slope", sR/lC);
+				XmlBuilder.addAttribute(xml, itemFilterElement, "status", "UNDEPLOYED");
+				baseElement.appendChild(itemFilterElement);	
 			}
 			// create String representation
-			String newValue = notification.getNewStringValue();
-			try {
-				System.out.println(XmlBuilder.prettyPrint(xml));
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			try {
 				xmlMonitoringEvents.add(XmlBuilder.prettyPrint(xml));
-				if (newValue != null
-						&& (newValue.equals("NOT_SUPPORTED") || newValue
-								.contains("FailureImpl")))
-					System.out.println(XmlBuilder.prettyPrint(xml));
 			} catch (Exception e) {
 				System.err.println("Unable to add xml-Event to List.");
 				e.printStackTrace();
 			}
 		}
+		
 		return xmlMonitoringEvents;
 	}
 	
 	private static LinkedList<Component> sortFilter(ArrayList<ProvidedInterface> allFilter) {
 		//find first
 		ProvidedInterface currentPI = null;
+		LinkedList<Component> sortedFilter = new LinkedList<Component>();
 		if(allFilter.size() > 0) {
 			for(ProvidedInterface pI : allFilter) {
 				if(pI.getConnectors().get(0).getSource().getComponent().getUid().contains("Query Service")) {
 					currentPI = pI;
 				}
 			}
+			//sort
+			boolean hasNext = false;
+			do {
+				hasNext = false;
+				sortedFilter.add(currentPI.getComponent());
+				String currentUid = currentPI.getComponent().getUid();
+				for(ProvidedInterface prov : allFilter) {
+					if(currentUid.equals(prov.getConnectors().get(0).getSource().getComponent().getUid())) {
+						currentPI = prov;
+						hasNext = true;
+					}
+				}
+			} while(currentPI != null && hasNext != false);	
 		}
 		
-		//sort
-		LinkedList<Component> sortedFilter = new LinkedList<Component>();
-		boolean hasNext = false;
-		do {
-			hasNext = false;
-			sortedFilter.add(currentPI.getComponent());
-			String currentUid = currentPI.getComponent().getUid();
-			for(ProvidedInterface prov : allFilter) {
-				if(currentUid.equals(prov.getConnectors().get(0).getSource().getComponent().getUid())) {
-					currentPI = prov;
-					hasNext = true;
-				}
-			}
-			System.out.println(currentPI.getComponent().getUid());
-		} while(currentPI != null && hasNext != false);
 		return sortedFilter;
 	}
 }
