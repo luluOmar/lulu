@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import analyze.Analyzer.CFType;
+import analyze.Analyzer.PIType;
 import util.XmlBuilder;
 import util.XmlParser;
 
@@ -38,9 +39,18 @@ public final class Planer {
 
 		// Plan adaption strategy for critical failures
 		for (Document event : analyzedEvents) {
-
-			CFType failureType = CFType.byName(XmlParser.getElementsValue(
-					event, "cfType", "value"));
+			
+			String cfType = XmlParser.getElementsValue(event, "cfType", "value");
+			CFType failureType = CFType.NONE;
+			if(cfType != null) {
+				failureType = CFType.byName(cfType);
+			}
+			
+			String piType = XmlParser.getElementsValue(event, "piType", "value");
+			PIType performanceIssueType = PIType.NONE;
+			if(piType != null) {
+				performanceIssueType = PIType.byName(piType);				
+			}
 
 			Document xml = docBuilder.newDocument();
 			Element baseElement = xml.createElement(BASE_NODE);
@@ -50,9 +60,12 @@ public final class Planer {
 			// XmlBuilder.addAttribute(xml, notifierShop, "value",
 			// XmlParser.getElementsValue(event, "shop", "value"));
 			// baseElement.appendChild(notifierShop);
-
+			String typeString = failureType.toString();
+			if(piType != null) {
+				typeString = performanceIssueType.toString();
+			}
 			Element type = xml.createElement("type");
-			XmlBuilder.addAttribute(xml, type, "value", failureType.toString());
+			XmlBuilder.addAttribute(xml, type, "value", typeString);
 			baseElement.appendChild(type);
 
 			switch (failureType) {
@@ -80,6 +93,23 @@ public final class Planer {
 			case NONE:
 			default:
 				break;
+			}
+			
+			switch (performanceIssueType) {
+				case PI1:
+					buildPI1Plan(xml, baseElement, event);
+					System.out.println("received a PI-1");
+					break;
+				case PI2:
+					buildPI2Plan(xml, baseElement, event);
+					break;
+				case PI3:
+					buildPI3Plan(xml, baseElement, event);
+					break;
+				case NONE:
+					break;
+				default:
+					break;	
 			}
 
 			// Create String representation of XML document
@@ -233,7 +263,7 @@ public final class Planer {
 				XmlParser.getElementsValue(event, "componentType", "value"));
 		actionElement.appendChild(actionValue);
 
-		actionName = xml.createElement("actionN" + "ame");
+		actionName = xml.createElement("actionName");
 		XmlBuilder.addAttribute(xml, actionName, "value",
 				"instantiate and deploy");
 		actionElement.appendChild(actionName);
@@ -262,6 +292,24 @@ public final class Planer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return xml;
+	}
+	
+	private static Document buildPI1Plan(Document xml, Element baseElement,
+			Document event) {
+		
+		return xml;
+	}
+	
+	private static Document buildPI3Plan(Document xml, Element baseElement,
+			Document event) {
+		// TODO Auto-generated method stub
+		return xml;
+	}
+
+	private static Document buildPI2Plan(Document xml, Element baseElement,
+			Document event) {
+		// TODO Auto-generated method stub
 		return xml;
 	}
 }

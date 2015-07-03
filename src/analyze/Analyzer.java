@@ -145,6 +145,10 @@ public final class Analyzer {
 		public boolean isClassifiedAsPi() {
 			return !PIType.NONE.equals(type);
 		}
+		
+		public String getPiEvent() {
+			return piEvent;
+		}
 	}
 	
 	private static final class CriticalFailure {
@@ -209,6 +213,9 @@ public final class Analyzer {
 		//TODO delete already classified events
 		for (Document event : receivedEvents) {
 			PerformanceIssue pi = classifyPerformanceEvent(event);
+			if (pi != PerformanceIssue.NONE){
+				xmlAnalyzedEvents.add(pi.getPiEvent());
+			}
 		}
 
 		return xmlAnalyzedEvents;
