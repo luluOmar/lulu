@@ -98,46 +98,47 @@ public class Simulator {
 		// System.out.println("Initial Check");
 		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
-		// =================== 1. Run of the Feedback Loop ===================
-		// inject a failure (CF-1)
-		System.out.println("Inject CF-1");
-		simulatorTest.changeComponentState();
-		// run feedback loop
-		mape();
-
-		// analyze the model after feedback loop
-		System.out.println(simulatorTest.analyzeAdaptationAndModel());
-
-		// // =================== 2. Run of the Feedback Loop
-		// ===================
-		// inject a failure (CF-2)
-		simulatorTest.attachFailures(10);
-		mape();
-		// TODO run your feedback loop ...
-		// analyze the model
-		System.out.println(simulatorTest.analyzeAdaptationAndModel());
-		//
-		// // =================== 3. Run of the Feedback Loop
-		// ===================
-		// inject a failure (CF-3)
-		System.out.println("Inject CF-3");
-		simulatorTest.removeComponent();
-		mape();
-
-		// // =================== 4. Run of the Feedback Loop
-		// ===================
-		// // inject a performance issue (PI-1)
-		 simulatorTest.changeFilterCharacteristics();
-		 mape();
-		// // TODO run your feedback loop ...
-		// // analyze the model
-		 System.out.println(simulatorTest.analyzeAdaptationAndModel());
+//		// =================== 1. Run of the Feedback Loop ===================
+//		// inject a failure (CF-1)
+//		System.out.println("Inject CF-1");
+//		simulatorTest.changeComponentState();
+//		// run feedback loop
+//		mape();
+//
+//		// analyze the model after feedback loop
+//		System.out.println(simulatorTest.analyzeAdaptationAndModel());
+//
+//		// // =================== 2. Run of the Feedback Loop
+//		// ===================
+//		// inject a failure (CF-2)
+//		simulatorTest.attachFailures(10);
+//		mape();
+//		// TODO run your feedback loop ...
+//		// analyze the model
+//		System.out.println(simulatorTest.analyzeAdaptationAndModel());
+//		//
+//		// // =================== 3. Run of the Feedback Loop
+//		// ===================
+//		// inject a failure (CF-3)
+//		System.out.println("Inject CF-3");
+//		simulatorTest.removeComponent();
+//		mape();
+//
+//		// // =================== 4. Run of the Feedback Loop
+//		// ===================
+//		// // inject a performance issue (PI-1)
+//		 simulatorTest.changeFilterCharacteristics();
+//		 mape();
+//		 // TODO run your feedback loop ...
+//		// // analyze the model
+//		 System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
 		// // =================== 5. Run of the Feedback Loop
 		// ===================
 		//
 		// // inject a performance issue (PI-2)
-		// simulatorTest.changeResponseTime(1200);
+		 simulatorTest.changeResponseTime(1200);
+		 mape();
 		// // TODO run your feedback loop ...
 		// // analyze the model
 		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
@@ -145,7 +146,8 @@ public class Simulator {
 		// // =================== 6. Run of the Feedback Loop
 		// ===================
 		// // inject a performance issue (PI-3)
-		// simulatorTest.changeResponseTime(800);
+		 simulatorTest.changeResponseTime(800);
+		 mape();
 		// TODO run your feedback loop ...
 		// analyze the model
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
