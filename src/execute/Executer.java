@@ -3,12 +3,14 @@ package execute;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.ui.internal.expressions.AndExpression;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -85,113 +87,14 @@ public final class Executer {
 			setState(affectedComponent, value);
 			break;
 		case "addToShop":
-			EList<Shop> shops = mRubis.getShops();
-			Shop shop = null;
-			for (int i = 0; i < shops.size(); i++) {
-				if (value.equals(shops.get(i).getUid())) {
-					shop = shops.get(i);
-				}
-			}
-
+			Shop shop = findShopByUid(value);
 			// Add new Component to shop
 			shop.getComponents().add(affectedComponent);
-
-			// Wire connectors
-			// Get required interfaces to connect
-			EList<RequiredInterface> requiredInterfaces = affectedComponent
-					.getRequiredInterfaces();
-
-			for (RequiredInterface requiredInterface : requiredInterfaces) {
-
-				String requiredInterfaceUid = requiredInterface.getUid();
-
-				String requiredInterfaceString = requiredInterfaceUid
-						.split(Pattern.quote("_"))[1];
-				System.out.println("Required Interface: "
-						+ requiredInterfaceString);
-
-				// find matching interfaces
-				EList<Component> components = shop.getComponents();
-				for (Component currentComp : components) {
-
-					if (requiredInterface.getConnector() == null) {
-						EList<ProvidedInterface> interfaces = currentComp
-								.getProvidedInterfaces();
-						for (ProvidedInterface provInterface : interfaces) {
-							String providedInterfaceUid = provInterface
-									.getUid();
-							String providedInterface = providedInterfaceUid
-									.split(Pattern.quote("_"))[1];
-
-							// TODO only connect to started components
-							// interfaces
-							if (providedInterface
-									.equals(requiredInterfaceString)) {
-								System.out
-										.println("Found matching Provided Interface: "
-												+ providedInterface);
-								Connector connector = ComparchFactory.eINSTANCE
-										.createConnector();
-								connector.setSource(requiredInterface);
-								connector.setTarget(provInterface);
-							}
-						}
-					}
-				}
-			}
-
-			// TODO find connectors with target null in other components and
-			// connect new provided interfaces if suitable
-			EList<ProvidedInterface> providedInterfaces = affectedComponent
-					.getProvidedInterfaces();
-
-			for (ProvidedInterface providedInterface : providedInterfaces) {
-
-				String providedInterfaceUid = providedInterface.getUid();
-
-				String providedInterfaceString = providedInterfaceUid
-						.split(Pattern.quote("_"))[1];
-				System.out.println("Provided Interface: "
-						+ providedInterfaceString);
-
-				// find matching required interfaces
-				EList<Component> components = shop.getComponents();
-				for (Component currentComp : components) {
-
-					EList<RequiredInterface> interfaces = currentComp
-							.getRequiredInterfaces();
-					for (RequiredInterface reqInterface : interfaces) {
-
-						// only rewire if needed
-						if (reqInterface.getConnector() != null
-								&& reqInterface.getConnector().getTarget() == null) {
-							String requiredInterfaceUid = reqInterface.getUid();
-							String requiredInterface = requiredInterfaceUid
-									.split(Pattern.quote("_"))[1];
-
-							// TODO only connect to started components
-							// interfaces
-							if (requiredInterface
-									.equals(providedInterfaceString)) {
-								System.out
-										.println("Found matching Required Interface: "
-												+ requiredInterface);
-
-								Connector connector = ComparchFactory.eINSTANCE
-										.createConnector();
-								connector.setSource(reqInterface);
-								connector.setTarget(providedInterface);
-
-								// Remove obsolete connectors
-								reqInterface.setConnector(connector);
-							}
-						}
-					}
-				}
-			}
-
+			wireRequiredInterfacesToComponent(shop, affectedComponent);
 			// Start connected Component
 			setState(affectedComponent, "STARTED");
+			connectProvidedInterfacesToOtherComponents(shop, affectedComponent);
+
 			break;
 		default:
 			System.err.println("No Action for \"" + name + "\" defined.");
@@ -204,33 +107,8 @@ public final class Executer {
 		switch (name) {
 
 		case "lookup alternative components":
-			ComponentType neededCt = null;
-			ComponentType alternateCt = null;
-			for (ComponentType ct : mRubis.getComponentTypes()) {
-				if (ct.getUid().equals(value)) {
-					neededCt = ct;
-					break;
-				}
-			}
-			EList<InterfaceType> iTypes = neededCt.getRequiredInterfaceTypes();
-			iTypes.addAll(neededCt.getProvidedInterfaceTypes());
-
-			for (ComponentType ct : mRubis.getComponentTypes()) {
-				if (ct.getUid() != value) {
-					EList<InterfaceType> iTypes2 = ct
-							.getProvidedInterfaceTypes();
-					iTypes2.addAll(ct.getRequiredInterfaceTypes());
-					if (iTypes.containsAll(iTypes2)) {
-						alternateCt = ct;
-					}
-				}
-			}
-			
-			//TODO if no alternative is found jump to redeployment (AS-3) of the old component (including stopping, removal, etc. of old component)
-		  
-			//create the alternative component instead of the old one
-			comp = alternateCt.instantiate();
-			
+			ComponentType ct = findAlternativeComponentType(value);
+			return instantiateComponentType(ct);
 			break;
 
 		case "instantiate and deploy":
@@ -286,5 +164,158 @@ public final class Executer {
 					+ ") for action \"setState\". ");
 			break;
 		}
+	}
+
+	private static Shop findShopByUid(String shopUid) {
+		EList<Shop> shops = mRubis.getShops();
+		Shop shop = null;
+		for (int i = 0; i < shops.size(); i++) {
+			if (shopUid.equals(shops.get(i).getUid())) {
+				shop = shops.get(i);
+			}
+		}
+		return shop;
+	}
+
+	/**
+	 * Looking for an alternative component type providing the same interface
+	 * types, at the same time ignoring the exact same component type
+	 * 
+	 * @param ct
+	 *            the component type to be replaced by an alternative
+	 * @return the alternative component type, if one can be found, otherwise
+	 *         null
+	 */
+	private static ComponentType findAlternativeComponentType(ComponentType ct) {
+		for (ComponentType possibleAlternative : mRubis.getComponentTypes()) {
+			if (isNotTheSameComponentType(ct, possibleAlternative)
+					&& hasMatchingInterface(ct, possibleAlternative)) {
+				return possibleAlternative;
+			}
+		}
+		return null;
+	}
+
+	private static Component instantiateComponentType(ComponentType ct) {
+		return ct.instantiate();
+	}
+
+	private static void deployComponent(Component comp) {
+		comp.setState(ComponentLifeCycle.DEPLOYED);
+	}
+
+	private static void wireRequiredInterfacesToComponent(Shop shop,
+			Component comp) {
+		// Wire connectors
+		// Get required interfaces to connect
+		EList<RequiredInterface> requiredInterfaces = comp
+				.getRequiredInterfaces();
+
+		for (RequiredInterface requiredInterface : requiredInterfaces) {
+
+			String requiredInterfaceUid = requiredInterface.getUid();
+			String requiredInterfaceString = requiredInterfaceUid.split(Pattern
+					.quote("_"))[1];
+			System.out
+					.println("Required Interface: " + requiredInterfaceString);
+
+			// find matching interfaces
+			EList<Component> components = shop.getComponents();
+			for (Component currentComp : components) {
+
+				if (requiredInterface.getConnector() == null) {
+					EList<ProvidedInterface> interfaces = currentComp
+							.getProvidedInterfaces();
+					for (ProvidedInterface provInterface : interfaces) {
+						String providedInterfaceUid = provInterface.getUid();
+						String providedInterface = providedInterfaceUid
+								.split(Pattern.quote("_"))[1];
+
+						// TODO only connect to started components
+						// interfaces
+						if (providedInterface.equals(requiredInterfaceString)
+								&& currentComp.getState().equals(
+										ComponentLifeCycle.STARTED)) {
+							System.out
+									.println("Found matching Provided Interface: "
+											+ providedInterface);
+							Connector connector = ComparchFactory.eINSTANCE
+									.createConnector();
+							connector.setSource(requiredInterface);
+							connector.setTarget(provInterface);
+							requiredInterface.setConnector(connector);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static void connectProvidedInterfacesToOtherComponents(Shop shop,
+			Component comp) {
+		// TODO find connectors with target null in other components and
+		// connect new provided interfaces if suitable
+		EList<ProvidedInterface> providedInterfaces = comp
+				.getProvidedInterfaces();
+
+		for (ProvidedInterface providedInterface : providedInterfaces) {
+
+			String providedInterfaceUid = providedInterface.getUid();
+
+			String providedInterfaceString = providedInterfaceUid.split(Pattern
+					.quote("_"))[1];
+			System.out
+					.println("Provided Interface: " + providedInterfaceString);
+
+			// find matching required interfaces
+			EList<Component> components = shop.getComponents();
+			for (Component currentComp : components) {
+
+				EList<RequiredInterface> interfaces = currentComp
+						.getRequiredInterfaces();
+				for (RequiredInterface reqInterface : interfaces) {
+
+					// only rewire if needed
+
+					// This condition is wrong! - Even if the required interface
+					// has a connector and a target it needs to be rewired,
+					// because its pointing to a removed
+					// component!!!
+					// if (reqInterface.getConnector() != null
+					// && reqInterface.getConnector().getTarget() == null) {
+					String requiredInterfaceUid = reqInterface.getUid();
+					String requiredInterface = requiredInterfaceUid
+							.split(Pattern.quote("_"))[1];
+
+					if (requiredInterface.equals(providedInterfaceString)
+							&& currentComp.getState().equals(
+									ComponentLifeCycle.STARTED)) {
+						System.out
+								.println("Found matching Required Interface: "
+										+ requiredInterface);
+
+						Connector connector = ComparchFactory.eINSTANCE
+								.createConnector();
+						connector.setSource(reqInterface);
+						connector.setTarget(providedInterface);
+
+						// Remove obsolete connectors
+						reqInterface.setConnector(connector);
+					}
+				}
+			}
+		}
+		// }
+	}
+
+	private static boolean isNotTheSameComponentType(ComponentType type1,
+			ComponentType type2) {
+		return !type1.getUid().equals(type2.getUid());
+	}
+
+	private static boolean hasMatchingInterface(ComponentType type1,
+			ComponentType type2) {
+		return (type1.getProvidedInterfaceTypes().containsAll(type2
+				.getProvidedInterfaceTypes()));
 	}
 }
