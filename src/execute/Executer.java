@@ -45,6 +45,7 @@ public final class Executer {
 		}
 
 		Component affectedComponent = null;
+		LinkedList<Component> affectedFilters = new LinkedList<Component>();
 		EList<Shop> shops = mRubis.getShops();
 
 		for (Document adaption : plannedAdaption) {
@@ -63,9 +64,13 @@ public final class Executer {
 							.getElementsByTagName("actionValue").item(0);
 					String actionValue = actionValueElement
 							.getAttribute("value");
-					if (i == 0) {
+					if (actionName.equals("findFilter")) {
+						findFilter(affectedFilters, actionValue);
+					} else if (i == 0) {
 						affectedComponent = performFirstAction(actionName,
 								actionValue);
+					} else if (actionName.equals("move filter in pipe")) {
+						moveFilter(affectedFilters, actionValue);
 					} else {
 						performAction(affectedComponent, actionName,
 								actionValue);
@@ -73,6 +78,88 @@ public final class Executer {
 				}
 
 			}
+		}
+	}
+
+	private static void moveFilter(LinkedList<Component> affectedFilters,
+			String filterUid) {
+
+		Shop shop = affectedFilters.get(0).getShop();
+		EList<Component> allComponents = shop.getComponents();
+		Component changedFilter = affectedFilters.get(0);
+		Component beforeFilter = affectedFilters.get(1);
+		Component afterFilter = affectedFilters.get(2);
+
+		// Remove connectors at changed filter's old position
+		ProvidedInterface oldBefore = null;
+		RequiredInterface oldAfter = null;
+		// Find filter before changed filter in pipe
+		for (Component currentComponent : allComponents) {
+			for (ProvidedInterface pI : currentComponent
+					.getProvidedInterfaces()) {
+				// Find before old position
+				if (pI.getConnectors().size() != 0) {
+					if (pI.getConnectors().get(0).getSource() != null)
+						if (changedFilter.getUid().equals(
+								pI.getConnectors().get(0).getSource()
+										.getComponent().getUid())) {
+							oldBefore = pI;
+						}
+				}
+			}
+
+			// Find successor of changed filter
+			for (RequiredInterface rI : currentComponent
+					.getRequiredInterfaces()) {
+				// Find before old position
+				if (rI.getConnector() != null) {
+					if (changedFilter.getUid().equals(
+							rI.getConnector().getTarget().getComponent()
+									.getUid())) {
+						oldAfter = rI;
+					}
+				}
+
+			}
+		}
+		// Wire old neighbors with new connector
+		if (oldAfter != null && oldBefore != null) {
+			Connector connector = ComparchFactory.eINSTANCE.createConnector();
+			connector.setSource(oldAfter);
+			connector.setTarget(oldBefore);
+			oldAfter.setConnector(connector);
+		} else {
+			System.out.println("Old neighbors not found");
+		}
+
+		// Cut wire at new position
+
+		// Rewire filter at new position
+
+		affectedFilters.clear();
+	}
+
+	private static void findFilter(LinkedList<Component> affectedFilters,
+			String filterUid) {
+		switch (filterUid) {
+		case "front":
+			affectedFilters.add(null);
+			break;
+		case "back":
+			affectedFilters.add(null);
+			break;
+		default:
+			EList<Shop> shops = mRubis.getShops();
+			for (Shop shop : shops) {
+				EList<Component> components = shop.getComponents();
+				for (Component currentComp : components) {
+					if (currentComp.getUid().equals(filterUid)) {
+						affectedFilters.add(currentComp);
+						System.out.println("found Component");
+					}
+				}
+			}
+			break;
 		}
 	}
 
@@ -225,12 +312,14 @@ public final class Executer {
 					}
 				}
 			}
-			
-			//TODO if no alternative is found jump to redeployment (AS-3) of the old component (including stopping, removal, etc. of old component)
-		  
-			//create the alternative component instead of the old one
+
+			// TODO if no alternative is found jump to redeployment (AS-3) of
+			// the old component (including stopping, removal, etc. of old
+			// component)
+
+			// create the alternative component instead of the old one
 			comp = alternateCt.instantiate();
-			
+
 			break;
 
 		case "instantiate and deploy":

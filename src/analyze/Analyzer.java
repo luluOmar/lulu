@@ -91,7 +91,7 @@ public final class Analyzer {
 		}
 	}
 	
-	private static final class ItemFilter {
+	public static final class ItemFilter {
 		
 		public float getRate() {
 			return rate;
