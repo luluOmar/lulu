@@ -26,8 +26,7 @@ public final class Planer {
 
 		// Prepare XML document for adaption strategy
 		List<String> xmlPlannedAdaptions = new LinkedList<String>();
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory
-				.newInstance();
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
 		// Get document out of analyzed events XML
@@ -39,17 +38,17 @@ public final class Planer {
 
 		// Plan adaption strategy for critical failures
 		for (Document event : analyzedEvents) {
-			
+
 			String cfType = XmlParser.getElementsValue(event, "cfType", "value");
 			CFType failureType = CFType.NONE;
-			if(cfType != null) {
+			if (cfType != null) {
 				failureType = CFType.byName(cfType);
 			}
-			
+
 			String piType = XmlParser.getElementsValue(event, "piType", "value");
 			PIType performanceIssueType = PIType.NONE;
-			if(piType != null) {
-				performanceIssueType = PIType.byName(piType);				
+			if (piType != null) {
+				performanceIssueType = PIType.byName(piType);
 			}
 
 			Document xml = docBuilder.newDocument();
@@ -61,7 +60,7 @@ public final class Planer {
 			// XmlParser.getElementsValue(event, "shop", "value"));
 			// baseElement.appendChild(notifierShop);
 			String typeString = failureType.toString();
-			if(piType != null) {
+			if (piType != null) {
 				typeString = performanceIssueType.toString();
 			}
 			Element type = xml.createElement("type");
@@ -70,18 +69,14 @@ public final class Planer {
 
 			switch (failureType) {
 			case CF1:
-				System.out.println("Plan adaption for CF-1 in "
-						+ XmlParser.getElementsValue(event, "uid", "value"));
+				System.out.println("Plan adaption for CF-1 in " + XmlParser.getElementsValue(event, "uid", "value"));
 				// Add action for adaption strategy
-				buildCF1Plan(xml, baseElement,
-						XmlParser.getElementsValue(event, "uid", "value"));
+				buildCF1Plan(xml, baseElement, XmlParser.getElementsValue(event, "uid", "value"));
 				break;
 			case CF2:
-				System.out.println("Plan adaption for CF-2 in "
-						+ XmlParser.getElementsValue(event, "uid", "value"));
+				System.out.println("Plan adaption for CF-2 in " + XmlParser.getElementsValue(event, "uid", "value"));
 				// Add action for adaption strategy
-				buildCF2Plan(xml, baseElement,
-						XmlParser.getElementsValue(event, "uid", "value"));
+				buildCF2Plan(xml, baseElement, XmlParser.getElementsValue(event, "uid", "value"));
 				break;
 			case CF3:
 
@@ -94,22 +89,22 @@ public final class Planer {
 			default:
 				break;
 			}
-			
+
 			switch (performanceIssueType) {
-				case PI1:
-					buildPI1Plan(xml, baseElement, event);
-					System.out.println("received a PI-1");
-					break;
-				case PI2:
-					buildPI2Plan(xml, baseElement, event);
-					break;
-				case PI3:
-					buildPI3Plan(xml, baseElement, event);
-					break;
-				case NONE:
-					break;
-				default:
-					break;	
+			case PI1:
+				buildPI1Plan(xml, baseElement, event);
+				System.out.println("received a PI-1");
+				break;
+			case PI2:
+				buildPI2Plan(xml, baseElement, event);
+				break;
+			case PI3:
+				buildPI3Plan(xml, baseElement, event);
+				break;
+			case NONE:
+				break;
+			default:
+				break;
 			}
 
 			// Create String representation of XML document
@@ -123,8 +118,7 @@ public final class Planer {
 		return xmlPlannedAdaptions;
 	}
 
-	private static Document buildCF1Plan(Document xml, Element baseElement,
-			String uid) {
+	private static Document buildCF1Plan(Document xml, Element baseElement, String uid) {
 
 		Element actionElement = xml.createElement("action");
 		baseElement.appendChild(actionElement);
@@ -173,8 +167,7 @@ public final class Planer {
 		return xml;
 	}
 
-	private static Document buildCF2Plan(Document xml, Element baseElement,
-			String uid) {
+	private static Document buildCF2Plan(Document xml, Element baseElement, String uid) {
 
 		Element actionElement = xml.createElement("action");
 		baseElement.appendChild(actionElement);
@@ -212,19 +205,16 @@ public final class Planer {
 		return xml;
 	}
 
-	private static Document buildCF3Plan(Document xml, Element baseElement,
-			Document event) {
+	private static Document buildCF3Plan(Document xml, Element baseElement, Document event) {
 		Element actionElement = xml.createElement("action");
 		baseElement.appendChild(actionElement);
 
 		Element actionName = xml.createElement("actionName");
-		XmlBuilder.addAttribute(xml, actionName, "value",
-				"instantiate and deploy");
+		XmlBuilder.addAttribute(xml, actionName, "value", "instantiate and deploy");
 		actionElement.appendChild(actionName);
 
 		Element actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value",
-				XmlParser.getElementsValue(event, "componentType", "value"));
+		XmlBuilder.addAttribute(xml, actionValue, "value", XmlParser.getElementsValue(event, "componentType", "value"));
 		actionElement.appendChild(actionValue);
 
 		actionElement = xml.createElement("action");
@@ -235,8 +225,7 @@ public final class Planer {
 		actionElement.appendChild(actionName);
 
 		actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value",
-				XmlParser.getElementsValue(event, "shop", "value"));
+		XmlBuilder.addAttribute(xml, actionValue, "value", XmlParser.getElementsValue(event, "shop", "value"));
 		actionElement.appendChild(actionValue);
 
 		// TODO add more actions
@@ -248,29 +237,28 @@ public final class Planer {
 		}
 		return xml;
 	}
+
 	// TODO: Plan + executer
-	private static Document buildCF4Plan(Document xml, Element baseElem,
-			Document event) {
+	private static Document buildCF4Plan(Document xml, Element baseElem, Document event) {
 		Element actionElement = xml.createElement("action");
 		baseElem.appendChild(actionElement);
 
 		Element actionName = xml.createElement("actionName");
-		XmlBuilder.addAttribute(xml, actionName, "value",
-				"lookup alternative components");
+		XmlBuilder.addAttribute(xml, actionName, "value", "lookup alternative components");
 		actionElement.appendChild(actionName);
 		Element actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value",
-				XmlParser.getElementsValue(event, "componentType", "value"));
+		XmlBuilder.addAttribute(xml, actionValue, "value", XmlParser.getElementsValue(event, "componentType", "value"));
 		actionElement.appendChild(actionValue);
 
+		actionElement = xml.createElement("action");
+		baseElem.appendChild(actionElement);
+		
 		actionName = xml.createElement("actionName");
-		XmlBuilder.addAttribute(xml, actionName, "value",
-				"instantiate and deploy");
+		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
 		actionElement.appendChild(actionName);
 
 		actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value",
-				XmlParser.getElementsValue(event, "componentType", "value"));
+		XmlBuilder.addAttribute(xml, actionValue, "value", "DEPLOYED");
 		actionElement.appendChild(actionValue);
 
 		actionElement = xml.createElement("action");
@@ -281,8 +269,7 @@ public final class Planer {
 		actionElement.appendChild(actionName);
 
 		actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value",
-				XmlParser.getElementsValue(event, "shop", "value"));
+		XmlBuilder.addAttribute(xml, actionValue, "value", XmlParser.getElementsValue(event, "shop", "value"));
 		actionElement.appendChild(actionValue);
 
 		// TODO add more actions
@@ -294,21 +281,18 @@ public final class Planer {
 		}
 		return xml;
 	}
-	
-	private static Document buildPI1Plan(Document xml, Element baseElement,
-			Document event) {
-		
+
+	private static Document buildPI1Plan(Document xml, Element baseElement, Document event) {
+
 		return xml;
 	}
-	
-	private static Document buildPI3Plan(Document xml, Element baseElement,
-			Document event) {
+
+	private static Document buildPI3Plan(Document xml, Element baseElement, Document event) {
 		// TODO Auto-generated method stub
 		return xml;
 	}
 
-	private static Document buildPI2Plan(Document xml, Element baseElement,
-			Document event) {
+	private static Document buildPI2Plan(Document xml, Element baseElement, Document event) {
 		// TODO Auto-generated method stub
 		return xml;
 	}

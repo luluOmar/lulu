@@ -34,8 +34,7 @@ public final class Executer {
 
 	private static Architecture mRubis;
 
-	public static void executeAdaption(Architecture mRubis,
-			List<String> xmlPlannedAdaption)
+	public static void executeAdaption(Architecture mRubis, List<String> xmlPlannedAdaption)
 			throws ParserConfigurationException, SAXException, IOException {
 
 		Executer.mRubis = mRubis;
@@ -58,19 +57,14 @@ public final class Executer {
 				Node currentNode = elementNodes.item(i);
 				if (currentNode instanceof Element) {
 					Element docElement = (Element) currentNode;
-					Element actionNameElement = (Element) docElement
-							.getElementsByTagName("actionName").item(0);
+					Element actionNameElement = (Element) docElement.getElementsByTagName("actionName").item(0);
 					String actionName = actionNameElement.getAttribute("value");
-					Element actionValueElement = (Element) docElement
-							.getElementsByTagName("actionValue").item(0);
-					String actionValue = actionValueElement
-							.getAttribute("value");
+					Element actionValueElement = (Element) docElement.getElementsByTagName("actionValue").item(0);
+					String actionValue = actionValueElement.getAttribute("value");
 					if (i == 0) {
-						affectedComponent = performFirstAction(actionName,
-								actionValue);
+						affectedComponent = performFirstAction(actionName, actionValue);
 					} else {
-						performAction(affectedComponent, actionName,
-								actionValue);
+						performAction(affectedComponent, actionName, actionValue);
 					}
 				}
 
@@ -78,12 +72,10 @@ public final class Executer {
 		}
 	}
 
-	private static void performAction(Component affectedComponent, String name,
-			String value) {
+	private static void performAction(Component affectedComponent, String name, String value) {
 		switch (name) {
 		case "setState":
-			System.out.println("Execute Adaption, set ComponentState to "
-					+ value + ".");
+			System.out.println("Execute Adaption, set ComponentState to " + value + ".");
 			setState(affectedComponent, value);
 			break;
 		case "addToShop":
@@ -107,8 +99,10 @@ public final class Executer {
 		switch (name) {
 
 		case "lookup alternative components":
-			ComponentType ct = findAlternativeComponentType(value);
-			return instantiateComponentType(ct);
+			System.out.println(value);
+			ComponentType originalCt = lookupComponentTypeByUid(value);
+			ComponentType alternativeCt = findAlternativeComponentType(originalCt);
+			comp = instantiateComponentType(alternativeCt);
 			break;
 
 		case "instantiate and deploy":
@@ -134,8 +128,7 @@ public final class Executer {
 
 						System.out.println("found Component");
 					}
-					EList<ProvidedInterface> interfaces = currentComp
-							.getProvidedInterfaces();
+					EList<ProvidedInterface> interfaces = currentComp.getProvidedInterfaces();
 					for (ProvidedInterface provInterface : interfaces) {
 						if (provInterface.getUid().equals(value)) {
 							comp = provInterface.getComponent();
@@ -160,10 +153,18 @@ public final class Executer {
 			affectedComponent.setState(ComponentLifeCycle.STARTED);
 			break;
 		default:
-			System.err.println("Undefined Value (" + value
-					+ ") for action \"setState\". ");
+			System.err.println("Undefined Value (" + value + ") for action \"setState\". ");
 			break;
 		}
+	}
+
+	private static ComponentType lookupComponentTypeByUid(String uid) {
+		for (ComponentType ct : mRubis.getComponentTypes()) {
+			if (ct.getUid().equals(uid)) {
+				return ct;
+			}
+		}
+		return null;
 	}
 
 	private static Shop findShopByUid(String shopUid) {
@@ -188,8 +189,7 @@ public final class Executer {
 	 */
 	private static ComponentType findAlternativeComponentType(ComponentType ct) {
 		for (ComponentType possibleAlternative : mRubis.getComponentTypes()) {
-			if (isNotTheSameComponentType(ct, possibleAlternative)
-					&& hasMatchingInterface(ct, possibleAlternative)) {
+			if (isNotTheSameComponentType(ct, possibleAlternative) && hasMatchingInterface(ct, possibleAlternative)) {
 				return possibleAlternative;
 			}
 		}
@@ -204,43 +204,33 @@ public final class Executer {
 		comp.setState(ComponentLifeCycle.DEPLOYED);
 	}
 
-	private static void wireRequiredInterfacesToComponent(Shop shop,
-			Component comp) {
+	private static void wireRequiredInterfacesToComponent(Shop shop, Component comp) {
 		// Wire connectors
 		// Get required interfaces to connect
-		EList<RequiredInterface> requiredInterfaces = comp
-				.getRequiredInterfaces();
+		EList<RequiredInterface> requiredInterfaces = comp.getRequiredInterfaces();
 
 		for (RequiredInterface requiredInterface : requiredInterfaces) {
 
 			String requiredInterfaceUid = requiredInterface.getUid();
-			String requiredInterfaceString = requiredInterfaceUid.split(Pattern
-					.quote("_"))[1];
-			System.out
-					.println("Required Interface: " + requiredInterfaceString);
+			String requiredInterfaceString = requiredInterfaceUid.split(Pattern.quote("_"))[1];
+			System.out.println("Required Interface: " + requiredInterfaceString);
 
 			// find matching interfaces
 			EList<Component> components = shop.getComponents();
 			for (Component currentComp : components) {
 
 				if (requiredInterface.getConnector() == null) {
-					EList<ProvidedInterface> interfaces = currentComp
-							.getProvidedInterfaces();
+					EList<ProvidedInterface> interfaces = currentComp.getProvidedInterfaces();
 					for (ProvidedInterface provInterface : interfaces) {
 						String providedInterfaceUid = provInterface.getUid();
-						String providedInterface = providedInterfaceUid
-								.split(Pattern.quote("_"))[1];
+						String providedInterface = providedInterfaceUid.split(Pattern.quote("_"))[1];
 
 						// TODO only connect to started components
 						// interfaces
 						if (providedInterface.equals(requiredInterfaceString)
-								&& currentComp.getState().equals(
-										ComponentLifeCycle.STARTED)) {
-							System.out
-									.println("Found matching Provided Interface: "
-											+ providedInterface);
-							Connector connector = ComparchFactory.eINSTANCE
-									.createConnector();
+								&& currentComp.getState().equals(ComponentLifeCycle.STARTED)) {
+							System.out.println("Found matching Provided Interface: " + providedInterface);
+							Connector connector = ComparchFactory.eINSTANCE.createConnector();
 							connector.setSource(requiredInterface);
 							connector.setTarget(provInterface);
 							requiredInterface.setConnector(connector);
@@ -251,28 +241,23 @@ public final class Executer {
 		}
 	}
 
-	private static void connectProvidedInterfacesToOtherComponents(Shop shop,
-			Component comp) {
+	private static void connectProvidedInterfacesToOtherComponents(Shop shop, Component comp) {
 		// TODO find connectors with target null in other components and
 		// connect new provided interfaces if suitable
-		EList<ProvidedInterface> providedInterfaces = comp
-				.getProvidedInterfaces();
+		EList<ProvidedInterface> providedInterfaces = comp.getProvidedInterfaces();
 
 		for (ProvidedInterface providedInterface : providedInterfaces) {
 
 			String providedInterfaceUid = providedInterface.getUid();
 
-			String providedInterfaceString = providedInterfaceUid.split(Pattern
-					.quote("_"))[1];
-			System.out
-					.println("Provided Interface: " + providedInterfaceString);
+			String providedInterfaceString = providedInterfaceUid.split(Pattern.quote("_"))[1];
+			System.out.println("Provided Interface: " + providedInterfaceString);
 
 			// find matching required interfaces
 			EList<Component> components = shop.getComponents();
 			for (Component currentComp : components) {
 
-				EList<RequiredInterface> interfaces = currentComp
-						.getRequiredInterfaces();
+				EList<RequiredInterface> interfaces = currentComp.getRequiredInterfaces();
 				for (RequiredInterface reqInterface : interfaces) {
 
 					// only rewire if needed
@@ -284,18 +269,13 @@ public final class Executer {
 					// if (reqInterface.getConnector() != null
 					// && reqInterface.getConnector().getTarget() == null) {
 					String requiredInterfaceUid = reqInterface.getUid();
-					String requiredInterface = requiredInterfaceUid
-							.split(Pattern.quote("_"))[1];
+					String requiredInterface = requiredInterfaceUid.split(Pattern.quote("_"))[1];
 
 					if (requiredInterface.equals(providedInterfaceString)
-							&& currentComp.getState().equals(
-									ComponentLifeCycle.STARTED)) {
-						System.out
-								.println("Found matching Required Interface: "
-										+ requiredInterface);
+							&& currentComp.getState().equals(ComponentLifeCycle.STARTED)) {
+						System.out.println("Found matching Required Interface: " + requiredInterface);
 
-						Connector connector = ComparchFactory.eINSTANCE
-								.createConnector();
+						Connector connector = ComparchFactory.eINSTANCE.createConnector();
 						connector.setSource(reqInterface);
 						connector.setTarget(providedInterface);
 
@@ -308,14 +288,11 @@ public final class Executer {
 		// }
 	}
 
-	private static boolean isNotTheSameComponentType(ComponentType type1,
-			ComponentType type2) {
+	private static boolean isNotTheSameComponentType(ComponentType type1, ComponentType type2) {
 		return !type1.getUid().equals(type2.getUid());
 	}
 
-	private static boolean hasMatchingInterface(ComponentType type1,
-			ComponentType type2) {
-		return (type1.getProvidedInterfaceTypes().containsAll(type2
-				.getProvidedInterfaceTypes()));
+	private static boolean hasMatchingInterface(ComponentType type1, ComponentType type2) {
+		return (type1.getProvidedInterfaceTypes().containsAll(type2.getProvidedInterfaceTypes()));
 	}
 }

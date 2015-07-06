@@ -208,8 +208,8 @@ public class Simulator {
 			Exception {
 		Simulator simulator = new Simulator();
 		try {
-			simulator.simulate(false, true);
-//			simulator.run(true, false);
+//			simulator.simulate(false, true);
+			simulator.run(true, false);
 		} catch (SAXException | IOException e) {
 			e.printStackTrace();
 		}
