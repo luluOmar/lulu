@@ -3,7 +3,6 @@ package execute;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.emf.common.util.EList;
@@ -26,7 +25,8 @@ public final class Executer {
 
 	private static Architecture mRubis;
 
-	public static void executeAdaption(Architecture mRubis, List<String> xmlPlannedAdaption)
+	public static void executeAdaption(Architecture mRubis,
+			List<String> xmlPlannedAdaption)
 			throws ParserConfigurationException, SAXException, IOException {
 
 		Executer.mRubis = mRubis;
@@ -48,14 +48,19 @@ public final class Executer {
 				Node currentNode = elementNodes.item(i);
 				if (currentNode instanceof Element) {
 					Element docElement = (Element) currentNode;
-					Element actionNameElement = (Element) docElement.getElementsByTagName("actionName").item(0);
+					Element actionNameElement = (Element) docElement
+							.getElementsByTagName("actionName").item(0);
 					String actionName = actionNameElement.getAttribute("value");
-					Element actionValueElement = (Element) docElement.getElementsByTagName("actionValue").item(0);
-					String actionValue = actionValueElement.getAttribute("value");
+					Element actionValueElement = (Element) docElement
+							.getElementsByTagName("actionValue").item(0);
+					String actionValue = actionValueElement
+							.getAttribute("value");
 					if (i == 0) {
-						affectedComponent = performFirstAction(actionName, actionValue);
+						affectedComponent = performFirstAction(actionName,
+								actionValue);
 					} else {
-						performAction(affectedComponent, actionName, actionValue);
+						performAction(affectedComponent, actionName,
+								actionValue);
 					}
 				}
 
@@ -130,7 +135,8 @@ public final class Executer {
 
 						System.out.println("found Component");
 					}
-					EList<ProvidedInterface> interfaces = currentComp.getProvidedInterfaces();
+					EList<ProvidedInterface> interfaces = currentComp
+							.getProvidedInterfaces();
 					for (ProvidedInterface provInterface : interfaces) {
 						if (provInterface.getUid().equals(value)) {
 							comp = provInterface.getComponent();
@@ -141,5 +147,4 @@ public final class Executer {
 		}
 		return comp;
 	}
-
 }
