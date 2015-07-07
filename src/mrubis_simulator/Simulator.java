@@ -124,32 +124,32 @@ public class Simulator {
 //		simulatorTest.removeComponent();
 //		mape();
 //
-//		// // =================== 4. Run of the Feedback Loop
-//		// ===================
-//		// // inject a performance issue (PI-1)
-//		 simulatorTest.changeFilterCharacteristics();
-//		 mape();
-//		 // TODO run your feedback loop ...
-//		// // analyze the model
-//		 System.out.println(simulatorTest.analyzeAdaptationAndModel());
+		// // =================== 4. Run of the Feedback Loop
+		// ===================
+		// // inject a performance issue (PI-1)
+		 simulatorTest.changeFilterCharacteristics();
+		 mape();
+		 // TODO run your feedback loop ...
+		// // analyze the model
+		 System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
 		// // =================== 5. Run of the Feedback Loop
 		// ===================
 		//
-		// // inject a performance issue (PI-2)
-		 simulatorTest.changeResponseTime(1200);
-		 mape();
+//		// // inject a performance issue (PI-2)
+//		 simulatorTest.changeResponseTime(1200);
+//		 mape();
 		// // TODO run your feedback loop ...
 		// // analyze the model
 		// System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
-		// // =================== 6. Run of the Feedback Loop
-		// ===================
-		// // inject a performance issue (PI-3)
-		 simulatorTest.changeResponseTime(800);
-		 mape();
-		// TODO run your feedback loop ...
-		// analyze the model
+//		// // =================== 6. Run of the Feedback Loop
+//		// ===================
+//		// // inject a performance issue (PI-3)
+//		 simulatorTest.changeResponseTime(800);
+//		 mape();
+//		// TODO run your feedback loop ...
+//		// analyze the model
 		System.out.println(simulatorTest.analyzeAdaptationAndModel());
 
 	}

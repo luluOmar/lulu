@@ -88,9 +88,8 @@ public final class Analyzer {
 			this.avgRespTime = totalTime / invocationCount;
 		}
 	}
-
-	private static final class ItemFilter {
-
+	public static final class ItemFilter {
+		
 		public float getRate() {
 			return rate;
 		}

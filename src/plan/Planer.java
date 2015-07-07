@@ -1,6 +1,7 @@
 package plan;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,9 +11,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import analyze.Analyzer;
 import analyze.Analyzer.CFType;
+import analyze.Analyzer.ItemFilter;
 import analyze.Analyzer.PIType;
 import util.XmlBuilder;
 import util.XmlParser;
@@ -46,6 +50,7 @@ public final class Planer {
 			}
 
 			String piType = XmlParser.getElementsValue(event, "piType", "value");
+
 			PIType performanceIssueType = PIType.NONE;
 			if (piType != null) {
 				performanceIssueType = PIType.byName(piType);
@@ -97,9 +102,11 @@ public final class Planer {
 				break;
 			case PI2:
 				buildPI2Plan(xml, baseElement, event);
+				System.out.println("received a PI-2");
 				break;
 			case PI3:
 				buildPI3Plan(xml, baseElement, event);
+				System.out.println("received a PI-3");
 				break;
 			case NONE:
 				break;
@@ -298,12 +305,124 @@ public final class Planer {
 		return xml;
 	}
 
-	private static Document buildPI1Plan(Document xml, Element baseElement, Document event) {
+	private static Document buildPI1Plan(Document xml, Element baseElement,
+			Document event) {
 
-		return xml;
+		// Get itemfilters
+		NodeList itemFilterList = event.getElementsByTagName("itemFilter");
+		LinkedList<ItemFilter> itemFilter = new LinkedList<Analyzer.ItemFilter>();
+		for (int i = 0; i < itemFilterList.getLength(); i++) {
+			Element iF = (Element) itemFilterList.item(i);
+			String id = iF.getAttribute("uid");
+			String status = iF.getAttribute("status");
+			float slope = Float.valueOf(iF.getAttribute("slope"));
+			float rate = Float.valueOf(iF.getAttribute("rate"));
+			float time = Float.valueOf(iF.getAttribute("time"));
+			itemFilter.add(new ItemFilter(id, slope, rate, time, status));
+		}
+
+		// Check which itemfilter has a wrong position, order of slopes
+		String changedFilterUid = null;
+		float newSlope = 0;
+		for (int i = 1; i < itemFilter.size(); i++) {
+			float slope1 = itemFilter.get(i - 1).getSlope();
+			float slope2 = itemFilter.get(i).getSlope();
+			if (slope1 < slope2) {
+				changedFilterUid = itemFilter.get(i - 1).getUid();
+				newSlope = itemFilter.get(i - 1).getSlope();
+			}
+		}
+
+		if (newSlope == 0 || changedFilterUid == null) {
+			System.out.println("Changed FIlter Uid or new slope unknown.");
+			return null;
+		}
+
+		// Find correct position
+		String beforeUid = null, afterUid = null;
+		for (int i = 0; i < itemFilter.size() -1; i++) {
+			float slope1 = itemFilter.get(i).getSlope();
+			float slope2 = itemFilter.get(i + 1).getSlope();
+			// Move changed filter to front
+			if (i == 0 && newSlope > slope1) {
+				beforeUid = "front";
+				afterUid = itemFilter.get(i).getUid();
+			}
+			// Move changed filter to back
+			else if (i == itemFilter.size() -1 && newSlope > slope2) {
+				beforeUid = itemFilter.get(i + 1).getUid();
+				afterUid = "back";
+			}
+			// Move changed filter in pipe
+			else if (newSlope < slope1 && newSlope > slope2 && i != 0 && i != itemFilter.size() -1) {
+				beforeUid = itemFilter.get(i).getUid();
+				afterUid = itemFilter.get(i +1).getUid();
+			}
+		}
+		
+		if (beforeUid == null || afterUid == null) {
+			System.out.println("New neighbours of changed filter not found");
+			return null;
+		}
+
+		// Build adaption plan
+		System.out.println("Insert changed filter: " + changedFilterUid +" between " + beforeUid + " and " + afterUid);
+		
+		Element actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+
+		Element actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "findFilter");
+		actionElement.appendChild(actionName);
+
+		Element actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", changedFilterUid);
+		actionElement.appendChild(actionValue);
+		
+		actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "findFilter");
+		actionElement.appendChild(actionName);
+
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", beforeUid);
+		actionElement.appendChild(actionValue);
+		
+		actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "findFilter");
+		actionElement.appendChild(actionName);
+
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", afterUid);
+		actionElement.appendChild(actionValue);
+		
+		actionElement = xml.createElement("action");
+		baseElement.appendChild(actionElement);
+
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "move filter in pipe");
+		actionElement.appendChild(actionName);
+
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", changedFilterUid);
+		actionElement.appendChild(actionValue);
+		
+		try {
+			System.out.println(XmlBuilder.prettyPrint(xml));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
-	private static Document buildPI3Plan(Document xml, Element baseElement, Document event) {
+	private static Document buildPI3Plan(Document xml, Element baseElement,
+			Document event) {
 		// TODO Auto-generated method stub
 		return xml;
 	}
