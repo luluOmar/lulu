@@ -10,14 +10,12 @@ import java.util.Map.Entry;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import mrubis_simulator.Queue;
-
-import org.eclipse.emf.ecore.resource.impl.ArchiveURIHandlerImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import mrubis_simulator.Queue;
 import util.XmlBuilder;
 import util.XmlParser;
 
@@ -63,8 +61,7 @@ public final class Analyzer {
 				if (type.name.equalsIgnoreCase(value))
 					return type;
 			}
-			throw new IllegalArgumentException(
-					"Unknown performance issue type name!");
+			throw new IllegalArgumentException("Unknown performance issue type name!");
 		}
 	}
 
@@ -108,8 +105,7 @@ public final class Analyzer {
 		private float time;
 		private boolean skipped;
 
-		public ItemFilter(String uid, float slope, float rate, float time,
-				String status) {
+		public ItemFilter(String uid, float slope, float rate, float time, String status) {
 			this.uid = uid;
 			this.slope = slope;
 			this.rate = rate;
@@ -132,8 +128,7 @@ public final class Analyzer {
 
 	private static final class PerformanceIssue {
 
-		public static final PerformanceIssue NONE = new PerformanceIssue(
-				PIType.NONE, null);
+		public static final PerformanceIssue NONE = new PerformanceIssue(PIType.NONE, null);
 
 		private final PIType type;
 
@@ -156,8 +151,7 @@ public final class Analyzer {
 
 	public static final class CriticalFailure {
 
-		public static final CriticalFailure NONE = new CriticalFailure(
-				CFType.NONE, null);
+		public static final CriticalFailure NONE = new CriticalFailure(CFType.NONE, null);
 
 		private final CFType type;
 		// for planer
@@ -186,15 +180,13 @@ public final class Analyzer {
 	private static LinkedList<Document> receivedEvents = new LinkedList<Document>();
 	private static LinkedList<String> xmlAnalyzedEvents = new LinkedList<String>();
 	private static final String BASE_NODE = "analyzedEvent";
-	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory
-			.newInstance();
+	private static DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 	private static DocumentBuilder docBuilder;
 	// key is uid, value is bitmask of last three loops
 	// (001,011,010,100,111,etc.)
 	private static Map<String, String> failureCount = new HashMap<String, String>();
 
-	public static List<String> activate(List<String> inputStrings,
-			Queue notificationHistory) throws Exception {
+	public static List<String> activate(List<String> inputStrings, Queue notificationHistory) throws Exception {
 
 		xmlAnalyzedEvents = new LinkedList<String>();
 		docBuilder = docFactory.newDocumentBuilder();
@@ -227,25 +219,21 @@ public final class Analyzer {
 
 	}
 
-	private static CriticalFailure classifyEvent(Document event,
-			Map<String, Integer> failureMap) throws Exception {
+	private static CriticalFailure classifyEvent(Document event, Map<String, Integer> failureMap) throws Exception {
 		String value = XmlParser.getElementsValue(event, "newValue", "value");
 		String uid = XmlParser.getElementsValue(event, "uid", "value");
-		String componentTypeUid = XmlParser.getElementsValue(event,
-				"component", "type");
+		String componentTypeUid = XmlParser.getElementsValue(event, "component", "type");
 		String shopUid = XmlParser.getElementsValue(event, "shop", "value");
 
 		CriticalFailure cf = CriticalFailure.NONE;
 		cf = checkForCf1(event, uid, value, componentTypeUid, shopUid);
-		cf = checkForCf2(cf, failureMap, event, uid, value, componentTypeUid,
-				shopUid);
+		cf = checkForCf2(cf, failureMap, event, uid, value, componentTypeUid, shopUid);
 		cf = checkForCf3(cf, event, componentTypeUid, shopUid);
 		cf = checkForCf4(cf, event, uid, componentTypeUid, shopUid);
 		return cf;
 	}
 
-	private static PerformanceIssue classifyPerformanceEvent(Document event)
-			throws Exception {
+	private static PerformanceIssue classifyPerformanceEvent(Document event) throws Exception {
 		String uid = XmlParser.getElementsValue(event, "uid", "value");
 		String shopUid = XmlParser.getElementsValue(event, "shop", "value");
 		PerformanceIssue pI = PerformanceIssue.NONE;
@@ -253,10 +241,8 @@ public final class Analyzer {
 		// Read Item management service
 		NodeList imsList = event.getElementsByTagName("ItemManagementService");
 		for (int i = 0; i < imsList.getLength(); i++) {
-			float totalTime = Float.valueOf(((Element) imsList.item(i))
-					.getAttribute("totalTime"));
-			float invocationCount = Float.valueOf(((Element) imsList.item(i))
-					.getAttribute("invocationCount"));
+			float totalTime = Float.valueOf(((Element) imsList.item(i)).getAttribute("totalTime"));
+			float invocationCount = Float.valueOf(((Element) imsList.item(i)).getAttribute("invocationCount"));
 			ims = new ItemManagementService(totalTime, invocationCount);
 		}
 
@@ -274,8 +260,7 @@ public final class Analyzer {
 			if (status.equals("STARTED")) {
 				pipeFilter.add(new ItemFilter(id, slope, rate, time, status));
 			} else {
-				skippedFilter
-						.add(new ItemFilter(id, slope, rate, time, status));
+				skippedFilter.add(new ItemFilter(id, slope, rate, time, status));
 			}
 		}
 		pI = checkForPi1(pI, pipeFilter, uid, shopUid);
@@ -301,17 +286,13 @@ public final class Analyzer {
 	private static String getUid(String oldValue, String notifierValue) {
 		String uid = "";
 		for (Document event : receivedEvents) {
-			String newValue = XmlParser.getElementsValue(event, "newValue",
-					"value");
-			String oldValueString = XmlParser.getElementsValue(event,
-					"oldValue", "value");
-			String notifierString = XmlParser.getElementsValue(event,
-					"notifier", "value");
+			String newValue = XmlParser.getElementsValue(event, "newValue", "value");
+			String oldValueString = XmlParser.getElementsValue(event, "oldValue", "value");
+			String notifierString = XmlParser.getElementsValue(event, "notifier", "value");
 
 			// Find destroyed component
 
-			if (newValue.isEmpty() && oldValueString.contains(oldValue)
-					&& notifierString.contains(notifierValue)) {
+			if (newValue.isEmpty() && oldValueString.contains(oldValue) && notifierString.contains(notifierValue)) {
 				uid = XmlParser.getElementsValue(event, "uid", "value");
 				// receivedEvents.remove(event);
 				return uid;
@@ -328,35 +309,28 @@ public final class Analyzer {
 	 * @return
 	 * @throws Exception
 	 */
-	private static CriticalFailure createCF(CFType cfType, String uid,
-			String componentTypeUid, String shopUid) throws Exception {
-		return new CriticalFailureBuilder().setCfType(cfType)
-				.setComponentUid(uid).setComponentTypeUid(componentTypeUid)
+	private static CriticalFailure createCF(CFType cfType, String uid, String componentTypeUid, String shopUid)
+			throws Exception {
+		return new CriticalFailureBuilder().setCfType(cfType).setComponentUid(uid).setComponentTypeUid(componentTypeUid)
 				.setShopUid(shopUid).build();
 	}
 
-	private static PerformanceIssue createPI(PIType piType, String uid,
-			String shopUid, LinkedList<ItemFilter> itemFilter,
-			float avgResponseTime) throws Exception {
-		return new PerformanceIssueBuilder().setPiType(piType)
-				.setComponentUid(uid).setShopUid(shopUid)
-				.setItemFilter(itemFilter)
-				.setAverageResponseTime(avgResponseTime).build();
+	private static PerformanceIssue createPI(PIType piType, String uid, String shopUid,
+			LinkedList<ItemFilter> itemFilter, float avgResponseTime) throws Exception {
+		return new PerformanceIssueBuilder().setPiType(piType).setComponentUid(uid).setShopUid(shopUid)
+				.setItemFilter(itemFilter).setAverageResponseTime(avgResponseTime).build();
 	}
 
-	private static CriticalFailure checkForCf1(Document event, String uid,
-			String value, String componentTypeUid, String shopUid)
-			throws Exception {
+	private static CriticalFailure checkForCf1(Document event, String uid, String value, String componentTypeUid,
+			String shopUid) throws Exception {
 		if (value.equals("NOT_SUPPORTED")) {
 			return createCF(CFType.CF1, uid, componentTypeUid, shopUid);
 		}
 		return CriticalFailure.NONE;
 	}
 
-	private static CriticalFailure checkForCf2(CriticalFailure cf,
-			Map<String, Integer> failureMap, Document event, String uid,
-			String value, String componentTypeUid, String shopUid)
-			throws Exception {
+	private static CriticalFailure checkForCf2(CriticalFailure cf, Map<String, Integer> failureMap, Document event,
+			String uid, String value, String componentTypeUid, String shopUid) throws Exception {
 
 		if (!cf.isClassifiedAsCf() && value.contains("FailureImpl")) {
 			int failureCount = 0;
@@ -373,9 +347,8 @@ public final class Analyzer {
 		return cf;
 	}
 
-	private static CriticalFailure checkForCf3(CriticalFailure cf,
-			Document event, String componentTypeUid, String shopUid)
-			throws Exception {
+	private static CriticalFailure checkForCf3(CriticalFailure cf, Document event, String componentTypeUid,
+			String shopUid) throws Exception {
 		// Check for CF-3
 
 		if (cf.isClassifiedAsCf()) {
@@ -383,17 +356,13 @@ public final class Analyzer {
 		}
 
 		String componentID = "";
-		String newValue = XmlParser
-				.getElementsValue(event, "newValue", "value");
-		String oldValueString = XmlParser.getElementsValue(event, "oldValue",
-				"value");
-		String notifierString = XmlParser.getElementsValue(event, "notifier",
-				"value");
+		String newValue = XmlParser.getElementsValue(event, "newValue", "value");
+		String oldValueString = XmlParser.getElementsValue(event, "oldValue", "value");
+		String notifierString = XmlParser.getElementsValue(event, "notifier", "value");
 
 		// Find destroyed component
 
-		if (newValue.isEmpty() && oldValueString.contains("ShopImpl")
-				&& notifierString.contains("ComponentImpl")) {
+		if (newValue.isEmpty() && oldValueString.contains("ShopImpl") && notifierString.contains("ComponentImpl")) {
 			componentID = XmlParser.getElementsValue(event, "uid", "value");
 		}
 
@@ -402,8 +371,7 @@ public final class Analyzer {
 			String shopId = getUid("uid: " + componentID, "ShopImpl");
 
 			// Find ComponentType
-			String componentTypeId = getUid("uid: " + componentID,
-					"ComponentTypeImpl");
+			String componentTypeId = getUid("uid: " + componentID, "ComponentTypeImpl");
 
 			// TODO find more relevant information for CF-3
 			System.out.println(componentTypeId + " " + shopId);
@@ -413,9 +381,8 @@ public final class Analyzer {
 		return cf;
 	}
 
-	private static CriticalFailure checkForCf4(CriticalFailure cf,
-			Document event, String uid, String componentTypeUid, String shopUid)
-			throws Exception {
+	private static CriticalFailure checkForCf4(CriticalFailure cf, Document event, String uid, String componentTypeUid,
+			String shopUid) throws Exception {
 
 		CFType cfType = cf.getType();
 
@@ -440,9 +407,8 @@ public final class Analyzer {
 		return cf;
 	}
 
-	private static PerformanceIssue checkForPi1(PerformanceIssue pi,
-			LinkedList<ItemFilter> itemFilter, String uid, String shopUid)
-			throws Exception {
+	private static PerformanceIssue checkForPi1(PerformanceIssue pi, LinkedList<ItemFilter> itemFilter, String uid,
+			String shopUid) throws Exception {
 		if (pi.isClassifiedAsPi()) {
 			return pi;
 		}
@@ -456,8 +422,7 @@ public final class Analyzer {
 		return pi;
 	}
 
-	private static PerformanceIssue checkForPi2(PerformanceIssue pi,
-			String uid, ItemManagementService ims,
+	private static PerformanceIssue checkForPi2(PerformanceIssue pi, String uid, ItemManagementService ims,
 			LinkedList<ItemFilter> itemFilter, String shopUid) throws Exception {
 		if (pi.isClassifiedAsPi()) {
 			return pi;
@@ -465,15 +430,13 @@ public final class Analyzer {
 		if (ims != null) {
 			float avgResponseTime = ims.getAvgRespTime();
 			if (avgResponseTime > 1150) {
-				pi = createPI(PIType.PI2, uid, shopUid, itemFilter,
-						avgResponseTime);
+				pi = createPI(PIType.PI2, uid, shopUid, itemFilter, avgResponseTime);
 			}
 		}
 		return pi;
 	}
 
-	private static PerformanceIssue checkForPi3(PerformanceIssue pi,
-			String uid, ItemManagementService ims,
+	private static PerformanceIssue checkForPi3(PerformanceIssue pi, String uid, ItemManagementService ims,
 			LinkedList<ItemFilter> itemFilter, String shopUid) throws Exception {
 		if (pi.isClassifiedAsPi()) {
 			return pi;
@@ -482,8 +445,7 @@ public final class Analyzer {
 			float avgResponseTime = ims.getAvgRespTime();
 			if (avgResponseTime < 850) { // TODO check pipe-length: no PI-3 if
 											// the pipe has length 10
-				pi = createPI(PIType.PI3, uid, shopUid, itemFilter,
-						avgResponseTime);
+				pi = createPI(PIType.PI3, uid, shopUid, itemFilter, avgResponseTime);
 			}
 		}
 		return pi;
@@ -506,8 +468,7 @@ public final class Analyzer {
 			return this;
 		}
 
-		public CriticalFailureBuilder setComponentTypeUid(
-				String componentTypeUid) {
+		public CriticalFailureBuilder setComponentTypeUid(String componentTypeUid) {
 			this.componentTypeUid = componentTypeUid;
 			return this;
 		}
@@ -531,8 +492,7 @@ public final class Analyzer {
 			if (componentTypeUid != null) {
 				baseElement.appendChild(addComponentTypeUid(xml));
 			}
-			CriticalFailure cf = new CriticalFailure(cfType,
-					XmlBuilder.prettyPrint(xml));
+			CriticalFailure cf = new CriticalFailure(cfType, XmlBuilder.prettyPrint(xml));
 			return cf;
 		}
 
@@ -550,8 +510,7 @@ public final class Analyzer {
 
 		private Element addCfType(Document xml) {
 			Element newValueNode = xml.createElement("cfType");
-			XmlBuilder.addAttribute(xml, newValueNode, "value",
-					cfType.toString());
+			XmlBuilder.addAttribute(xml, newValueNode, "value", cfType.toString());
 			return newValueNode;
 		}
 
@@ -585,14 +544,12 @@ public final class Analyzer {
 			return this;
 		}
 
-		public PerformanceIssueBuilder setItemFilter(
-				LinkedList<ItemFilter> itemFilter) {
+		public PerformanceIssueBuilder setItemFilter(LinkedList<ItemFilter> itemFilter) {
 			this.itemFilter = itemFilter;
 			return this;
 		}
 
-		public PerformanceIssueBuilder setAverageResponseTime(
-				float avgResponseTime) {
+		public PerformanceIssueBuilder setAverageResponseTime(float avgResponseTime) {
 			this.avgResponseTime = avgResponseTime;
 			return this;
 		}
@@ -616,8 +573,7 @@ public final class Analyzer {
 			if (avgResponseTime > -1) {
 				baseElement.appendChild(addAvgResponseTime(xml));
 			}
-			PerformanceIssue pi = new PerformanceIssue(piType,
-					XmlBuilder.prettyPrint(xml));
+			PerformanceIssue pi = new PerformanceIssue(piType, XmlBuilder.prettyPrint(xml));
 			return pi;
 		}
 
@@ -638,8 +594,7 @@ public final class Analyzer {
 
 		private Element addPiType(Document xml) {
 			Element newValueNode = xml.createElement("piType");
-			XmlBuilder.addAttribute(xml, newValueNode, "value",
-					piType.toString());
+			XmlBuilder.addAttribute(xml, newValueNode, "value", piType.toString());
 			return newValueNode;
 		}
 
@@ -651,8 +606,7 @@ public final class Analyzer {
 
 		private Element addAvgResponseTime(Document xml) {
 			Element avgRespElement = xml.createElement("avgResponseTime");
-			XmlBuilder.addAttribute(xml, avgRespElement, "avgResponseTime",
-					avgResponseTime);
+			XmlBuilder.addAttribute(xml, avgRespElement, "avgResponseTime", avgResponseTime);
 			return avgRespElement;
 		}
 	}

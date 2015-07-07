@@ -8,14 +8,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import mrubis_simulator.Queue;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import util.XmlBuilder;
 import de.mdelab.morisia.comparch.ArchitecturalElement;
 import de.mdelab.morisia.comparch.Architecture;
 import de.mdelab.morisia.comparch.Component;
@@ -23,10 +20,11 @@ import de.mdelab.morisia.comparch.ComponentLifeCycle;
 import de.mdelab.morisia.comparch.ComponentType;
 import de.mdelab.morisia.comparch.Failure;
 import de.mdelab.morisia.comparch.MonitoredProperty;
-import de.mdelab.morisia.comparch.PerformanceStats;
 import de.mdelab.morisia.comparch.ProvidedInterface;
 import de.mdelab.morisia.comparch.Shop;
 import de.mdelab.morisia.comparch.impl.PerformanceStatsImpl;
+import mrubis_simulator.Queue;
+import util.XmlBuilder;
 
 public final class Monitorer {
 
@@ -148,7 +146,7 @@ public final class Monitorer {
 			}
 
 			LinkedList<Component> itemFilterList = new LinkedList<>();
-//			sortFilter(pipeFilter);
+			// sortFilter(pipeFilter);
 
 			// System.out.println("Matching component: " + c + " for: "
 			// + notifierSource + " notification - " + notification);

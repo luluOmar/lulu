@@ -19,12 +19,13 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import analyze.Analyzer.CFType;
-import analyze.Analyzer.CriticalFailure;
-import analyze.Analyzer.CriticalFailureBuilder;
 import de.mdelab.morisia.comparch.Architecture;
+import de.mdelab.morisia.comparch.Component;
+import de.mdelab.morisia.comparch.ComponentLifeCycle;
 import de.mdelab.morisia.comparch.ComponentType;
+import de.mdelab.morisia.comparch.Shop;
 import de.mdelab.morisia.comparch.impl.ComparchPackageImpl;
+import util.ArchitectureHelper;
 import util.XmlBuilder;
 
 /**
@@ -50,21 +51,25 @@ public class ExecuterTest {
 	@Before
 	public void initArchModel() {
 		testArch = loadCompArchModel();
-		System.out.println(testArch.getShops());
 	}
 
 	@Test
 	public void executerShouldRedeployAlternativeWhenReceivingCf4Plan() throws Exception {
-		CriticalFailure cf4 = new CriticalFailureBuilder().setCfType(CFType.CF4).setComponentUid("123")
-				.setComponentTypeUid("ComponentType_Authentication Service_au7jkuKWEeS1mZswSnXh1g")
-				.setShopUid("mRUBiS #1__avAcEOKWEeS1mZswSnXh1g").build();
 		Executer.executeAdaption(testArch, Arrays.asList(XmlBuilder.prettyPrint(buildCF4Plan())));
 
-		for (ComponentType it : testArch.getComponentTypes()) {
-			if (it.getUid().equals("ComponentType_External Authentication Service_au8Ko-KWEeS1mZswSnXh1g")) {
-				Assert.assertTrue(it.getInstances().size() == 1);
+		Shop shop = ArchitectureHelper.findShopByUid(testArch, "mRUBiS #1__avAcEOKWEeS1mZswSnXh1g");
+		ComponentType replacementType = ArchitectureHelper.lookupComponentTypeByUid(testArch,
+				"ComponentType_External Authentication Service_au8Ko-KWEeS1mZswSnXh1g");
+
+		Component replacedComponent = null;
+		for (Component c : shop.getComponents()) {
+			if (c.getType().equals(replacementType) && c.getState() == ComponentLifeCycle.STARTED) {
+				replacedComponent = c;
 			}
 		}
+
+		System.out.println("Replaced component is: " + replacedComponent);
+		Assert.assertNotNull("Replaced component may not be null", replacedComponent);
 	}
 
 	// TODO: Plan + executer
@@ -81,8 +86,7 @@ public class ExecuterTest {
 		XmlBuilder.addAttribute(xml, actionName, "value", "lookup alternative components");
 		actionElement.appendChild(actionName);
 		Element actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value",
-				"ComponentType_Authentication Service_au7jkuKWEeS1mZswSnXh1g");
+		XmlBuilder.addAttribute(xml, actionValue, "value", "Component_Authentication Service_avPFm-KWEeS1mZswSnXh1g");
 		actionElement.appendChild(actionValue);
 
 		actionElement = xml.createElement("action");

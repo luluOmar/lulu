@@ -243,16 +243,21 @@ public final class Planer {
 		Element actionElement = xml.createElement("action");
 		baseElem.appendChild(actionElement);
 
+		System.out.println(event);
+		// String componentType = XmlParser.getElementsValue(event,
+		// "componentType", "value");
+		String componentUid = XmlParser.getElementsValue(event, "uid", "value");
+
 		Element actionName = xml.createElement("actionName");
 		XmlBuilder.addAttribute(xml, actionName, "value", "lookup alternative components");
 		actionElement.appendChild(actionName);
 		Element actionValue = xml.createElement("actionValue");
-		XmlBuilder.addAttribute(xml, actionValue, "value", XmlParser.getElementsValue(event, "componentType", "value"));
+		XmlBuilder.addAttribute(xml, actionValue, "value", componentUid);
 		actionElement.appendChild(actionValue);
 
 		actionElement = xml.createElement("action");
 		baseElem.appendChild(actionElement);
-		
+
 		actionName = xml.createElement("actionName");
 		XmlBuilder.addAttribute(xml, actionName, "value", "setState");
 		actionElement.appendChild(actionName);
@@ -270,6 +275,17 @@ public final class Planer {
 
 		actionValue = xml.createElement("actionValue");
 		XmlBuilder.addAttribute(xml, actionValue, "value", XmlParser.getElementsValue(event, "shop", "value"));
+		actionElement.appendChild(actionValue);
+
+		actionElement = xml.createElement("action");
+		baseElem.appendChild(actionElement);
+
+		actionName = xml.createElement("actionName");
+		XmlBuilder.addAttribute(xml, actionName, "value", "destroyComponent");
+		actionElement.appendChild(actionName);
+
+		actionValue = xml.createElement("actionValue");
+		XmlBuilder.addAttribute(xml, actionValue, "value", componentUid);
 		actionElement.appendChild(actionValue);
 
 		// TODO add more actions
