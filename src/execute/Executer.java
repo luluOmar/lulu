@@ -3,6 +3,7 @@ package execute;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.emf.common.util.EList;
@@ -12,14 +13,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import util.ArchitectureHelper;
+import util.XmlParser;
 import de.mdelab.morisia.comparch.Architecture;
+import de.mdelab.morisia.comparch.ComparchFactory;
 import de.mdelab.morisia.comparch.Component;
 import de.mdelab.morisia.comparch.ComponentLifeCycle;
 import de.mdelab.morisia.comparch.ComponentType;
+import de.mdelab.morisia.comparch.Connector;
 import de.mdelab.morisia.comparch.ProvidedInterface;
+import de.mdelab.morisia.comparch.RequiredInterface;
 import de.mdelab.morisia.comparch.Shop;
-import util.ArchitectureHelper;
-import util.XmlParser;
 
 public final class Executer {
 
